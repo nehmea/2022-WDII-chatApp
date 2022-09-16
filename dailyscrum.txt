@@ -1,0 +1,156 @@
+----- TEMPLATE -------
+<< current date goes here >>
+1. What I have done / not done since last Scrum?
+2. What I plan to do from this scrum to next? (next 24 hours)
+3. Where do I need assistance? What do I need to figure out?
+
+------ SCRUM #1 -------
+
+2022/09/16 Alina
+1. Done / Not done?
+-	We worked on the project draft, Trello, GitHub
+2. TODO Until next scrum
+-	Get started on the front end (with placeholder data)
+-	Learn about Socket.io
+3. Need assistance / Figure out
+-	Refresher on Git
+-	Get better at React, learn more about components & project structure
+
+
+2022/09/16 Ali
+1. Done / Not done?
+-	We worked on the project draft, Trello, GitHub
+2. TODO Until next scrum
+-	Build the project skeleton for server & client on GitHub
+-	Learn about Socket.io
+3. Need assistance / Figure out
+-	Refresher on Git
+
+
+2022/09/16 Greg
+1. What I have done / not done since last Scrum?
+- We worked on the project draft, Trello, GitHub
+2. TODO Until next scrum
+- Research Socket.io and live chat apps
+3. Need assistance / Figure out
+- Refresher on Git
+- Learn more about React and Node
+
+------ SCRUM #2 -------
+
+2022/09/18 Alina
+1. Done / Not done?
+2. TODO Until next scrum
+3. Need assistance / Figure out
+
+2022/09/18 Ali
+1. Done / Not done?
+2. TODO Until next scrum
+3. Need assistance / Figure out
+
+2022/09/18 Greg
+1. Done / Not done?
+2. TODO Until next scrum
+3. Need assistance / Figure out
+
+------ SCRUM #3 -------
+
+2022/09/19 Alina
+1. Done / Not done?
+2. TODO Until next scrum
+3. Need assistance / Figure out
+
+2022/09/19 Ali
+1. Done / Not done?
+2. TODO Until next scrum
+3. Need assistance / Figure out
+
+2022/09/19 Greg
+1. Done / Not done?
+2. TODO Until next scrum
+3. Need assistance / Figure out
+
+------ SCRUM #4 -------
+
+2022/09/20 Alina
+1. Done / Not done?
+2. TODO Until next scrum
+3. Need assistance / Figure out
+
+2022/09/20 Ali
+1. Done / Not done?
+2. TODO Until next scrum
+3. Need assistance / Figure out
+
+2022/09/20 Greg
+1. Done / Not done?
+2. TODO Until next scrum
+3. Need assistance / Figure out
+
+------ SCRUM #5 -------
+
+2022/09/21 Alina
+1. Done / Not done?
+2. TODO Until next scrum
+3. Need assistance / Figure out
+
+2022/09/21 Ali
+1. Done / Not done?
+2. TODO Until next scrum
+3. Need assistance / Figure out
+
+2022/09/21 Greg
+1. Done / Not done?
+2. TODO Until next scrum
+3. Need assistance / Figure out
+
+------ SCRUM #5 -------
+
+2022/09/22 Alina
+1. Done / Not done?
+2. TODO Until next scrum
+3. Need assistance / Figure out
+
+2022/09/22 Ali
+1. Done / Not done?
+2. TODO Until next scrum
+3. Need assistance / Figure out
+
+2022/09/22 Greg
+1. Done / Not done?
+2. TODO Until next scrum
+3. Need assistance / Figure out
+
+------ SCRUM #6 -------
+
+2022/09/23 Alina
+1. Done / Not done?
+2. TODO Until next scrum
+3. Need assistance / Figure out
+
+2022/09/23 Ali
+1. Done / Not done?
+2. TODO Until next scrum
+3. Need assistance / Figure out
+
+2022/09/23 Greg
+1. Done / Not done?
+2. TODO Until next scrum
+3. Need assistance / Figure out
+
+------ SCRUM #7 -------
+
+2022/09/24 Alina
+1. Done / Not done?
+2. TODO Until next scrum
+3. Need assistance / Figure out
+
+2022/09/24 Ali
+1. Done / Not done?
+2. TODO Until next scrum
+3. Need assistance / Figure out
+
+2022/09/24 Greg
+1. Done / Not done?
+2. TODO Until next scrum
+3. Need assistance / Figure out
