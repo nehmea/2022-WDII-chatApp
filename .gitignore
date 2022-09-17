@@ -42,3 +42,6 @@ Thumbs.db
 *.flv
 *.mov
 *.wmv
+
+# Config
+root/server/config/config.json
