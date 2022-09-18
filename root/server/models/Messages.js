@@ -16,13 +16,9 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   Messages.associate = (models) => {
-    //Parent
     Messages.hasMany(models.likes, {
       onDelete: "cascade",
     });
-    //Child
-    Messages.belongsTo(models.users);
-    Messages.belongsTo(models.channels);
   };
 
   sequelize.sync({ update: true });
