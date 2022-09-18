@@ -36,22 +36,39 @@
 - Refresher on Git
 - Learn more about React and Node
 
------- SCRUM #2 -------
+------ SCRUM #2 ------- 
 
-2022/09/18 Alina
-1. Done / Not done?
-2. TODO Until next scrum
-3. Need assistance / Figure out
+2022/09/17 Alina 
+1. Done / Not done? 
+Organized workspace, pulled project skeleton from GitHub, did some research  
+2. TODO Until next scrum 
+Create channels model 
+Create and validate backend routes for channels using postman 
+3. Need assistance / Figure out 
 
-2022/09/18 Ali
-1. Done / Not done?
-2. TODO Until next scrum
-3. Need assistance / Figure out
 
-2022/09/18 Greg
-1. Done / Not done?
-2. TODO Until next scrum
-3. Need assistance / Figure out
+2022/09/17 Ali 
+1. Done / Not done? 
+Created project skeleton and installed all basic libraries to be used in the project 
+Scanned through some tutorials on socket io and how to implement it in a chat app 
+2. TODO Until next scrum 
+Create users model 
+Create and validate backend routes for users using postman 
+3. Need assistance / Figure out 
+
+
+2022/09/17 Greg 
+1. Done / Not done? 
+Reviewed Git 
+Reviewed React and some general JS concepts 
+Haven't looked into Socket.io yet 
+2. TODO Until next scrum 
+Start on backend models and routes for Messages 
+Learn more about using Socket.io 
+Test routes with Postman 
+3. Need assistance / Figure out 
+Figure out differences between MySQL and MongoDB 
+
 
 ------ SCRUM #3 -------
 
