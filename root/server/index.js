@@ -9,8 +9,8 @@ app.use(express.json());
 app.use(cors());
 
 // Routers
-/* const nameRouter = require("./routes/Name");
- app.use("/name", nameRouter); */
+const messagesRouter = require("./routes/Messages");
+app.use("/messages", messagesRouter); 
 
 db.sequelize.sync().then(() => {
   app.listen(PORT, () => {
