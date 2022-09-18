@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { Messages } = require("../models");
+const { messages } = require("../models");
 var validator = require("validator");
 
 //const Op = require("sequelize").Op;
@@ -13,7 +13,7 @@ var validator = require("validator");
 router.get("/:id", async (request, response) => {
     const id = parseInt(request.params.id);
     if (Number.isInteger(id)) {
-      const mes = await Messages.findByPk(id);
+      const mes = await messages.findByPk(id);
       response.status(200).json(mes);
     } else {
       response.status(400).send({
@@ -27,7 +27,7 @@ router.get("/:id", async (request, response) => {
 router.get("/byUser/:authorId", async (request, response) => {
     const authorId = parseInt(request.params.authorId);
     if (Number.isInteger(authorId)) {
-      const mes = await Messages.findAll({ where: { authorId: authorId } });
+      const mes = await messages.findAll({ where: { authorId: authorId } });
       response.status(200).json(mes);
     } else {
       response.status(400).send({
@@ -41,7 +41,7 @@ router.get("/byUser/:authorId", async (request, response) => {
 router.get("/byChannel/:channelId", async (request, response) => {
     const channelId = parseInt(request.params.authorId);
     if (Number.isInteger(channelId)) {
-      const mes = await Messages.findAll({ where: { channelId: channelId } });
+      const mes = await messages.findAll({ where: { channelId: channelId } });
       response.status(200).json(mes);
     } else {
       response.status(400).send({
@@ -61,7 +61,7 @@ router.post("/", async (request, response) => {
         message: "Please compose a message",
       });
     } else {
-      await Messages.create(mes).then(
+      await messages.create(mes).then(
         response.status(201).send({
           message: `A new Message has been successfully posted`,
         })
@@ -76,12 +76,12 @@ router.patch("/:id", async (request, response) => {
     const newBody = request.body.body;
     const NewIsDeleted = parseInt(request.body.isDeleted);
   
-    if (validator.isEmpty(body)) {
+    if (validator.isEmpty(newBody)) {
       response.status(400).send({
         message: "Message cannot be empty",
       });
     } else {
-      await Messages.update(
+      await messages.update(
         {
           body: newBody,
           isDeleted: NewIsDeleted,
@@ -104,7 +104,7 @@ router.patch("/:id", async (request, response) => {
 router.delete("/:id", async (request, response) => {
     const id = parseInt(request.params.id);
     if (Number.isInteger(id)) {
-      const count = await Messages.destroy({ where: { id: id } });
+      const count = await messages.destroy({ where: { id: id } });
       if (count == 0) {
         response.status(400).send(`There is no record with id=${id}`);
       } else if (count > 0) {
