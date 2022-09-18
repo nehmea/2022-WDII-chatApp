@@ -4,10 +4,6 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING(20),
       allowNull: false,
     },
-    dateSent: {
-      type: DataTypes.DATE,
-      allowNull: false,
-    },
     isDeleted: {
       type: DataTypes.TINYINT,
       allowNull: false,
