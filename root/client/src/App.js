@@ -11,9 +11,19 @@ import { AuthContext } from "./helpers/AuthContext";
 import axios from "axios";
 import Navigation from "./helpers/Navigation";
 import ProtectedRoute from "./helpers/ProtectedRoutes";
+import { io } from "socket.io-client";
 
 function App() {
   const [authState, setAuthSate] = useState(null);
+  
+//   const socket = io('http://localhost:3001');
+//   socket.on("connect", () => {
+//     displayMessage(`You connected with id: ${socket.id}`)
+//   })
+
+//   socket.emit('custom-event', 10, 'Hi', {a: 'a'})
+
+
 
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
