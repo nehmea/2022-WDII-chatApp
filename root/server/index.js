@@ -9,8 +9,12 @@ app.use(express.json());
 app.use(cors());
 
 // Routers
+// > Messages
 const messagesRouter = require("./routes/Messages");
-app.use("/messages", messagesRouter); 
+app.use("/messages", messagesRouter);
+// > Channels
+const channelsRouter = require("./routes/Channels");
+app.use("/channels", channelsRouter);
 
 db.sequelize.sync().then(() => {
   app.listen(PORT, () => {

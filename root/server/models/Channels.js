@@ -2,7 +2,7 @@ module.exports = (sequelize, DataTypes) => {
   const Channels = sequelize.define("channels", {
     title: {
       type: DataTypes.STRING(250),
-      allowNull: false,
+      allowNull: true,
     },
     ownerId: {
       type: DataTypes.INTEGER,
