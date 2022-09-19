@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
-import Logout from "./pages/Logout";
 import Register from "./pages/Register";
 import AdminUsers from "./pages/AdminUsers";
 import AdminChannels from "./pages/AdminChannels";
@@ -72,9 +71,6 @@ function App() {
                   path="/admin/channels"
                   element={<AdminChannels />}
                 ></Route>
-              </Route>
-              <Route element={<ProtectedRoute isAllowed={!!authState} />}>
-                <Route path="/logout" element={<Logout />}></Route>
               </Route>
             </Routes>
           </div>
