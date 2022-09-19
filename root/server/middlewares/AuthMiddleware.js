@@ -6,13 +6,15 @@ const validateToken = (req, res, next) => {
     return res.json({ error: "user not logged in!" });
   }
   try {
-    const validToken = verify(accessToken, "importantsecret");
-    req.user = validToken;
-    if (validToken) {
+    const decoded = verify(accessToken, "ljskffgoSAFKBISDHF", {
+      maxAge: "2 days",
+    });
+    req.user = decoded;
+    if (decoded) {
       return next();
     }
   } catch (err) {
-    return res.json({ error: err });
+    return res.status(401).json({ error: err });
   }
 };
 
