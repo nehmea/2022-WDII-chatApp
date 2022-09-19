@@ -5,9 +5,8 @@ import {AuthContext} from '../helpers/AuthContext';
 import {useNavigate} from "react-router-dom";
 import Card from 'react-bootstrap/Card';
 
-function Message() {
+function Message({username, createdAt, body}) {
 
-    const [singleMessage, setSingleMessage] = useState({});
     const [likes, setLikes] = useState([]);
     const {authState} = useContext(AuthContext);
 
@@ -22,11 +21,11 @@ function Message() {
     <div>
       <Card>
         <Card.Header>
-            <div>{singleMessage.username}</div>
-            <div>{singleMessage.createdAt}</div>
+            <div>{username}</div>
+            <div>{createdAt}</div>
         </Card.Header>
         <Card.Body>
-            <Card.Text>{singleMessage.body}</Card.Text>
+            <Card.Text>{body}</Card.Text>
         </Card.Body>
         <Card.Footer>Likes Here</Card.Footer>
       </Card>
