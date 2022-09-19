@@ -15,7 +15,7 @@ router.post("/register", async (request, response) => {
   });
 
   if (fetched_user !== null) {
-    response.status(400).json({ error: "invalid username input" });
+    response.status(400).json({ error: "Invalid username input" });
   } else {
     await bcrypt.hash(new_user.password, 10).then((hash) => {
       users

@@ -1,7 +1,23 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { Navigate } from "react-router-dom";
+import { AuthContext } from "../helpers/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 function Navigation({ authState }) {
+  const { setAuthSate } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const logout = () => {
+    const accessToken = localStorage.getItem("accessToken");
+    console.log(accessToken);
+    if (accessToken) {
+      localStorage.removeItem("accessToken");
+      setAuthSate(null);
+      navigate("/login");
+    }
+  };
+
   return (
     <nav>
       {/* Nav links */}
@@ -10,9 +26,9 @@ function Navigation({ authState }) {
           <Link to="/home" className="mx-3">
             <button className="btn btn-outline-primary">Home</button>
           </Link>
-          <Link to="/logout" className="mx-3">
-            <button className="btn btn-outline-primary">Logout</button>
-          </Link>
+          <button className="btn btn-outline-primary mx-3" onClick={logout}>
+            Logout
+          </button>
         </>
       ) : (
         <>

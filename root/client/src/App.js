@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
-import Logout from "./pages/Logout";
 import Register from "./pages/Register";
 import AdminUsers from "./pages/AdminUsers";
 import AdminChannels from "./pages/AdminChannels";
@@ -45,7 +44,6 @@ function App() {
 
   return (
     <div className="App">
-      {console.log(authState)}
       <AuthContext.Provider value={{ authState, setAuthSate }}>
         <Router>
           <Navigation authState={authState} />
@@ -58,7 +56,7 @@ function App() {
               <Route
                 element={
                   <ProtectedRoute
-                    isAllowed={!!authState && authState.role === "user"}
+                    isAllowed={!!authState && authState.roles === "user"}
                   />
                 }
               >
@@ -68,7 +66,7 @@ function App() {
               <Route
                 element={
                   <ProtectedRoute
-                    isAllowed={!!authState && authState.role === "admin"}
+                    isAllowed={!!authState && authState.roles === "admin"}
                   />
                 }
               >
