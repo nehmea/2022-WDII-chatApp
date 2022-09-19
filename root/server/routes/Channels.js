@@ -6,69 +6,115 @@ var validator = require("validator");
 //const Op = require("sequelize").Op;
 
 // ------------------------------------------
-// All routes use '/channels' prefix
+// All routes use '/Channels' prefix
 
 // ----------------------------------------
-// Get All Channels
+// GET All Channels
 router.get("/", async (request, response) => {
-  const listOfChannels = await channels.findAll();
-  response.json(listOfChannels);
+  try {
+    const listOfChannels = await channels.findAll();
+    response.json(listOfChannels);
+  } catch (err) {
+    response.status(400).send({
+      message: "An error occured",
+    });
+    console.error(`Error while getting all channels -`, err.message);
+    next(err);
+  }
 });
 
 // ----------------------------------------
-// Get Channel by ChannelID
-router.get("/:id", async (request, response) => {
-  const channelId = parseInt(request.params.channelId);
-  if (Number.isInteger(channelId)) {
-    const channel = await channels.findByPk(id);
-    response.status(200).json(channel);
-  } else {
+// GET Channel by ChannelID
+router.get("/:id", async (request, response, next) => {
+  const channelId = parseInt(request.params.id);
+  try {
+    // channel is null if it is not an int or if it is not found in DB
+    const channel = Number.isInteger(channelId) ? await channels.findByPk(channelId) : null;
+    if (channel !== null) {
+      response.status(200).json(channel);
+    } else {
+      response.status(400).send({
+        message: "Channel not found",
+      });
+    }
+  } catch (err) {
     response.status(400).send({
-      message: "Not found",
+      message: "An error occured",
     });
+    console.error(`Error while getting a channel by ID -`, err.message);
+    next(err);
   }
 });
+
 // --------------------------------------------
-// post a new channel
-router.post("/new", async (request, response) => {
+// POST a new channel
+router.post("/new", async (request, response, next) => {
   const channel = request.body;
-
-  if (validator.isEmpty(channel.title)) {
-    console.log("No channel title");
-    channel.title = 'new conversation'
+  try {
+    // Creates a default title if there is none
+    if (!channel.title) {
+      console.log("No channel title");
+      channel.title = 'New conversation'
+    }
+    await channels.create({ ...channel, title: channel.title })
+    return response.status(201).send({
+      message: `Channel created successfully`,
+    })
+  } catch {
+    response.status(400).send({
+      message: "An error occured",
+    });
+    console.error(`Error while creating a new channel -`, err.message);
+    next(err);
   }
-  await channels.create({ ownerId: channel.ownerId, title: channel.title })
-  return response.status(201).send({
-    message: `Channel created successfully`,
-  })
 });
 
-router.patch("/:id", async (request, response) => {
+// --------------------------------------------
+// EDIT a channel
+router.patch("/:id", async (request, response, next) => {
   const channelId = request.params.id;
   const newTitle = request.body.title;
 
-  if (validator.isEmpty(newTitle)) {
+  try {
+    if (validator.isEmpty(newTitle)) {
+      response.status(400).send({
+        message: "Title cannot be empty",
+      });
+    } else {
+      await channels.update(
+        { title: newTitle },
+        { where: { id: channelId } }
+      )
+      response.status(202).send({
+        message: `Channel title has been successfully updated`,
+      });
+    }
+  } catch (err) {
     response.status(400).send({
-      message: "Title cannot be empty",
+      message: "An error occured",
     });
-  } else {
-    await channels.update(
-      { title: newTitle },
-      { where: { id: channelId } }
-    )
-    response.status(202).send({
-      message: `Channel title has been successfully updated`,
-    });
+    console.error(`Error while editing a channel -`, err.message);
+    next(err);
   }
 });
 
-router.delete("/:id", async (request, response) => {
+// --------------------------------------------
+// DELETE a channel
+router.delete("/:id", async (request, response, next) => {
   const channelId = parseInt(request.params.id);
-  const count = await channels.destroy({ where: { id: channelId } });
-  if (count == 0) {
-    response.status(400).send({ message: 'Channel not found' });
-  } else if (count > 0) {
-    response.status(200).send({ message: `Channell successfully deleted.` });
+  try {
+    const count = await channels.destroy({ where: { id: channelId } });
+    if (count == 0) {
+      response.status(400).send({ message: 'Channel not found' });
+    } else if (count > 0) {
+      response.status(200).send({ message: `Channel successfully deleted.` });
+    }
+  } catch (err) {
+    response.status(400).send({
+      message: "Channel not found",
+    });
+    console.error(`Error while deleting a channel -`, err.message);
+    next(err);
   }
 });
 
