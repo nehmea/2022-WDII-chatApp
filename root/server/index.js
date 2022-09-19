@@ -9,6 +9,9 @@ app.use(express.json());
 app.use(cors());
 
 // Routers
+// > users
+const usersRouter = require("./routes/Users");
+app.use("/users", usersRouter);
 // > Messages
 const messagesRouter = require("./routes/Messages");
 app.use("/messages", messagesRouter);

@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
     bio: {
       type: DataTypes.STRING(1500),
       allowNull: false,
-      defaultValue: "user",
+      defaultValue: "Biography",
     },
     avatarUrl: {
       type: DataTypes.STRING(250),
