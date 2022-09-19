@@ -72,20 +72,38 @@ Figure out differences between MySQL and MongoDB
 
 ------ SCRUM #3 -------
 
-2022/09/19 Alina
-1. Done / Not done?
-2. TODO Until next scrum
-3. Need assistance / Figure out
+2022/09/19 Alina 
+1. Done / Not done? 
+- Created channels routes in the backend 
+- Haven't validated using Postman 
+2. TODO Until next scrum 
+- Validate channel routes with Postman 
+- Create channel and channels components 
+- Advance on overall UI design 
+3. Need assistance / Figure out 
 
-2022/09/19 Ali
-1. Done / Not done?
-2. TODO Until next scrum
-3. Need assistance / Figure out
+2022/09/19 Ali 
+1. Done / Not done? 
+- Created users model and routes in the backend 
+- Validated the backend routes uding postamn 
+- Implemented route protection in the frontend 
+2. TODO Until next scrum 
+- Story: user can register 
+- Story: user can login 
+3. Need assistance / Figure out 
 
-2022/09/19 Greg
-1. Done / Not done?
-2. TODO Until next scrum
-3. Need assistance / Figure out
+2022/09/19 Greg 
+
+1. Done / Not done? 
+- Created model and routes for Messages 
+- Tested routes with Postman 
+- Haven't looked into Socket.io yet 
+2. TODO Until next scrum 
+- Learn more about using Socket.IO 
+- Start work on Message component 
+- Start work on List of Messages 
+3. Need assistance / Figure out 
+- UI design (waiting for Alina's visual design) 
 
 ------ SCRUM #4 -------
 
