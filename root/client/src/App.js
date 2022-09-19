@@ -13,17 +13,11 @@ import Navigation from "./helpers/Navigation";
 import ProtectedRoute from "./helpers/ProtectedRoutes";
 import { io } from "socket.io-client";
 
+//import MessageList from "./components/MessageList";
+
 function App() {
   const [authState, setAuthSate] = useState(null);
   
-//   const socket = io('http://localhost:3001');
-//   socket.on("connect", () => {
-//     displayMessage(`You connected with id: ${socket.id}`)
-//   })
-
-//   socket.emit('custom-event', 10, 'Hi', {a: 'a'})
-
-
 
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
@@ -87,6 +81,9 @@ function App() {
               <Route element={<ProtectedRoute isAllowed={!!authState} />}>
                 <Route path="/logout" element={<Logout />}></Route>
               </Route>
+
+              {/*<Route path="/test/:channelId" element={<MessageList />}></Route>*/}
+
             </Routes>
           </div>
         </Router>

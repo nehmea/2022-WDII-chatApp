@@ -4,11 +4,6 @@ const db = require("./models");
 const cors = require("cors");
 
 const PORT = "3001";
-// const io = require("socket.io")(PORT, {
-//     cors: {
-//         origin: ["http://localhost:3000"],
-//     },
-// });
 
 app.use(express.json());
 app.use(cors());
@@ -38,10 +33,4 @@ db.sequelize.sync().then(() => {
   });
 });
 
-// Socket.io
-// io.on('connection', socket => {
-//     console.log(socket.id);
-//     socket.on('custom-event', (number, string, obj) => {
-//         console.log(number, string, obj)
-//     })
-// });
+

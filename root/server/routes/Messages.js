@@ -39,7 +39,7 @@ router.get("/byUser/:authorId", async (request, response) => {
 // ------------------------------------------
 // Get message by channelID
 router.get("/byChannel/:channelId", async (request, response) => {
-    const channelId = parseInt(request.params.authorId);
+    const channelId = parseInt(request.params.channelId);
     if (Number.isInteger(channelId)) {
       const mes = await messages.findAll({ where: { channelId: channelId } });
       response.status(200).json(mes);

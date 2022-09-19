@@ -1,18 +1,20 @@
-import React from 'react';
+//import React from 'react';
 import axios from "axios";
 import {useParams} from "react-router-dom";
 import {AuthContext} from '../helpers/AuthContext';
 import {useNavigate} from "react-router-dom";
 import Card from 'react-bootstrap/Card';
 import Message from './Message';
+import React, { useState, useEffect, useContext } from "react";
 
 function MessageList() {
 
     let {channelId} = useParams();
     const [listOfMessages, setListOfMessages] = useState([]);
+    const {authState} = useContext(AuthContext);
 
     useEffect(() => {
-        axios.get(`http://localhost:3001/messages/byChannel${channelId}`).then((response) => {
+        axios.get(`http://localhost:3001/messages/byChannel/${channelId}`).then((response) => {
             setListOfMessages(response.data);
         });
 

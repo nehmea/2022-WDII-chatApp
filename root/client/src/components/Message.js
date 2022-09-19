@@ -1,9 +1,10 @@
-import React from 'react';
+//import React from 'react';
 import axios from "axios";
 import {useParams} from "react-router-dom";
 import {AuthContext} from '../helpers/AuthContext';
 import {useNavigate} from "react-router-dom";
 import Card from 'react-bootstrap/Card';
+import React, { useState, useEffect, useContext } from "react";
 
 function Message({username, createdAt, body}) {
 
