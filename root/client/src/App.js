@@ -10,13 +10,11 @@ import { AuthContext } from "./helpers/AuthContext";
 import axios from "axios";
 import Navigation from "./helpers/Navigation";
 import ProtectedRoute from "./helpers/ProtectedRoutes";
-import { io } from "socket.io-client";
 
-//import MessageList from "./components/MessageList";
+import MessageList from "./components/MessageList";
 
 function App() {
   const [authState, setAuthSate] = useState(null);
-  
 
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
@@ -76,11 +74,8 @@ function App() {
                   element={<AdminChannels />}
                 ></Route>
               </Route>
-              <Route element={<ProtectedRoute isAllowed={!!authState} />}>
-                <Route path="/logout" element={<Logout />}></Route>
-              </Route>
 
-              {/*<Route path="/test/:channelId" element={<MessageList />}></Route>*/}
+                <Route path="/test/:channelId" element={<MessageList />}></Route>
 
             </Routes>
           </div>

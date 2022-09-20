@@ -5,8 +5,12 @@ import {AuthContext} from '../helpers/AuthContext';
 import {useNavigate} from "react-router-dom";
 import Card from 'react-bootstrap/Card';
 import React, { useState, useEffect, useContext } from "react";
+import { format, parseISO } from 'date-fns';
+
 
 function Message({username, createdAt, body}) {
+
+    let formattedDate = format((parseISO(createdAt)), 'MMM dd yyyy hh:mmaa');
 
     const [likes, setLikes] = useState([]);
     const {authState} = useContext(AuthContext);
@@ -20,10 +24,10 @@ function Message({username, createdAt, body}) {
 
   return (
     <div>
-      <Card>
+      <Card className="messageContainer">
         <Card.Header>
             <div>{username}</div>
-            <div>{createdAt}</div>
+            <div>{formattedDate}</div>
         </Card.Header>
         <Card.Body>
             <Card.Text>{body}</Card.Text>

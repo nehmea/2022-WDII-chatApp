@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { messages } = require("../models");
+const { users } = require("../models");
 var validator = require("validator");
 
 //const Op = require("sequelize").Op;
@@ -41,7 +42,14 @@ router.get("/byUser/:authorId", async (request, response) => {
 router.get("/byChannel/:channelId", async (request, response) => {
     const channelId = parseInt(request.params.channelId);
     if (Number.isInteger(channelId)) {
-      const mes = await messages.findAll({ where: { channelId: channelId } });
+      const mes = await messages.findAll({
+        where: {
+            channelId: channelId
+          },
+          include: [{
+            model: users
+          }]
+    });
       response.status(200).json(mes);
     } else {
       response.status(400).send({

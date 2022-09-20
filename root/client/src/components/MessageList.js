@@ -25,7 +25,7 @@ function MessageList() {
         {listOfMessages.map((value, key) => {
             return (
                 <Message key={key} 
-                    username={value.username}
+                    username={value.user.username}
                     createdAt={value.createdAt}
                     body={value.body}
                 />  
