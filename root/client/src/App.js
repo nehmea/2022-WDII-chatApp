@@ -46,7 +46,6 @@ function App() {
     }
   }, []);
 
-  console.log(authState)
   return (
     <div className="App">
       <AuthContext.Provider value={{ authState, setAuthSate }}>
@@ -54,7 +53,7 @@ function App() {
           <Navigation authState={authState} />
           <div className="mt-3">
             <Routes>
-              {/* all-user routes */}
+              {/* unprotected routes */}
               <Route path="/register" element={<Register />}></Route>
               <Route path="/login" element={<Login />}></Route>
               {/* user routes */}

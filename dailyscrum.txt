@@ -106,21 +106,42 @@ Figure out differences between MySQL and MongoDB
 - UI design (waiting for Alina's visual design) 
 
 ------ SCRUM #4 -------
+2022/09/20 Alina 
 
-2022/09/20 Alina
-1. Done / Not done?
-2. TODO Until next scrum
-3. Need assistance / Figure out
+1. Done / Not done? 
+- Validated channel routes with Postman, adding better error handling 
+- Created a .env file in the client for storing server url 
+- Create ChannelsList component that fetches all Channels from the server 
+- Did not touch styling yet 
+2. TODO Until next scrum 
+- Design the layout of the home (main page) 
+3. Need assistance / Figure out 
+- FIgure out how to join M:N tables with Sequelize 
 
 2022/09/20 Ali
 1. Done / Not done?
+- Finished user registration, login, and logout 
+- Added rich text editor to bio in registration 
 2. TODO Until next scrum
+Story: a user can create a new channel 
+- Frontend: button (add) + form 
+- backend: new record into channels and users_channels 
+Story: a user can join a channel 
+- Frontend: Join channel (button) 
+- Backend: add new record to users_channels table 
 3. Need assistance / Figure out
 
 2022/09/20 Greg
 1. Done / Not done?
+- Got Message components to display in MessageList 
+- Added a library for date formatting 
+- Figured out Sequelize joins for M:1 relationship 
+- Haven't gotten into Socket.io yet 
 2. TODO Until next scrum
+- Socket.io functionality with messages 
+- Work on sending a message 
 3. Need assistance / Figure out
+- Figure out how to join M:N tables with Sequelize 
 
 ------ SCRUM #5 -------
 
