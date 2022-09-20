@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { channels } = require("../models");
 var validator = require("validator");
+const { validateToken } = require("../middlewares/AuthMiddleware");
 
 //const Op = require("sequelize").Op;
 
@@ -29,7 +30,9 @@ router.get("/:id", async (request, response, next) => {
   const channelId = parseInt(request.params.id);
   try {
     // channel is null if it is not an int or if it is not found in DB
-    const channel = Number.isInteger(channelId) ? await channels.findByPk(channelId) : null;
+    const channel = Number.isInteger(channelId)
+      ? await channels.findByPk(channelId)
+      : null;
     if (channel !== null) {
       response.status(200).json(channel);
     } else {
@@ -48,21 +51,20 @@ router.get("/:id", async (request, response, next) => {
 
 // --------------------------------------------
 // POST a new channel
-router.post("/new", async (request, response, next) => {
-  const channel = request.body;
+router.post("/new", validateToken, async (request, response, next) => {
+  var channel = request.body;
+  // Creates a default title if there is none
+  channel.title = !channel.title ? "New conversation" : channel.title;
+  channel.ownerId = request.user.id;
   try {
-    // Creates a default title if there is none
-    if (!channel.title) {
-      console.log("No channel title");
-      channel.title = 'New conversation'
-    }
-    await channels.create({ ...channel, title: channel.title })
+    await channels.create(channel);
     return response.status(201).send({
       message: `Channel created successfully`,
-    })
-  } catch {
+      newChannel: channel,
+    });
+  } catch (err) {
     response.status(400).send({
-      message: "An error occured",
+      message: "An error occured while creating the channel",
     });
     console.error(`Error while creating a new channel -`, err.message);
     next(err);
@@ -81,10 +83,7 @@ router.patch("/:id", async (request, response, next) => {
         message: "Title cannot be empty",
       });
     } else {
-      await channels.update(
-        { title: newTitle },
-        { where: { id: channelId } }
-      )
+      await channels.update({ title: newTitle }, { where: { id: channelId } });
       response.status(202).send({
         message: `Channel title has been successfully updated`,
       });
@@ -105,7 +104,7 @@ router.delete("/:id", async (request, response, next) => {
   try {
     const count = await channels.destroy({ where: { id: channelId } });
     if (count == 0) {
-      response.status(400).send({ message: 'Channel not found' });
+      response.status(400).send({ message: "Channel not found" });
     } else if (count > 0) {
       response.status(200).send({ message: `Channel successfully deleted.` });
     }
@@ -117,7 +116,5 @@ router.delete("/:id", async (request, response, next) => {
     next(err);
   }
 });
-
-
 
 module.exports = router;

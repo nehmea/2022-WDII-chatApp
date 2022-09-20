@@ -1,7 +1,7 @@
 module.exports = (sequelize, DataTypes) => {
   const Channels = sequelize.define("channels", {
     title: {
-      type: DataTypes.STRING(250),
+      type: DataTypes.STRING(120),
       allowNull: true,
     },
     ownerId: {
