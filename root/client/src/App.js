@@ -18,7 +18,7 @@ function App() {
     const accessToken = localStorage.getItem("accessToken");
     if (accessToken) {
       axios
-        .get(`http://localhost:3001/users/`, {
+        .get(`${process.env.REACT_APP_SERVER_URL}/users/`, {
           headers: {
             accessToken: accessToken,
           },
@@ -38,6 +38,7 @@ function App() {
     }
   }, []);
 
+  console.log(authState)
   return (
     <div className="App">
       <AuthContext.Provider value={{ authState, setAuthSate }}>
@@ -50,14 +51,16 @@ function App() {
               <Route path="/login" element={<Login />}></Route>
               {/* user routes */}
               <Route
+                path="/home"
                 element={
                   <ProtectedRoute
                     isAllowed={!!authState && authState.roles === "user"}
-                  />
+                  >
+                    <Home />
+                    {/* this is the children of the protected route */}
+                  </ProtectedRoute>
                 }
-              >
-                <Route path="/home" element={<Home />}></Route>
-              </Route>
+              />
               {/* admin routes */}
               <Route
                 element={
