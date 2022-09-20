@@ -1,15 +1,20 @@
+// LIBRARIES
 import "./App.css";
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import axios from "axios";
+// PAGES
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import AdminUsers from "./pages/AdminUsers";
 import AdminChannels from "./pages/AdminChannels";
+// HELPERS
 import { AuthContext } from "./helpers/AuthContext";
-import axios from "axios";
 import Navigation from "./helpers/Navigation";
 import ProtectedRoute from "./helpers/ProtectedRoutes";
+
+
 
 function App() {
   const [authState, setAuthSate] = useState(null);

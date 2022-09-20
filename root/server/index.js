@@ -32,3 +32,5 @@ db.sequelize.sync().then(() => {
     console.log("Server Running on port", PORT);
   });
 });
+
+

@@ -19,6 +19,11 @@ module.exports = (sequelize, DataTypes) => {
     Messages.hasMany(models.likes, {
       onDelete: "cascade",
     });
+    Messages.belongsTo(models.users, {
+        foreignKey: "authorId",
+        onDelete: "NO ACTION",
+        onUpdate: "CASCADE",
+    });
   };
 
   sequelize.sync({ update: true });
