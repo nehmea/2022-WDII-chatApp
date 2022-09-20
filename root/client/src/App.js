@@ -3,6 +3,7 @@ import "./App.css";
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import axios from "axios";
+import { io } from "socket.io-client";
 // PAGES
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -13,6 +14,8 @@ import AdminChannels from "./pages/AdminChannels";
 import { AuthContext } from "./helpers/AuthContext";
 import Navigation from "./helpers/Navigation";
 import ProtectedRoute from "./helpers/ProtectedRoutes";
+
+import TextBox from "./components/TextBox";
 
 
 
@@ -80,6 +83,9 @@ function App() {
                   element={<AdminChannels />}
                 ></Route>
               </Route>
+
+              <Route path="/test" element={<TextBox />}></Route>
+
             </Routes>
           </div>
         </Router>

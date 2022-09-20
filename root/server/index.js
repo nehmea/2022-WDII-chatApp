@@ -1,5 +1,9 @@
 const express = require("express");
 const app = express();
+const http = require('http');
+const server = http.createServer(app);
+const { Server } = require("socket.io");
+const io = new Server(server);
 const db = require("./models");
 const cors = require("cors");
 
@@ -33,4 +37,7 @@ db.sequelize.sync().then(() => {
   });
 });
 
-
+// Socket.io
+io.on('connection', socket => {
+    console.log(socket.id)
+});

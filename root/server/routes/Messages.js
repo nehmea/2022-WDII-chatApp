@@ -82,7 +82,7 @@ router.post("/", async (request, response) => {
 router.patch("/:id", async (request, response) => {
     const idToUpdate = request.params.id;
     const newBody = request.body.body;
-    const NewIsDeleted = parseInt(request.body.isDeleted);
+    const newIsDeleted = parseInt(request.body.isDeleted);
   
     if (validator.isEmpty(newBody)) {
       response.status(400).send({
@@ -92,7 +92,7 @@ router.patch("/:id", async (request, response) => {
       await messages.update(
         {
           body: newBody,
-          isDeleted: NewIsDeleted,
+          isDeleted: newIsDeleted,
         },
         {
           where: {
