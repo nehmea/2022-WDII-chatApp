@@ -4,8 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../helpers/AuthContext";
 import { Button, Form, FloatingLabel } from "react-bootstrap";
 
-const HOST = "http://localhost:3001/users";
-
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -24,7 +22,7 @@ function Login() {
         password: password,
       };
       axios
-        .post(`${HOST}/login`, data)
+        .post(`${process.env.REACT_APP_SERVER_URL}/users/login`, data)
         .then((response) => {
           localStorage.setItem("accessToken", response.data.token);
           setAuthSate({
