@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../helpers/AuthContext";
 import { Button, Form, FloatingLabel } from "react-bootstrap";
 import AuthLayout from "../components/AuthLayout/AuthLayout";
+import Container from 'react-bootstrap/Container';
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -40,35 +41,43 @@ function Login() {
   };
   return (
     <AuthLayout>
-      <div className="container m-3">
-        <p className="h3">Login</p>
-        <div className="border border-3 border-primary rounded-4 p-3">
-          <p className="text-danger">{errorMsg}</p>
-          <FloatingLabel label="Username" className="mb-3">
-            <Form.Control
-              type="text"
-              placeholder="Username"
-              onChange={(event) => {
-                setUsername(event.target.value);
-              }}
-            />
-          </FloatingLabel>
-          <FloatingLabel label="Password" className="mb-3">
-            <Form.Control
-              type="password"
-              placeholder="Password"
-              onChange={(event) => {
-                setPassword(event.target.value);
-              }}
-            />
-          </FloatingLabel>
-          <button className="btn btn-primary btn-lg mt-3" onClick={login}>
-            Login
-          </button>
-        </div>
+      <div className='d-flex align-items-center' style={{ height: '70%' }} >
+        <Container className="auth-forms rounded p-4">
+          <h2>Welcome back!</h2>
+          <Form className="m-3">
+            <p className="text-danger">{errorMsg}</p>
+            <FloatingLabel label="Username" className="mb-3">
+              <Form.Control
+                type="text"
+                placeholder="Username"
+                onChange={(event) => {
+                  setUsername(event.target.value);
+                }}
+              />
+            </FloatingLabel>
+            <FloatingLabel label="Password" className="mb-3">
+              <Form.Control
+                type="password"
+                placeholder="Password"
+                onChange={(event) => {
+                  setPassword(event.target.value);
+                }}
+              />
+            </FloatingLabel>
+            <div className="d-grid gap-2">
+              <Button variant="outline-light" size="lg" onClick={login}>
+                Login
+              </Button>
+            </div>
+          </Form>
+        </Container>
       </div>
     </AuthLayout>
   );
 }
 
 export default Login;
+
+
+
+// background: #313131;

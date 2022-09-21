@@ -6,13 +6,18 @@
 }
 
 .landing h1,
+h2,
 p {
   color: white;
 }
 
+.landing h1,
+h2 {
+  font-family: 'Paytone One', sans-serif;
+}
+
 .landing h1 {
   font-size: 4em;
-  font-family: 'Paytone One', sans-serif;
 }
 
 .landing p {
@@ -26,4 +31,9 @@ p {
 
 .nav-brand-button {
   cursor: pointer;
+}
+
+.auth-forms.container {
+  background: #313131;
+  max-width: 700px;
 }

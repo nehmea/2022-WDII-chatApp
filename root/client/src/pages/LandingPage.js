@@ -13,7 +13,7 @@ function LandingPage() {
   return (
     <AuthLayout>
       <section className='d-flex align-items-center' style={{ height: '70%' }}>
-        <Container className="mt-5 text-center">
+        <Container className="text-center">
           <h1>Imagine a simpler chat app.</h1>
           <p>Chat with your friends — without all the bells and whistles.
             The chat app for minimalists.
