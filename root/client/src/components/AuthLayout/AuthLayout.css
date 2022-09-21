@@ -1,0 +1,25 @@
+.landing.background-img {
+  background-image: url("../../assets/background-pattern.jpeg");
+  background-position: center;
+  height: 100vh;
+  background-size: cover;
+}
+
+.landing h1,
+p {
+  color: white;
+}
+
+.landing h1 {
+  font-size: 4em;
+  font-family: 'Paytone One', sans-serif;
+}
+
+.landing p {
+  font-size: 1.5em;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-family: 'Paytone One', sans-serif;
+}
