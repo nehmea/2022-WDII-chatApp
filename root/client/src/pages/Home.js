@@ -40,16 +40,18 @@ function Home() {
   }, []);
 
   return (
-    <Container>
+    <Container fluid>
       <Row>
-        <Col xs={6} md={4}>
+        {/* Left side */}
+        <Col xs={6} md={4} className="d-flex flex-column">
           <NewChannelForm
             setChannelsData={setChannelsData}
             fetchChannels={fetchChannels}
           />
           <ChannelsList channelsData={channelsData} />
         </Col>
-        <Col xs={12} md={8}>
+        {/* Right side */}
+        <Col xs={12} md={8} className="d-flex flex-column justify-content-between">
           <MessageList />
           <TextBox />
         </Col>
