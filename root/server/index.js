@@ -10,6 +10,8 @@ const PORT = "3001";
 app.use(express.json());
 app.use(cors());
 
+
+// Socket.io
 const server = http.createServer(app);
 
 const io = new Server(server, {

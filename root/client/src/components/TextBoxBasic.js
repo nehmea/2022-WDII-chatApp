@@ -1,12 +1,16 @@
-import React from 'react'
+import React from 'react';
+
 
 function TextBoxBasic() {
+
+    const sendMessage = () => {
+
+    };
+
   return (
     <div className='textBoxContainer'>
-      <form>
         <input type="text" name="messageText" />
-        <button type='submit'>Send</button>
-      </form>
+        <button onClick={sendMessage}>Send</button>
     </div>
   )
 }
