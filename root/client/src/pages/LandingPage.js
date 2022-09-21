@@ -18,7 +18,7 @@ function LandingPage() {
           <p>Chat with your friends — without all the bells and whistles.
             The chat app for minimalists.
           </p>
-          {/* {console.log(!!authState)} */}
+          {/* Buttons on the Landing Page vary depending on Auth State */}
           {!!authState
             ? <Button variant="light" size="lg" className="mt-3 shadow" onClick={() => navigate('/home')}>Open Chatap in your browser</Button>
             :

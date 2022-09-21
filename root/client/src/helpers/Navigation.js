@@ -23,7 +23,7 @@ function Navigation() {
 
     <Navbar variant="dark" expand="lg">
       <Container className=" d-flex">
-        <Navbar.Brand href="/">
+        <Navbar.Brand className="nav-brand-button" onClick={() => { navigate('/') }}>
           <img
             alt=""
             src={logo}
@@ -36,6 +36,7 @@ function Navigation() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav" >
           <Nav className="ms-auto">
+            {/* Admin buttons - Still need to style this */}
             {!!authState && authState.roles === "admin" && (
               <>
                 <Link to="/admin/users" className="mx-3">
@@ -47,6 +48,7 @@ function Navigation() {
               </>
             )}
             {/* routes */}
+            {/* Logout/Login button depending on authState */}
             {!!authState ?
               <Button variant="light" onClick={logout}>
                 Logout

@@ -23,3 +23,7 @@ p {
   font-size: 1.5rem;
   font-family: 'Paytone One', sans-serif;
 }
+
+.nav-brand-button {
+  cursor: pointer;
+}
