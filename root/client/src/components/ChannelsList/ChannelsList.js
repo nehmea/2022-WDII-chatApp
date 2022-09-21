@@ -10,7 +10,6 @@ function ChannelsList() {
       .get(`${process.env.REACT_APP_SERVER_URL}/channels/`)
       .then((response) => {
         if (response.status === 200) {
-          console.log(response.data)
           setChannelsData(response.data)
         }
       })
@@ -18,8 +17,6 @@ function ChannelsList() {
         console.log(error)
       });
   }, [])
-
-  console.log(channelsData)
 
   return (
     <div>

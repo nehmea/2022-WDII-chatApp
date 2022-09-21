@@ -1,5 +1,6 @@
 import React from "react";
 import ChannelsList from "../components/ChannelsList/ChannelsList";
+import MessageList from "../components/MessageList/MessageList";
 
 function Home() {
   return (
@@ -7,6 +8,7 @@ function Home() {
       Home
 
       <ChannelsList />
+      <MessageList />
 
     </div>
   );
