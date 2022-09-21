@@ -52,11 +52,8 @@ function App() {
     <div className="App">
       <AuthContext.Provider value={{ authState, setAuthSate }}>
         <Router>
-          {/* <Navigation /> */}
-
           <Routes>
             {/* unprotected routes */}
-
             <Route path="/" element={<LandingPage />}></Route>
             <Route path="/register" element={<Register />}></Route>
             <Route path="/login" element={<Login />}></Route>

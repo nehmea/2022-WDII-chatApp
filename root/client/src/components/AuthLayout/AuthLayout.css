@@ -6,13 +6,13 @@
 }
 
 .landing h1,
-h2,
-p {
+.landing h2,
+.landing p {
   color: white;
 }
 
 .landing h1,
-h2 {
+.landing h2 {
   font-family: 'Paytone One', sans-serif;
 }
 
