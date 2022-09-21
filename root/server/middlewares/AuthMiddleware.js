@@ -3,7 +3,9 @@ const { verify } = require("jsonwebtoken");
 const validateToken = (req, res, next) => {
   const accessToken = req.header("accessToken");
   if (!accessToken) {
-    return res.json({ error: "user not logged in!" });
+    return res.status(401).send({
+      message: "user not logged in!",
+    });
   }
   try {
     const decoded = verify(accessToken, "ljskffgoSAFKBISDHF", {
@@ -14,7 +16,9 @@ const validateToken = (req, res, next) => {
       return next();
     }
   } catch (err) {
-    return res.status(401).json({ error: err });
+    return res.status(401).send({
+      message: "You are not authorized",
+    });
   }
 };
 

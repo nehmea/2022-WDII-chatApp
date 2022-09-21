@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { channels } = require("../models");
+const { channels, users_channels } = require("../models");
 var validator = require("validator");
 const { validateToken } = require("../middlewares/AuthMiddleware");
 
@@ -17,6 +17,35 @@ router.get("/", async (request, response) => {
     response.json(listOfChannels);
   } catch (err) {
     response.status(400).send({
+      message: "An error occured",
+    });
+    console.error(`Error while getting all channels -`, err.message);
+    next(err);
+  }
+});
+
+// ----------------------------------------
+// GET All Channels for a user
+router.get("/user", validateToken, async (request, response) => {
+  const userId = request.user.id;
+  try {
+    const listOfChannels = await channels.findAll();
+    const fetchedJoinedChanned = await users_channels.findAll({
+      attributes: ["channelId"],
+      where: {
+        userId: userId,
+      },
+    });
+
+    var joinedChannels = [];
+    fetchedJoinedChanned.forEach(function (channel) {
+      joinedChannels.push(channel.channelId);
+    });
+    response
+      .status(200)
+      .json({ listOfChannels: listOfChannels, joinedChannels: joinedChannels });
+  } catch (err) {
+    response.status(500).send({
       message: "An error occured",
     });
     console.error(`Error while getting all channels -`, err.message);
@@ -63,7 +92,7 @@ router.post("/new", validateToken, async (request, response, next) => {
       newChannel: channel,
     });
   } catch (err) {
-    response.status(400).send({
+    response.status(500).send({
       message: "An error occured while creating the channel",
     });
     console.error(`Error while creating a new channel -`, err.message);
@@ -113,6 +142,36 @@ router.delete("/:id", async (request, response, next) => {
       message: "Channel not found",
     });
     console.error(`Error while deleting a channel -`, err.message);
+    next(err);
+  }
+});
+
+// --------------------------------------------
+// user join a channel
+router.post("/join", validateToken, async (request, response, next) => {
+  const newJoin = {
+    channelId: request.body.channelId,
+    userId: request.user.id,
+  };
+  try {
+    const [join, created] = await users_channels.findOrCreate({
+      where: newJoin,
+      defaults: newJoin,
+    });
+    if (!created) {
+      response.status(401).send({
+        message: "You are already a member of this channel",
+      });
+    } else {
+      return response.status(201).send({
+        message: `Joined successfully`,
+      });
+    }
+  } catch (err) {
+    response.status(500).send({
+      message: "Whoops, An error occured!",
+    });
+    console.error("\x1b[33m%s\x1b[0m", err.message);
     next(err);
   }
 });

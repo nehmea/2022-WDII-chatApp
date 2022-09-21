@@ -10,14 +10,13 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import AdminUsers from "./pages/AdminUsers";
 import AdminChannels from "./pages/AdminChannels";
+import Test from "./pages/Test";
 // HELPERS
 import { AuthContext } from "./helpers/AuthContext";
 import Navigation from "./helpers/Navigation";
 import ProtectedRoute from "./helpers/ProtectedRoutes";
 
 import TextBox from "./components/TextBox";
-
-
 
 function App() {
   const [authState, setAuthSate] = useState(null);
@@ -56,6 +55,7 @@ function App() {
               {/* unprotected routes */}
               <Route path="/register" element={<Register />}></Route>
               <Route path="/login" element={<Login />}></Route>
+              <Route path="/test" element={<Test />}></Route>
               {/* user routes */}
               <Route
                 path="/home"
@@ -84,7 +84,6 @@ function App() {
               </Route>
 
               <Route path="/test" element={<TextBox />}></Route>
-
             </Routes>
           </div>
         </Router>

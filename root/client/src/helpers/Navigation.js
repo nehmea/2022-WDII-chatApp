@@ -50,6 +50,9 @@ function Navigation({ authState }) {
           </Link>
         </>
       )}
+      <Link to="/test" className="mx-3">
+        <button className="btn btn-outline-primary">Test</button>
+      </Link>
       {/* routes */}
     </nav>
   );
