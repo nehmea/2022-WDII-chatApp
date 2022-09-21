@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { AuthContext } from "../helpers/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { Button, Container, Nav, Navbar } from "react-bootstrap";
-import logo from "../assets/logo.svg"
+import logo from "../../assets/logo.svg"
+import { AuthContext } from "../../helpers/AuthContext";
 
 function Navigation() {
   const { authState, setAuthSate } = useContext(AuthContext);
