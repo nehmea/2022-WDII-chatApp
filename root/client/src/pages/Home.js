@@ -3,6 +3,8 @@ import ChannelsList from "../components/ChannelsList/ChannelsList";
 import NewChannelForm from "../components/newChannelForm";
 import { Container } from "react-bootstrap";
 import axios from "axios";
+import MessageList from "../components/MessageList/MessageList";
+
 
 function Home() {
   const [channelsData, setChannelsData] = useState([]);
@@ -43,6 +45,7 @@ function Home() {
         fetchChannels={fetchChannels}
       />
       <ChannelsList channelsData={channelsData} />
+      <MessageList />
     </Container>
   );
 }

@@ -1,5 +1,3 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
 import ChannelItem from "./ChannelItem";
 
 function ChannelsList({ channelsData }) {
