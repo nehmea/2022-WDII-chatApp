@@ -7,6 +7,7 @@ import { EditorState, convertToRaw } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
 import draftToHtml from "draftjs-to-html";
 import { AuthContext } from "../helpers/AuthContext";
+import { Socket } from 'socket.io-client';
 
 function TextBox() {
 
@@ -21,7 +22,7 @@ function TextBox() {
         EditorState.createEmpty()
     );
 
-    console.log(authState);
+    //console.log(authState);
 
     const initialValues = {
         body: "",
