@@ -1,6 +1,6 @@
 import './AuthLayout.css'
 
-import Navigation from '../../helpers/Navigation';
+import Navigation from './Navigation';
 
 function AuthLayout(props) {
 

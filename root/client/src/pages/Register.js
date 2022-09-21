@@ -125,7 +125,7 @@ function Register() {
                 </FloatingLabel>
               </div>
               <div className="d-grid gap-2">
-                <Button variant="outline-light" size="lg">
+                <Button type="submit" variant="outline-light" size="lg">
                   Register
                 </Button>
               </div>

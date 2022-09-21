@@ -12,7 +12,6 @@ import AdminUsers from "./pages/AdminUsers";
 import AdminChannels from "./pages/AdminChannels";
 // HELPERS
 import { AuthContext } from "./helpers/AuthContext";
-import Navigation from "./helpers/Navigation";
 import ProtectedRoute from "./helpers/ProtectedRoutes";
 
 import TextBox from "./components/TextBox";
