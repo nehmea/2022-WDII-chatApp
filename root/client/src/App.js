@@ -3,7 +3,7 @@ import "./App.css";
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import axios from "axios";
-import { io } from "socket.io-client";
+import io from "socket.io-client";
 // PAGES
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -19,8 +19,10 @@ import TextBox from "./components/TextBox";
 import LandingPage from "./pages/LandingPage";
 
 
+const socket = io.connect(`${process.env.REACT_APP_SERVER_URL}`); //http://localhost:3001
 
 function App() {
+
   const [authState, setAuthSate] = useState(null);
 
   useEffect(() => {
@@ -86,14 +88,11 @@ function App() {
                 element={<AdminChannels />}
               ></Route>
             </Route>
-
-            <Route path="/test" element={<TextBox />}></Route>
-
           </Routes>
 
-        </Router>
-      </AuthContext.Provider>
-    </div>
+        </Router >
+      </AuthContext.Provider >
+    </div >
   );
 }
 
