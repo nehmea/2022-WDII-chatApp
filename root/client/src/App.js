@@ -10,6 +10,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import AdminUsers from "./pages/AdminUsers";
 import AdminChannels from "./pages/AdminChannels";
+import Test from "./pages/Test";
 // HELPERS
 import { AuthContext } from "./helpers/AuthContext";
 import ProtectedRoute from "./helpers/ProtectedRoutes";
@@ -17,11 +18,9 @@ import ProtectedRoute from "./helpers/ProtectedRoutes";
 import TextBox from "./components/TextBox";
 import LandingPage from "./pages/LandingPage";
 
-
-const socket = io.connect(`${process.env.REACT_APP_SERVER_URL}`); //http://localhost:3001
+// const socket = io.connect(`${process.env.REACT_APP_SERVER_URL}`); //http://localhost:3001
 
 function App() {
-
   const [authState, setAuthSate] = useState(null);
 
   useEffect(() => {
@@ -79,16 +78,12 @@ function App() {
               }
             >
               <Route path="/admin/users" element={<AdminUsers />}></Route>
-              <Route
-                path="/admin/channels"
-                element={<AdminChannels />}
-              ></Route>
+              <Route path="/admin/channels" element={<AdminChannels />}></Route>
             </Route>
           </Routes>
-
-        </Router >
-      </AuthContext.Provider >
-    </div >
+        </Router>
+      </AuthContext.Provider>
+    </div>
   );
 }
 

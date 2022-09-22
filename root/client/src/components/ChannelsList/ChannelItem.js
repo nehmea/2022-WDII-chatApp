@@ -1,8 +1,5 @@
-
 function ChannelItem(props) {
-  return (
-    <div>{props.children}</div>
-  )
+  return <div className="mb-3">{props.children}</div>;
 }
 
-export default ChannelItem
+export default ChannelItem;
