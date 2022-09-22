@@ -143,6 +143,10 @@ export const fetchAllUsers = ({ setListOfUsers }) => {
     });
 };
 
+/**
+ * delete a user by an admin
+ * @param {*} param0
+ */
 export const deleteUser = ({ userId, setListOfUsers }) => {
   axios
     .delete(`${process.env.REACT_APP_SERVER_URL}/users/delete/user/${userId}`, {
@@ -151,6 +155,22 @@ export const deleteUser = ({ userId, setListOfUsers }) => {
     .then((response) => {
       if (response.status === 200) {
         fetchAllUsers({ setListOfUsers });
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+export const getChannelUsers = ({ activeChannel, setActiveChannelUsers }) => {
+  axios
+    .get(`${process.env.REACT_APP_SERVER_URL}/users/${activeChannel}/users`, {
+      headers: { accessToken: localStorage.getItem("accessToken") },
+    })
+    .then((response) => {
+      if (response.status === 200) {
+        setActiveChannelUsers(response.data);
+        console.log(response.data);
       }
     })
     .catch((error) => {
