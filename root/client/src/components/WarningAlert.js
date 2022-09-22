@@ -7,7 +7,7 @@ function WarningAlert({ text, show, onHide, handleClose }) {
     <div>
       <Modal show={show} onHide={onHide}>
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>Are you sure?</Modal.Title>
         </Modal.Header>
         <Modal.Body>{text}</Modal.Body>
         <Modal.Footer>

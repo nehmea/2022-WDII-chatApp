@@ -31,11 +31,20 @@
   font-family: 'Paytone One', sans-serif;
 }
 
-.nav-brand-button {
+.pointer {
   cursor: pointer;
 }
 
 .auth-forms.container {
   background: #313131;
   max-width: 700px;
+}
+
+.admin-table.container {
+  background: #313131;
+}
+
+.avatar {
+  object-fit: cover;
+  object-position: center;
 }

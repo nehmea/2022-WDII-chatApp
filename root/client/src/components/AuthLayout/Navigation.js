@@ -23,7 +23,7 @@ function Navigation() {
 
     <Navbar variant="dark" expand="lg">
       <Container className=" d-flex">
-        <Navbar.Brand className="nav-brand-button" onClick={() => { navigate('/') }}>
+        <Navbar.Brand className="pointer" onClick={() => { navigate('/') }}>
           <img
             alt=""
             src={logo}
