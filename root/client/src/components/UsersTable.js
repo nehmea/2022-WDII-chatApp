@@ -35,6 +35,7 @@ function UsersTable() {
 
   return (
     <div>
+      {console.log(listOfUsers)}
       <Table striped>
         <thead>
           <tr>

@@ -9,7 +9,9 @@ const { validateToken } = require("../middlewares/AuthMiddleware");
 // GET All users
 router.get("/", async (request, response) => {
   try {
-    const listOfUsers = await users.findAll();
+    const listOfUsers = await users.findAll({
+      attributes: { exclude: ["password"] },
+    });
     response.status(200).json(listOfUsers);
   } catch (err) {
     response.status(500).send({
