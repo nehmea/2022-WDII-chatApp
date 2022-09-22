@@ -50,9 +50,9 @@ app.use((err, req, res, next) => {
   return;
 });
 
+//https://stackoverflow.com/questions/9781218/how-to-change-node-jss-console-font-color
 db.sequelize.sync().then(() => {
-    server.listen(PORT, () => {
-    console.log("Server Running on port", PORT);
+  app.listen(PORT, () => {
+    console.log("\x1b[32m%s\x1b[0m", `Server Running on port ${PORT}`); //BgGreen = "\x1b[42m"
   });
 });
-

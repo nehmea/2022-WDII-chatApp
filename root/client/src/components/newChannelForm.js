@@ -1,42 +1,14 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Form, FloatingLabel, Button, Col, Row } from "react-bootstrap";
+import { AuthContext } from "../helpers/AuthContext";
+import { createChannel } from "../helpers/Utils";
 
-function NewChannelForm({ fetchChannels, setChannelsData }) {
+function NewChannelForm({ setChannelsData }) {
   const [channelName, setChannelName] = useState("");
   const [msg, setMsg] = useState("");
   const [msgType, setMsgType] = useState("");
-
-  const createChannel = () => {
-    setMsg("");
-    const accessToken = localStorage.getItem("accessToken");
-    if (accessToken) {
-      axios
-        .post(
-          `${process.env.REACT_APP_SERVER_URL}/channels/new`,
-          {
-            title: channelName,
-          },
-          { headers: { accessToken: accessToken } }
-        )
-        .then((response) => {
-          setMsg(response.data.message);
-          setMsgType("text-success");
-          //   setChannelsData([...channelsData, response.data.newChannel]);
-          fetchChannels();
-        })
-        .catch((error) => {
-          console.log(error);
-          if (error.response) {
-            setMsgType("text-danger");
-            setMsg(error.response.data.message);
-          }
-        });
-    } else {
-      setMsgType("text-danger");
-      setMsg("Please login to create a channel");
-    }
-  };
+  const { authState } = useContext(AuthContext);
 
   return (
     <>
@@ -60,7 +32,18 @@ function NewChannelForm({ fetchChannels, setChannelsData }) {
         </Col>
         <Col xs sm="3" lg="2">
           <p></p>
-          <Button variant="primary" onClick={createChannel}>
+          <Button
+            variant="primary"
+            onClick={() => {
+              createChannel({
+                authState,
+                channelName,
+                setMsg,
+                setMsgType,
+                setChannelsData,
+              });
+            }}
+          >
             Create Channel
           </Button>
         </Col>
