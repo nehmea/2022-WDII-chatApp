@@ -7,25 +7,7 @@ import { fetchChannelsByUser } from "../helpers/Utils";
 // import { AuthContext } from "../helpers/AuthContext";
 
 function Test() {
-  const [channelsData, setChannelsData] = useState([]);
-  const [joinedChannels, setJoinedChannels] = useState([]);
-
-  useEffect(() => {
-    fetchChannelsByUser({ setChannelsData, setJoinedChannels });
-  }, []);
-
-  return (
-    <Container>
-      <NewChannelForm
-        setChannelsData={setChannelsData}
-        // fetchChannels={fetchChannels}
-      />
-      <ChannelsList
-        channelsData={channelsData}
-        joinedChannels={joinedChannels}
-      />
-    </Container>
-  );
+  return <div>Test</div>;
 }
 
 export default Test;

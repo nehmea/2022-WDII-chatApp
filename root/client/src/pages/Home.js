@@ -3,24 +3,24 @@ import ChannelsList from "../components/ChannelsList/ChannelsList";
 import NewChannelForm from "../components/newChannelForm";
 import { Container } from "react-bootstrap";
 import axios from "axios";
-import { fetchChannels } from "../helpers/Utils";
+import { fetchChannelsByUser } from "../helpers/Utils";
 // import { AuthContext } from "../helpers/AuthContext";
 
 function Home() {
   const [channelsData, setChannelsData] = useState([]);
-  // const { authState } = useContext(AuthContext);
+  const [joinedChannels, setJoinedChannels] = useState([]);
 
   useEffect(() => {
-    fetchChannels({ setChannelsData });
+    fetchChannelsByUser({ setChannelsData, setJoinedChannels });
   }, []);
 
   return (
     <Container>
-      <NewChannelForm
-        setChannelsData={setChannelsData}
-        // fetchChannels={fetchChannels}
+      <NewChannelForm setChannelsData={setChannelsData} />
+      <ChannelsList
+        channelsData={channelsData}
+        joinedChannels={joinedChannels}
       />
-      <ChannelsList channelsData={channelsData} />
     </Container>
   );
 }
