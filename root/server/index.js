@@ -1,5 +1,7 @@
 const express = require("express");
 const app = express();
+const http = require("http");
+const { Server } = require("socket.io")
 const db = require("./models");
 const cors = require("cors");
 
@@ -7,6 +9,27 @@ const PORT = "3001";
 
 app.use(express.json());
 app.use(cors());
+
+const server = http.createServer(app);
+
+const io = new Server(server, {
+    cors: {
+        origin: "http://localhost:3000",
+        methods: ["GET", "POST", "PATCH", "DELETE"],
+    }
+});
+
+io.on("connection", (socket) => {
+    console.log("User Connected: ", socket.id);
+
+    socket.on("join_room", (data) => {
+        socket.join(data);
+    });
+
+    socket.on("disconnect", () => {
+        console.log("User Disconnected: ", socket.id);
+    });
+});
 
 // Routers
 // > users

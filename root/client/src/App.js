@@ -3,7 +3,7 @@ import "./App.css";
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import axios from "axios";
-import { io } from "socket.io-client";
+import io from "socket.io-client";
 // PAGES
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -13,12 +13,16 @@ import AdminChannels from "./pages/AdminChannels";
 import Test from "./pages/Test";
 // HELPERS
 import { AuthContext } from "./helpers/AuthContext";
-import Navigation from "./helpers/Navigation";
 import ProtectedRoute from "./helpers/ProtectedRoutes";
 
 import TextBox from "./components/TextBox";
+import LandingPage from "./pages/LandingPage";
+
+
+const socket = io.connect(`${process.env.REACT_APP_SERVER_URL}`); //http://localhost:3001
 
 function App() {
+
   const [authState, setAuthSate] = useState(null);
 
   useEffect(() => {
@@ -49,46 +53,43 @@ function App() {
     <div className="App">
       <AuthContext.Provider value={{ authState, setAuthSate }}>
         <Router>
-          <Navigation authState={authState} />
-          <div className="mt-3">
-            <Routes>
-              {/* unprotected routes */}
-              <Route path="/register" element={<Register />}></Route>
-              <Route path="/login" element={<Login />}></Route>
-              <Route path="/test" element={<Test />}></Route>
-              {/* user routes */}
-              <Route
-                path="/home"
-                element={
-                  <ProtectedRoute
-                    isAllowed={!!authState && authState.roles === "user"}
-                  >
-                    <Home />
-                    {/* this is the children of the protected route */}
-                  </ProtectedRoute>
-                }
-              />
-              {/* admin routes */}
-              <Route
-                element={
-                  <ProtectedRoute
-                    isAllowed={!!authState && authState.roles === "admin"}
-                  />
-                }
-              >
-                <Route path="/admin/users" element={<AdminUsers />}></Route>
-                <Route
-                  path="/admin/channels"
-                  element={<AdminChannels />}
-                ></Route>
-              </Route>
+          <Routes>
+            {/* unprotected routes */}
+            <Route path="/" element={<LandingPage />}></Route>
+            <Route path="/register" element={<Register />}></Route>
+            <Route path="/login" element={<Login />}></Route>
 
-              <Route path="/test" element={<TextBox />}></Route>
-            </Routes>
-          </div>
-        </Router>
-      </AuthContext.Provider>
-    </div>
+            {/* user routes */}
+            <Route
+              path="/home"
+              element={
+                <ProtectedRoute
+                  isAllowed={!!authState && authState.roles === "user"}
+                >
+                  <Home />
+                  {/* this is the children of the protected route */}
+                </ProtectedRoute>
+              }
+            />
+            {/* admin routes */}
+            <Route
+              element={
+                <ProtectedRoute
+                  isAllowed={!!authState && authState.roles === "admin"}
+                />
+              }
+            >
+              <Route path="/admin/users" element={<AdminUsers />}></Route>
+              <Route
+                path="/admin/channels"
+                element={<AdminChannels />}
+              ></Route>
+            </Route>
+          </Routes>
+
+        </Router >
+      </AuthContext.Provider >
+    </div >
   );
 }
 
