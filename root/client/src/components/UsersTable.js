@@ -35,22 +35,21 @@ function UsersTable() {
 
   return (
     <div>
-      {console.log(listOfUsers)}
-      <Table striped>
-        <thead>
+      <Table striped bordered hover responsive variant="dark" className="mt-3">
+        <thead className="text-center">
           <tr>
             <th>ID</th>
             <th>Username</th>
             <th>Role</th>
             <th>Bio</th>
-            <th>Avatar URL</th>
+            <th>Avatar</th>
             <th>Status</th>
             <th>Created On</th>
             <th>Last Modified</th>
-            <th>Actions</th>
+            <th>Delete</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className="text-center">
           {listOfUsers.map((user, index) => {
             return (
               <tr key={index}>
@@ -58,26 +57,41 @@ function UsersTable() {
                 <td>{user.username}</td>
                 <td>{user.role}</td>
                 <td>{parse(user.bio)}</td>
-                <td>{user.avatarUrl}</td>
-                <td>{user.status}</td>
-                <td>{user.createdAt}</td>
-                <td>{user.updatedAt}</td>
+                {/* <td>{user.avatarUrl}</td> */}
                 <td>
-                  <Button
-                    variant="danger"
-                    onClick={
-                      () => {
-                        handleShow(user.id);
-                      }
+                  {user.avatarUrl ?
+                    <>
+                      <img
+                        alt="user avatar"
+                        src={user.avatarUrl}
+                        width="35"
+                        height="35"
+                        className="rounded-circle avatar"
+                      />
+                    </>
+                    :
+                    "None"
+                  }
 
-                      //   deleteUser({
-                      //     userId: user.id,
-                      //     setListOfUsers: setListOfUsers,
-                      //   });
+                </td>
+                <td>{user.status}</td>
+                <td>{user.createdAt.split('T')[0]}</td>
+                <td>{user.updatedAt.split('T')[0]}</td>
+                <td
+                  className="pointer"
+                  onClick={
+                    () => {
+                      handleShow(user.id);
                     }
-                  >
-                    Delete
-                  </Button>
+
+                    //   deleteUser({
+                    //     userId: user.id,
+                    //     setListOfUsers: setListOfUsers,
+                    //   });
+                  }
+                >
+                  <i class="bi bi-trash"></i>
+
                 </td>
               </tr>
             );
@@ -85,7 +99,7 @@ function UsersTable() {
         </tbody>
       </Table>
       <WarningAlert
-        text="Are you sure you want to delete this user?"
+        text="You're about to permanently delete a user."
         show={show}
         handleClose={handleClose}
         onHide={onHide}
