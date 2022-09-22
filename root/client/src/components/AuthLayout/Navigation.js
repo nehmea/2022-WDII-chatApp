@@ -37,17 +37,16 @@ function Navigation() {
         <Navbar.Collapse id="basic-navbar-nav" >
           <Nav className="ms-auto">
             {/* Admin buttons - Still need to style this */}
-            {!!authState && authState.roles === "admin" && (
+            {!!authState && authState.roles === "admin" ?
               <>
-                <Link to="/admin/users" className="mx-3">
-                  <button className="btn btn-outline-primary">Users</button>
-                </Link>
-                <Link to="/admin/channels" className="mx-3">
-                  <button className="btn btn-outline-primary">Channels</button>
-                </Link>
+                <Nav.Link as={Link} to="/admin/users" >Users</Nav.Link>
+                <Nav.Link as={Link} to="/admin/channels" className="me-3">Channels</Nav.Link>
               </>
-            )}
+              :
+              ""
+            }
             {/* routes */}
+
             {/* Logout/Login button depending on authState */}
             {!!authState ?
               <Button variant="light" onClick={logout}>

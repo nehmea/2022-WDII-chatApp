@@ -1,5 +1,7 @@
 .landing.background-img {
-  background-image: url("../../assets/background-pattern.jpeg");
+  background-image:
+    linear-gradient(0deg, rgba(255, 255, 255, 0) 90%, rgba(49, 49, 49, 1) 100%),
+    url("../../assets/background-pattern.jpeg");
   background-position: center;
   height: 100vh;
   background-size: cover;

@@ -32,7 +32,9 @@ function Login() {
             id: response.data.id,
             roles: response.data.role,
           });
-          navigate(`/home`);
+          console.log('response.data', response.data.role)
+          if (response.data.role === "admin") navigate(`/admin/users`)
+          if (response.data.role === "user") navigate(`/home`);
         })
         .catch((error) => {
           setErrorMsg(error.response.data.error);
