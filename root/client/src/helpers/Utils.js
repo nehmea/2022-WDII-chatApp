@@ -170,7 +170,6 @@ export const getChannelUsers = ({ activeChannel, setActiveChannelUsers }) => {
     .then((response) => {
       if (response.status === 200) {
         setActiveChannelUsers(response.data);
-        console.log(response.data);
       }
     })
     .catch((error) => {

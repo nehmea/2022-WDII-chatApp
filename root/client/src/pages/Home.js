@@ -21,11 +21,10 @@ function Home() {
     setActiveChannel(joinedChannels[0]);
   }, []);
 
+  // activeChannelUSers includes id, username, bio, and avatarUrl for each user
   const [activeChannelUsers, setActiveChannelUsers] = useState([]);
   useEffect(() => {
-    console.log(activeChannel);
     getChannelUsers({ activeChannel, setActiveChannelUsers });
-    console.log(activeChannelUsers);
   }, [activeChannel]);
 
   return (
