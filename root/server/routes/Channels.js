@@ -159,13 +159,10 @@ router.post("/join", validateToken, async (request, response, next) => {
       defaults: newJoin,
     });
     if (!created) {
-      response.status(401).send({
-        message: "You are already a member of this channel",
-      });
+      await users_channels.destroy({ where: newJoin });
+      response.status(200).json(-1);
     } else {
-      return response.status(201).send({
-        message: `Joined successfully`,
-      });
+      return response.status(201).json(1);
     }
   } catch (err) {
     response.status(500).send({

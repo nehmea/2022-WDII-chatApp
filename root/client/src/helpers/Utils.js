@@ -83,7 +83,13 @@ export const createChannel = ({
  * A function that adds a user to a channel (if not exist) by creating a new record in the users_channels table
  * @param {channel, authSate, setMsg, setMsgType} param0
  */
-export const joinChannel = ({ channel, authState, setMsg, setMsgType }) => {
+export const joinChannel = ({
+  channel,
+  authState,
+  setMsg,
+  setMsgType,
+  joinedChannels,
+}) => {
   if (!!authState && authState.roles === "user") {
     const accessToken = localStorage.getItem("accessToken");
     axios
@@ -95,8 +101,20 @@ export const joinChannel = ({ channel, authState, setMsg, setMsgType }) => {
         { headers: { accessToken: accessToken } }
       )
       .then((response) => {
-        setMsg(response.data.message);
-        setMsgType("text-success");
+        if (response.data === 1) {
+          joinedChannels.push(channel.id);
+          setMsg(`You are now a member of channel "${channel.title}"`);
+        }
+        if (response.data === -1) {
+          const index = joinedChannels.indexOf(channel.id);
+          if (index > -1) {
+            // only splice array when item is found
+            joinedChannels.splice(index, 1); // 2nd parameter means remove one item only
+            setMsg(`You have left channel "${channel.title}"`);
+          }
+        }
+        // setMsg(response.data.message);
+        // setMsgType("text-success");
       })
       .catch((error) => {
         console.log(error);

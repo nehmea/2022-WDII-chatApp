@@ -13,18 +13,28 @@ function ChannelsList({ channelsData, joinedChannels }) {
   return (
     <div>
       <h2>Channels List</h2>
-      <p className={msgType}>{msg}</p>
+      <p className="text-success">{msg}</p>
       <div>
         {channelsData.map((channel, index) => (
           <ChannelItem key={index}>
             <span className="mx-2">{channel.title}</span>
             <Button
-              variant="primary"
+              variant={
+                joinedChannels.includes(channel.id)
+                  ? "outline-secondary"
+                  : "outline-primary"
+              }
               onClick={() =>
-                joinChannel({ channel, authState, setMsg, setMsgType })
+                joinChannel({
+                  channel,
+                  authState,
+                  setMsg,
+                  setMsgType,
+                  joinedChannels,
+                })
               }
             >
-              {joinedChannels.includes(channel.id) ? " Joined " : " Join "}
+              {joinedChannels.includes(channel.id) ? " Leave " : " Join "}
             </Button>
           </ChannelItem>
         ))}
