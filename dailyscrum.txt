@@ -188,18 +188,47 @@ Story: admin can view all users and block a user
 
 2022/09/22 Alina
 1. Done / Not done?
+- Completed styling for landing page/login/registration 
+- Completed basic layout for the home page, rendering components within a grid system 
+- Not done styling all of the individual components of home page (main chat app) 
 2. TODO Until next scrum
+- Keep working on home styling here and there, but not main focus today 
+- Research how to implement Socket.io on the client side 
+- Channels: Adjust feature so that only user's joined channels display by default, and create new feature whereby all channels display onclick of a button
+- Admin home page -> upon logging in, admin sees all-users dashboard & admin specific links (users & channels) appear on navbar 
 3. Need assistance / Figure out
+- Socket.io? 
 
 2022/09/22 Ali
 1. Done / Not done?
+Done 
+- Stroy: a user can join a channel 
+> Frontend: Join channel (button) 
+> Backend: add new record to users_channels table 
+- Story: admin can view all users and block a user 
+> Frontend: table and authorization 
+> Backend: authorization validation and get all users 
+Not Done 
+- Story: admin can view all channels and delete a channel 
+> Frontend: table and authorization 
+> Backend: authorization validation and get all channels 
 2. TODO Until next scrum
+- Help with socket io 
+- Story: a user can update their profile 
+- Fix join channel: an owner can't leave their channel 
+- Story: a user can see other users in a channel 
 3. Need assistance / Figure out
 
 2022/09/22 Greg
 1. Done / Not done?
+- Socket.IO backend set up 
+- Not done Socket.IO frontend implementation 
+- Not done making TextBox functional 
 2. TODO Until next scrum
+- Figure out Socket.IO client side 
+- Refactor MessageList to be more streamlined and use Utils file. 
 3. Need assistance / Figure out
+- Socket.IO frontend logic and flow of data 
 
 ------ SCRUM #7 -------
 
