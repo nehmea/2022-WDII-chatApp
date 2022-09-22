@@ -125,3 +125,35 @@ export const joinChannel = ({
       });
   }
 };
+
+/**
+ * fetches a list of all users in the database
+ * @param {*} param0
+ */
+export const fetchAllUsers = ({ setListOfUsers }) => {
+  axios
+    .get(`${process.env.REACT_APP_SERVER_URL}/users/`)
+    .then((response) => {
+      if (response.status === 200) {
+        setListOfUsers(response.data);
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+export const deleteUser = ({ userId, setListOfUsers }) => {
+  axios
+    .delete(`${process.env.REACT_APP_SERVER_URL}/users/delete/user/${userId}`, {
+      headers: { accessToken: localStorage.getItem("accessToken") },
+    })
+    .then((response) => {
+      if (response.status === 200) {
+        fetchAllUsers({ setListOfUsers });
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};

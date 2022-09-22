@@ -5,6 +5,21 @@ const bcrypt = require("bcrypt");
 const { sign } = require("jsonwebtoken");
 const { validateToken } = require("../middlewares/AuthMiddleware");
 
+// ----------------------------------------
+// GET All users
+router.get("/", async (request, response) => {
+  try {
+    const listOfUsers = await users.findAll();
+    response.status(200).json(listOfUsers);
+  } catch (err) {
+    response.status(500).send({
+      message: "Whoops, An error occured!",
+    });
+    console.error(`Error while getting all users -`, err.message);
+    next(err);
+  }
+});
+
 // ----------------------------------
 // register a new user
 router.post("/register", async (request, response) => {
@@ -24,6 +39,35 @@ router.post("/register", async (request, response) => {
     });
   }
 });
+
+// --------------------------------------------
+// DELETE a user
+router.delete(
+  "/delete/user/:id([0-9]+)",
+  validateToken,
+  async (request, response, next) => {
+    if (request.user.role !== "admin") {
+      response
+        .status(401)
+        .send({ message: "You are unauthorized to delete users" });
+    }
+    const userId = parseInt(request.params.id);
+    try {
+      const count = await users.destroy({ where: { id: userId } });
+      if (count == 0) {
+        response.status(400).send({ message: "User not found" });
+      } else if (count > 0) {
+        response.status(200).send({ message: `User successfully deleted.` });
+      }
+    } catch (err) {
+      response.status(500).send({
+        message: "Channel not found",
+      });
+      console.error(`Error while deleting a channel -`, err.message);
+      next(err);
+    }
+  }
+);
 
 // ----------------------------------
 //  user login and authentication
