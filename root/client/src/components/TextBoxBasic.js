@@ -4,8 +4,17 @@ import { Socket } from 'socket.io-client';
 
 function TextBoxBasic() {
 
-    const sendMessage = () => {
-        
+    const sendMessage = (data) => {
+        axios
+            .post(`${process.env.REACT_APP_SERVER_URL}/messages`, data)
+            .then((response) => {
+            //navigate(`/login`);
+            })
+            .catch((error) => {
+            if (error.response) {
+                setErrorMsg(error.response.data.error);
+            }
+            });
     };
 
   return (

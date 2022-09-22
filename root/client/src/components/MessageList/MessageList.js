@@ -14,7 +14,7 @@ function MessageList() {
   const { authState } = useContext(AuthContext);
 
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_SERVER_URL}/messages/byChannel/${2}`).then((response) => {
+    axios.get(`${process.env.REACT_APP_SERVER_URL}/messages/byChannel/${1}`).then((response) => {
       setListOfMessages(response.data);
     });
 

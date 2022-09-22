@@ -24,8 +24,12 @@ const io = new Server(server, {
 io.on("connection", (socket) => {
     console.log("User Connected: ", socket.id);
 
-    socket.on("join_room", (data) => {
+    socket.on("join_channel", (data) => {
         socket.join(data);
+    });
+
+    socket.on("send_message", (data) => {
+        socket.broadcast.emit("receive_message", data);
     });
 
     socket.on("disconnect", () => {
@@ -54,7 +58,7 @@ app.use((err, req, res, next) => {
 
 //https://stackoverflow.com/questions/9781218/how-to-change-node-jss-console-font-color
 db.sequelize.sync().then(() => {
-  app.listen(PORT, () => {
+    server.listen(PORT, () => {
     console.log("\x1b[32m%s\x1b[0m", `Server Running on port ${PORT}`); //BgGreen = "\x1b[42m"
   });
 });

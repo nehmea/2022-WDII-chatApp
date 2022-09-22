@@ -6,6 +6,7 @@ import { fetchChannelsByUser } from "../helpers/Utils";
 // import { AuthContext } from "../helpers/AuthContext";
 import MessageList from "../components/MessageList/MessageList";
 import TextBox from "../components/TextBox";
+import {SocketContext, socket} from "../helpers/SocketContext";
 
 function Home() {
   const [channelsData, setChannelsData] = useState([]);
@@ -16,27 +17,29 @@ function Home() {
   }, []);
 
   return (
-    <Container fluid>
-      <Row>
-        {/* Left side */}
-        <Col xs={6} md={4} className="d-flex flex-column">
-          <NewChannelForm setChannelsData={setChannelsData} />
-          <ChannelsList
-            channelsData={channelsData}
-            joinedChannels={joinedChannels}
-          />
-        </Col>
-        {/* Right side */}
-        <Col
-          xs={12}
-          md={8}
-          className="d-flex flex-column justify-content-between"
-        >
-          <MessageList />
-          <TextBox />
-        </Col>
-      </Row>
-    </Container>
+    <SocketContext.Provider value={socket}>
+        <Container fluid>
+        <Row>
+            {/* Left side */}
+            <Col xs={6} md={4} className="d-flex flex-column">
+            <NewChannelForm setChannelsData={setChannelsData} />
+            <ChannelsList
+                channelsData={channelsData}
+                joinedChannels={joinedChannels}
+            />
+            </Col>
+            {/* Right side */}
+            <Col
+            xs={12}
+            md={8}
+            className="d-flex flex-column justify-content-between"
+            >
+            <MessageList />
+            <TextBox />
+            </Col>
+        </Row>
+        </Container>
+    </SocketContext.Provider>
   );
 }
 
