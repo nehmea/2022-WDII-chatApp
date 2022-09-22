@@ -1,9 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const { users } = require("../models");
+const { users, channels, users_channels } = require("../models");
 const bcrypt = require("bcrypt");
 const { sign } = require("jsonwebtoken");
 const { validateToken } = require("../middlewares/AuthMiddleware");
+var colors = require("colors");
 
 // ----------------------------------------
 // GET All users
@@ -19,6 +20,30 @@ router.get("/", async (request, response) => {
     });
     console.error(`Error while getting all users -`, err.message);
     next(err);
+  }
+});
+
+// ----------------------------------------
+// GET users of a channel by Channel id
+router.get("/:id([0-9]+)/users", validateToken, async (request, response) => {
+  const channelId = parseInt(request.params.id);
+  try {
+    const listOfChannelUsers = await channels.findOne({
+      where: { id: channelId },
+      include: [
+        {
+          model: users,
+          attributes: ["id", "username", "avatarUrl", "bio"],
+          through: "users_channels",
+        },
+      ],
+    });
+    response.status(200).json(listOfChannelUsers.users);
+  } catch (err) {
+    response.status(500).send({
+      message: "Whoops, An error occured!",
+    });
+    console.error(`Error while getting all users -`, err.message);
   }
 });
 
@@ -65,7 +90,7 @@ router.delete(
       response.status(500).send({
         message: "Channel not found",
       });
-      console.error(`Error while deleting a channel -`, err.message);
+      console.error(`Error while deleting a channel - ${err.message}`.red);
       next(err);
     }
   }
