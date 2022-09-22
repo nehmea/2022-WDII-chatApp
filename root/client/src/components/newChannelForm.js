@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useState, useContext } from "react";
 import { Form, FloatingLabel, Button, Col, Row } from "react-bootstrap";
 import { AuthContext } from "../helpers/AuthContext";

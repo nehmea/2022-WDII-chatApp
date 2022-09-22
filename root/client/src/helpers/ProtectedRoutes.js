@@ -7,7 +7,7 @@ function ProtectedRoute({ isAllowed, redirectPath = "/login", children }) {
     return <Navigate to={redirectPath} replace />;
   }
 
-  return children;
+  return children ? children : <Outlet />;
 }
 
 export default ProtectedRoute;
