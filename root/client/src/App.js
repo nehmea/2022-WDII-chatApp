@@ -11,12 +11,14 @@ import Register from "./pages/Register";
 import AdminUsers from "./pages/AdminUsers";
 import AdminChannels from "./pages/AdminChannels";
 import Test from "./pages/Test";
+import EditProfile from "./pages/EditProfile";
+import UpdatePassword from "./pages/UpdatePassword";
+import LandingPage from "./pages/LandingPage";
 // HELPERS
 import { AuthContext } from "./helpers/AuthContext";
 import ProtectedRoute from "./helpers/ProtectedRoutes";
 
 import TextBox from "./components/TextBox";
-import LandingPage from "./pages/LandingPage";
 
 // const socket = io.connect(`${process.env.REACT_APP_SERVER_URL}`); //http://localhost:3001
 
@@ -80,6 +82,11 @@ function App() {
               <Route path="/admin/users" element={<AdminUsers />}></Route>
               <Route path="/admin/channels" element={<AdminChannels />}></Route>
             </Route>
+            <Route path="/profile/edit" element={<EditProfile />}></Route>
+            <Route
+              path="/profile/password/edit"
+              element={<UpdatePassword />}
+            ></Route>
           </Routes>
         </Router>
       </AuthContext.Provider>
