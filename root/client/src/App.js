@@ -3,7 +3,6 @@ import "./App.css";
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import axios from "axios";
-import io from "socket.io-client";
 // PAGES
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -18,10 +17,7 @@ import UserProfile from "./pages/UserProfile";
 // HELPERS
 import { AuthContext } from "./helpers/AuthContext";
 import ProtectedRoute from "./helpers/ProtectedRoutes";
-
-import TextBox from "./components/TextBox";
-
-// const socket = io.connect(`${process.env.REACT_APP_SERVER_URL}`); //http://localhost:3001
+import LandingPage from "./pages/LandingPage";
 
 function App() {
   const [authState, setAuthSate] = useState(null);

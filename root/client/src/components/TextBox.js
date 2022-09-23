@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { Formik, Form, Field, ErrorMessage } from "formik";
@@ -7,9 +7,13 @@ import { EditorState, convertToRaw } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
 import draftToHtml from "draftjs-to-html";
 import { AuthContext } from "../helpers/AuthContext";
-import { Socket } from 'socket.io-client';
+import { Button } from "react-bootstrap";
+import { SocketContext } from "../helpers/SocketContext";
+
 
 function TextBox() {
+
+    const socket = useContext(SocketContext);
 
     let { channelId } = useParams();
     const { authState } = useContext(AuthContext);
@@ -27,16 +31,22 @@ function TextBox() {
     const initialValues = {
         body: "",
         isDeleted: 0,
-        channelId: channelId,
-        authorId: authorId,
+        channelId: 1, //channelId
+        authorId: 5, //authorId
       };
     
       const validationSchema = Yup.object().shape({
         body: Yup.string().required().min(1).max(2000),
         isDeleted: Yup.number().required().min(0).max(1),
-        channelId: Yup.number().required(),
-        authorId: Yup.number().required(),
+        channelId: Yup.number(),
+        authorId: Yup.number(),
       });
+
+    useEffect(() => {
+        socket.on("receive_message", (data) => {
+            alert(data.message);
+        });
+    }, [socket]);
 
     const handleBeforeInput = (input) => {
         const textLength = draftToHtml(
@@ -54,11 +64,15 @@ function TextBox() {
         }
     };
 
+    const sendMessage = (body) => {
+        socket.emit("send_message", {message: body});
+    }
+
     const onSubmit = (data) => {
         setErrorMsg("");
-        data.body = draftToHtml(convertToRaw(editorState.getCurrentContent()));
+        sendMessage(data.body);
         axios
-            .post(`${process.env.REACT_APP_SERVER_URL}/messages/`, data)
+            .post(`${process.env.REACT_APP_SERVER_URL}/messages`, data)
             .then((response) => {
             //navigate(`/login`);
             })
@@ -69,19 +83,22 @@ function TextBox() {
             });
     };
 
+    
+
   return (
     <div className='textBoxContainer'>
         <p className="text-danger">{errorMsg}</p>
         <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
             <Form>
                 <p className="text-danger">{EditorMsg}</p>
-                <Editor
+                {/* <Editor
                     editorState={editorState}
                     onEditorStateChange={setEditorState}
                     handleBeforeInput={handleBeforeInput}
                     editorStyle={{ border: "1px solid", borderStyle: "groove" }}
-                />
-                <button type="submit" className="btn btn-primary">Send</button>
+                /> */}
+                <Field name="body"/>
+                <Button type="submit" className="btn btn-primary">Send</Button>
             </Form>
         </Formik>
     </div>

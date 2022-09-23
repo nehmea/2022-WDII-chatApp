@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import Card from 'react-bootstrap/Card';
 import Message from "./Message";
 import React, { useState, useEffect, useContext } from "react";
+import './Message.css'
 
 function MessageList() {
 
@@ -14,20 +15,21 @@ function MessageList() {
   const { authState } = useContext(AuthContext);
 
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_SERVER_URL}/messages/byChannel/${2}`).then((response) => {
+    axios.get(`${process.env.REACT_APP_SERVER_URL}/messages/byChannel/${1}`).then((response) => {
       setListOfMessages(response.data);
     });
 
   }, []);
 
   return (
-    <div>
+    <div className="d-flex flex-column messages-area">
       {listOfMessages.map((value, key) => {
         return (
           <Message key={key}
             username={value.user.username}
             createdAt={value.createdAt}
             body={value.body}
+            avatar={value.user.avatarUrl}
           />
         );
       })}
