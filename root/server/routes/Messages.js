@@ -3,6 +3,7 @@ const router = express.Router();
 const { messages } = require("../models");
 const { users } = require("../models");
 var validator = require("validator");
+const { validateToken } = require("../middlewares/AuthMiddleware");
 
 //const Op = require("sequelize").Op;
 
@@ -13,13 +14,23 @@ var validator = require("validator");
 // Get message by ID
 router.get("/:id", async (request, response) => {
     const id = parseInt(request.params.id);
-    if (Number.isInteger(id)) {
-      const mes = await messages.findByPk(id);
-      response.status(200).json(mes);
-    } else {
-      response.status(400).send({
-        message: "invalid input id",
-      });
+    try {
+        const mes = Number.isInteger(id)
+        ? await messages.findByPk(id)
+        : null;
+        if (mes !== null) {
+            response.status(200).json(mes);
+        } else {
+            response.status(400).send({
+               message: "message not found",
+            });
+        }
+    } catch (err) {
+        response.status(400).send({
+            message: "An error occured",
+        });
+        console.error(`Error while getting a message by ID -`, err.message);
+        next(err);
     }
 });
 
@@ -27,13 +38,21 @@ router.get("/:id", async (request, response) => {
 // Get message by authorID
 router.get("/byUser/:authorId", async (request, response) => {
     const authorId = parseInt(request.params.authorId);
-    if (Number.isInteger(authorId)) {
-      const mes = await messages.findAll({ where: { authorId: authorId } });
-      response.status(200).json(mes);
-    } else {
-      response.status(400).send({
-        message: "invalid authorId",
-      });
+    try {
+        if (Number.isInteger(authorId)) {
+            const mes = await messages.findAll({ where: { authorId: authorId } });
+            response.status(200).json(mes);
+        } else {
+            response.status(400).send({
+            message: "invalid authorId",
+            });
+        }
+    } catch (err) {
+        response.status(400).send({
+            message: "An error occured",
+        });
+        console.error(`Error while getting a message by authorID -`, err.message);
+        next(err);
     }
 });
 
@@ -41,20 +60,28 @@ router.get("/byUser/:authorId", async (request, response) => {
 // Get message by channelID
 router.get("/byChannel/:channelId", async (request, response) => {
     const channelId = parseInt(request.params.channelId);
-    if (Number.isInteger(channelId)) {
-      const mes = await messages.findAll({
-        where: {
-            channelId: channelId
-          },
-          include: [{
-            model: users
-          }]
-    });
-      response.status(200).json(mes);
-    } else {
-      response.status(400).send({
-        message: "invalid channelId",
-      });
+    try {
+        if (Number.isInteger(channelId)) {
+            const mes = await messages.findAll({
+            where: {
+                channelId: channelId
+                },
+                include: [{
+                model: users
+                }]
+        });
+            response.status(200).json(mes);
+        } else {
+            response.status(400).send({
+            message: "invalid channelId",
+            });
+        }
+    } catch (err) {
+        response.status(400).send({
+            message: "An error occured",
+        });
+        console.error(`Error while getting a message by channelID -`, err.message);
+        next(err);
     }
 });
 
@@ -66,7 +93,7 @@ router.post("/", async (request, response) => {
     if (validator.isEmpty(mes.body)) {
       console.log("Empty message");
       response.status(400).send({
-        message: "Please compose a message",
+        message: "message cannot be empty",
       });
     } else {
       await messages.create(mes).then(
@@ -86,7 +113,7 @@ router.patch("/:id", async (request, response) => {
   
     if (validator.isEmpty(newBody)) {
       response.status(400).send({
-        message: "Message cannot be empty",
+        message: "message cannot be empty",
       });
     } else {
       await messages.update(
