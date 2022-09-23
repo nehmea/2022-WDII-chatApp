@@ -6,9 +6,10 @@ import { useNavigate } from "react-router-dom";
 import Card from 'react-bootstrap/Card';
 import React, { useState, useEffect, useContext } from "react";
 import { format, parseISO } from 'date-fns';
+import './Message.css'
 
 
-function Message({ username, createdAt, body }) {
+function Message({ username, createdAt, body, avatar }) {
 
   let formattedDate = format((parseISO(createdAt)), 'MMM dd yyyy hh:mmaa');
 
@@ -23,17 +24,41 @@ function Message({ username, createdAt, body }) {
   }, []);
 
   return (
-    <div>
-      <Card className="messageContainer">
-        <Card.Header>
-          <div>{username}</div>
-          <div>{formattedDate}</div>
-        </Card.Header>
-        <Card.Body>
-          <Card.Text>{body}</Card.Text>
-        </Card.Body>
-        <Card.Footer>Likes Here</Card.Footer>
-      </Card>
+    // <div>
+    //   <Card className="messageContainer">
+    //     <Card.Header>
+    //       <div>{username}</div>
+    //       <div>{formattedDate}</div>
+    //     </Card.Header>
+    //     <Card.Body>
+    //       <Card.Text>{body}</Card.Text>
+    //     </Card.Body>
+    //     <Card.Footer>Likes Here</Card.Footer>
+    //   </Card>
+    // </div>
+    <div className="my-4">
+      <div className="d-flex">
+        <img
+          alt="user avatar"
+          src={avatar}
+          width="50"
+          height="50"
+          className="rounded-circle avatar me-3"
+        />
+        <div className="d-flex flex-column" >
+          <div className="d-flex">
+            <p className="me-3">{username}</p>
+            <p>{formattedDate}</p>
+          </div>
+          <div>
+            <p>{body}</p>
+          </div>
+          <div>
+            <span>👍</span>
+            <span>2</span>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }

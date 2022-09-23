@@ -21,13 +21,14 @@ function MessageList() {
   }, []);
 
   return (
-    <div>
+    <div className="mx-2 d-flex flex-column">
       {listOfMessages.map((value, key) => {
         return (
           <Message key={key}
             username={value.user.username}
             createdAt={value.createdAt}
             body={value.body}
+            avatar={value.user.avatarUrl}
           />
         );
       })}
