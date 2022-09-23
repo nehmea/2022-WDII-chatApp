@@ -24,20 +24,8 @@ function Message({ username, createdAt, body, avatar }) {
   }, []);
 
   return (
-    // <div>
-    //   <Card className="messageContainer">
-    //     <Card.Header>
-    //       <div>{username}</div>
-    //       <div>{formattedDate}</div>
-    //     </Card.Header>
-    //     <Card.Body>
-    //       <Card.Text>{body}</Card.Text>
-    //     </Card.Body>
-    //     <Card.Footer>Likes Here</Card.Footer>
-    //   </Card>
-    // </div>
     <div className="my-3 message">
-      <div className="d-flex">
+      <div className="d-flex p-2">
         <img
           alt="user avatar"
           src={avatar}
