@@ -1,0 +1,28 @@
+.messages-area {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.message:hover {
+  background: #343333;
+}
+
+.message .username-bold {
+  font-weight: bold;
+}
+
+.message .date-small {
+  font-size: small;
+  color: #a8a6a6;
+}
+
+.message .message-body {
+  color: #e2e2e2;
+}
+
+.message .message-likes {
+  background: #313131;
+  width: fit-content;
+  /* padding: 4px; */
+  /* border-radius: 4px; */
+}

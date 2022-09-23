@@ -10,4 +10,6 @@
 
 .chat-area {
   background: #3e3e3e;
+  max-height: 100%;
+
 }

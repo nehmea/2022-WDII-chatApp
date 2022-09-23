@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import Card from 'react-bootstrap/Card';
 import Message from "./Message";
 import React, { useState, useEffect, useContext } from "react";
+import './Message.css'
 
 function MessageList() {
 
@@ -21,7 +22,7 @@ function MessageList() {
   }, []);
 
   return (
-    <div className="mx-2 d-flex flex-column">
+    <div className="d-flex flex-column messages-area">
       {listOfMessages.map((value, key) => {
         return (
           <Message key={key}
