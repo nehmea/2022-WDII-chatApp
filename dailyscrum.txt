@@ -233,18 +233,37 @@ Not Done
 ------ SCRUM #7 -------
 
 2022/09/23 Alina
-1. Done / Not done?
-2. TODO Until next scrum
-3. Need assistance / Figure out
+1. Done / Not done? 
+- An admin is navigated directly to admin/users upon login 
+- Styled admin/users & admin specific nav links 
+- Styled the message component and chat area on the home page 
+2. TODO Until next scrum 
+- Add button to show all channels 
+- Channel owner can edit the title of the channel 
+- Work on other Channel Owner features if time permits 
+- Continue woirk on styling 
+3. Need assistance / Figure out 
 
 2022/09/23 Ali
 1. Done / Not done?
+Done 
+- Helped with socket io 
+- Story: a user can update their profile (with minor bugs) 
+- Story: a user can see other users in a channel 
+Not Done 
+- Fix join channel: an owner can't leave their channel 
 2. TODO Until next scrum
+- Try to make socket io work 
 3. Need assistance / Figure out
 
 2022/09/23 Greg
 1. Done / Not done?
+- TextBox can send message to database 
+- Socket.io not implemented on client side 
 2. TODO Until next scrum
+- Implement Like system 
+- Refactor MessageList to use Utils 
+- Deleting/Editing message   
 3. Need assistance / Figure out
 
 ------ SCRUM #8 -------

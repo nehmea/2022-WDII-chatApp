@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import ChannelsList from "../components/ChannelsList/ChannelsList";
 import NewChannelForm from "../components/newChannelForm";
 import { Col, Container, Row } from "react-bootstrap";
@@ -6,6 +6,7 @@ import { fetchChannelsByUser, getChannelUsers } from "../helpers/Utils";
 // import { AuthContext } from "../helpers/AuthContext";
 import MessageList from "../components/MessageList/MessageList";
 import TextBox from "../components/TextBox";
+import {SocketContext, socket} from "../helpers/SocketContext";
 import ActiveChannelUsers from "../components/ActiveChannelUsers";
 import './Home.css'
 
@@ -31,6 +32,8 @@ function Home() {
   console.log(channelsData)
 
   return (
+
+    <SocketContext.Provider value={socket}>
     <Container fluid className="home-container">
       <Row className="home-content-area">
         {/* Channels area */}
@@ -57,6 +60,7 @@ function Home() {
         </Col>
       </Row>
     </Container>
+    </SocketContext.Provider>
   );
 }
 
