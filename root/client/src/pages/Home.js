@@ -7,6 +7,7 @@ import { fetchChannelsByUser, getChannelUsers } from "../helpers/Utils";
 import MessageList from "../components/MessageList/MessageList";
 import TextBox from "../components/TextBox";
 import ActiveChannelUsers from "../components/ActiveChannelUsers";
+import './Home.css'
 
 function Home() {
   const [channelsData, setChannelsData] = useState([]);
@@ -27,10 +28,12 @@ function Home() {
     getChannelUsers({ activeChannel, setActiveChannelUsers });
   }, [activeChannel]);
 
+  console.log(channelsData)
+
   return (
-    <Container fluid>
-      <Row>
-        {/* Left side */}
+    <Container fluid className="home-container">
+      <Row className="home-content-area">
+        {/* Channels area */}
         <Col xs={3} md={3} className="d-flex flex-column">
           <NewChannelForm setChannelsData={setChannelsData} />
           <ChannelsList
@@ -39,15 +42,16 @@ function Home() {
             setActiveChannel={setActiveChannel}
           />
         </Col>
-        {/* Right side */}
+        {/* Chat area */}
         <Col
           xs={12}
           md={6}
-          className="d-flex flex-column justify-content-between"
+          className="chat-area d-flex flex-column justify-content-between p-0"
         >
           <MessageList />
           <TextBox />
         </Col>
+        {/* Users area */}
         <Col xs={3} md={3} className="d-flex flex-column">
           <ActiveChannelUsers activeChannelUsers={activeChannelUsers} />
         </Col>

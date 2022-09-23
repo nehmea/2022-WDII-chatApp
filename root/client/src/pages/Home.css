@@ -1,0 +1,15 @@
+.home-container {
+  background-color: #313131;
+  height: 100vh;
+  color: white;
+}
+
+.home-content-area {
+  height: 100vh;
+}
+
+.chat-area {
+  background: #3e3e3e;
+  max-height: 100%;
+
+}
