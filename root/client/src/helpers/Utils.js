@@ -162,6 +162,10 @@ export const deleteUser = ({ userId, setListOfUsers }) => {
     });
 };
 
+/**
+ * A function that gets all users of a specific 9active) channel by id
+ * @param {*} param0
+ */
 export const getChannelUsers = ({ activeChannel, setActiveChannelUsers }) => {
   axios
     .get(`${process.env.REACT_APP_SERVER_URL}/users/${activeChannel}/users`, {
@@ -170,6 +174,26 @@ export const getChannelUsers = ({ activeChannel, setActiveChannelUsers }) => {
     .then((response) => {
       if (response.status === 200) {
         setActiveChannelUsers(response.data);
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+/**
+ * gets user info by id
+ * @param {*} param0
+ */
+export const getCurrentUserInfo = ({ setUserInfo }) => {
+  axios
+    .get(`${process.env.REACT_APP_SERVER_URL}/users/userInfo`, {
+      headers: { accessToken: localStorage.getItem("accessToken") },
+    })
+    .then((response) => {
+      if (response.status === 200) {
+        // console.log(response.data);
+        setUserInfo(response.data);
       }
     })
     .catch((error) => {

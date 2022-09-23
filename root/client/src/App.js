@@ -10,10 +10,13 @@ import Register from "./pages/Register";
 import AdminUsers from "./pages/AdminUsers";
 import AdminChannels from "./pages/AdminChannels";
 import Test from "./pages/Test";
+import EditProfile from "./pages/EditProfile";
+import UpdatePassword from "./pages/UpdatePassword";
+import LandingPage from "./pages/LandingPage";
+import UserProfile from "./pages/UserProfile";
 // HELPERS
 import { AuthContext } from "./helpers/AuthContext";
 import ProtectedRoute from "./helpers/ProtectedRoutes";
-
 import LandingPage from "./pages/LandingPage";
 
 function App() {
@@ -76,6 +79,12 @@ function App() {
               <Route path="/admin/users" element={<AdminUsers />}></Route>
               <Route path="/admin/channels" element={<AdminChannels />}></Route>
             </Route>
+            <Route path="/profile/edit" element={<EditProfile />}></Route>
+            <Route
+              path="/profile/password/edit"
+              element={<UpdatePassword />}
+            ></Route>
+            <Route path="/profile" element={<UserProfile />}></Route>
           </Routes>
         </Router>
       </AuthContext.Provider>
