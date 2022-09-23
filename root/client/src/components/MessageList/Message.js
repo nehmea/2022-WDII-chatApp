@@ -24,7 +24,7 @@ function Message({ username, createdAt, body, avatar }) {
   }, []);
 
   return (
-    <div className="my-3 message">
+    <div className="my-1 message">
       <div className="d-flex p-2">
         <img
           alt="user avatar"

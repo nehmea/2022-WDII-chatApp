@@ -1,0 +1,19 @@
+.status-icon {
+  border: 3px solid #313131;
+  height: 20px;
+  width: 20px;
+  bottom: 0px;
+  right: 12px;
+}
+
+.status-icon.online-green {
+  background-color: rgb(18, 174, 18);
+}
+
+.status-icon.busy-red {
+  background-color: rgb(255, 26, 64);
+}
+
+.status-icon.offline-empty {
+  background-color: #747272;
+}
