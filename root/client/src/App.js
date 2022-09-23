@@ -14,6 +14,7 @@ import Test from "./pages/Test";
 import EditProfile from "./pages/EditProfile";
 import UpdatePassword from "./pages/UpdatePassword";
 import LandingPage from "./pages/LandingPage";
+import UserProfile from "./pages/UserProfile";
 // HELPERS
 import { AuthContext } from "./helpers/AuthContext";
 import ProtectedRoute from "./helpers/ProtectedRoutes";
@@ -87,6 +88,7 @@ function App() {
               path="/profile/password/edit"
               element={<UpdatePassword />}
             ></Route>
+            <Route path="/profile" element={<UserProfile />}></Route>
           </Routes>
         </Router>
       </AuthContext.Provider>

@@ -37,6 +37,7 @@ router.get("/userInfo", validateToken, async (request, response) => {
     const userInfo = await users.findByPk(userId, {
       attributes: { exclude: ["password", "role"] },
     });
+    // console.log(userInfo);
     response.status(200).json(userInfo);
   } catch (err) {
     response.status(500).send({
