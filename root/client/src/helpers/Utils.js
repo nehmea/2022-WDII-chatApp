@@ -69,13 +69,13 @@ export const createChannel = ({
       )
       .then((response) => {
         setMsg(response.data.message);
-        setMsgType("text-success");
+        setMsgType("light");
         fetchChannels({ setChannelsData });
       })
       .catch((error) => {
         console.log(error);
         if (error.response) {
-          setMsgType("text-danger");
+          setMsgType("warning");
           setMsg(error.response.data.message);
         }
       });

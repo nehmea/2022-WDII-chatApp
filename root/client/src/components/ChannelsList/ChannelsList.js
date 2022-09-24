@@ -12,8 +12,8 @@ function ChannelsList({ channelsData, joinedChannels, setActiveChannel }) {
 
   // console.log('in the list', channelsData)
   return (
-    <div>
-      <h2>Channels List</h2>
+    <div className="m-2">
+      <h2>My Channels</h2>
       <p className="text-success">{msg}</p>
       <div>
         {channelsData.map(

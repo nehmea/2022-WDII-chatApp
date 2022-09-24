@@ -77,21 +77,8 @@ function UsersTable() {
                 <td>{user.status}</td>
                 <td>{user.createdAt.split('T')[0]}</td>
                 <td>{user.updatedAt.split('T')[0]}</td>
-                <td
-                  className="pointer"
-                  onClick={
-                    () => {
-                      handleShow(user.id);
-                    }
-
-                    //   deleteUser({
-                    //     userId: user.id,
-                    //     setListOfUsers: setListOfUsers,
-                    //   });
-                  }
-                >
+                <td className="pointer" onClick={() => handleShow(user.id)}>
                   <i className="bi bi-trash"></i>
-
                 </td>
               </tr>
             );
