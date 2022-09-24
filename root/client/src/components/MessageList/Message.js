@@ -56,9 +56,9 @@ function Message({
               {deleted === 0 ? body : "Deleted Message"}
             </p>
           </div>
-          <div className="row">
+          <div>
             {deleted === 0 && (
-              <div className="message-likes rounded p-1 col">
+              <div className="message-likes rounded p-1">
                 <span>👍</span>
                 <span className="ms-1">2</span>
               </div>
