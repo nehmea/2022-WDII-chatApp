@@ -33,7 +33,9 @@ export const fetchChannelsByUser = ({ setChannelsData, setJoinedChannels }) => {
     })
     .then((response) => {
       if (response.status === 200) {
+        // Detailed info about joined channels
         setChannelsData(response.data.listOfChannels);
+        // Only IDs of joined channels
         setJoinedChannels(response.data.joinedChannels);
       }
     })
@@ -206,6 +208,7 @@ export const getCurrentUserInfo = ({ setUserInfo }) => {
  */
 export const getChannelMessages = ({ activeChannel, setListOfMessages }) => {
   // console.log(activeChannel);
+  // THIS FAILS
   axios
     .get(
       `${process.env.REACT_APP_SERVER_URL}/messages/byChannel/${activeChannel}`

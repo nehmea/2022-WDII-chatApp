@@ -86,7 +86,7 @@ function TextBox({ activeChannel, setListOfMessages }) {
         onSubmit={onSubmit}
         validationSchema={validationSchema}
       >
-        <Form>
+        <Form className="d-flex">
           {/* <p className="text-danger">{EditorMsg}</p> */}
           {/* <Editor
                     editorState={editorState}
@@ -99,8 +99,9 @@ function TextBox({ activeChannel, setListOfMessages }) {
             component="p"
             className="text-danger text-start"
           />
-          <Field name="body" />
-          <Button type="submit" className="btn btn-primary">
+
+          <Field name="body" style={{ width: "100%" }} />
+          <Button type="submit" variant="outline-light">
             Send
           </Button>
         </Form>

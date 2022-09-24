@@ -6,7 +6,6 @@ function ActiveChannelUsers({ activeChannelUsers }) {
     <div className="d-flex flex-column m-2">
       <h2>Member List</h2>
       {activeChannelUsers.map((user, index) => {
-        console.log("user", user);
         return (
           <div key={user.id}>
             <div className="active-channel-user d-flex align-items-center py-1 m-1 rounded">

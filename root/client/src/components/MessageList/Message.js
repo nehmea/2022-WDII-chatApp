@@ -54,7 +54,7 @@ function Message({
           </div>
           <div>
             <p className="mb-2 message-body">
-              {deleted === 0 ? body : "Deleted Message"}
+              {deleted === 0 ? body : "Deleted message"}
             </p>
           </div>
           <div>
@@ -67,14 +67,14 @@ function Message({
           </div>
         </div>
         {userId === authState.id && (
-          <div className="align-self-center">
-            <Button
+          <div className="message-delete align-self-center mx-3">
+            <span
               onClick={() =>
                 deleteMessage({ messageId, deleted, setDeleted })
               }
             >
-              {deleted === 0 ? "Delete" : "Undo"}
-            </Button>
+              {deleted === 0 ? <i className="bi bi-trash"></i> : <i className="bi bi-arrow-counterclockwise"></i>}
+            </span>
           </div>
         )}
       </div>
