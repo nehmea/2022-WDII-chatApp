@@ -1,40 +1,26 @@
-//import React from 'react';
-import axios from "axios";
-import { useParams } from "react-router-dom";
-import { AuthContext } from "../../helpers/AuthContext";
-import { useNavigate } from "react-router-dom";
-import Card from 'react-bootstrap/Card';
 import Message from "./Message";
-import React, { useState, useEffect, useContext } from "react";
-import './Message.css'
+import "./Message.css";
 
-function MessageList() {
-
-  let { channelId } = useParams();
-  const [listOfMessages, setListOfMessages] = useState([]);
-  const { authState } = useContext(AuthContext);
-
-  useEffect(() => {
-    axios.get(`${process.env.REACT_APP_SERVER_URL}/messages/byChannel/${2}`).then((response) => {
-      setListOfMessages(response.data);
-    });
-
-  }, []);
+function MessageList({ listOfMessages }) {
 
   return (
     <div className="d-flex flex-column messages-area">
-      {listOfMessages.map((value, key) => {
+      {listOfMessages.map((message, key) => {
         return (
-          <Message key={key}
-            username={value.user.username}
-            createdAt={value.createdAt}
-            body={value.body}
-            avatar={value.user.avatarUrl}
+          <Message
+            key={message.id}
+            messageId={message.id}
+            username={message.user.username}
+            createdAt={message.createdAt}
+            body={message.body}
+            avatar={message.user.avatarUrl}
+            isDeleted={message.isDeleted}
+            userId={message.user.id}
           />
         );
       })}
     </div>
-  )
+  );
 }
 
-export default MessageList
+export default MessageList;

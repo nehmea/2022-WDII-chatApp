@@ -10,7 +10,7 @@ function ChannelsList({ channelsData, joinedChannels, setActiveChannel }) {
   const [msg, setMsg] = useState("");
   const [msgType, setMsgType] = useState("");
 
-  console.log('in the list', channelsData)
+  // console.log('in the list', channelsData)
   return (
     <div className="m-2">
       <h2>My Channels</h2>

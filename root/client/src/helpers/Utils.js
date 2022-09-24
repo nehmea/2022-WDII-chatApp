@@ -162,6 +162,10 @@ export const deleteUser = ({ userId, setListOfUsers }) => {
     });
 };
 
+/**
+ * A function that gets all users of a specific 9active) channel by id
+ * @param {*} param0
+ */
 export const getChannelUsers = ({ activeChannel, setActiveChannelUsers }) => {
   axios
     .get(`${process.env.REACT_APP_SERVER_URL}/users/${activeChannel}/users`, {
@@ -175,4 +179,57 @@ export const getChannelUsers = ({ activeChannel, setActiveChannelUsers }) => {
     .catch((error) => {
       console.log(error);
     });
+};
+
+/**
+ * gets user info by id
+ * @param {*} param0
+ */
+export const getCurrentUserInfo = ({ setUserInfo }) => {
+  axios
+    .get(`${process.env.REACT_APP_SERVER_URL}/users/userInfo`, {
+      headers: { accessToken: localStorage.getItem("accessToken") },
+    })
+    .then((response) => {
+      if (response.status === 200) {
+        // console.log(response.data);
+        setUserInfo(response.data);
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+/**
+ * FETCHES ALL MESSAGES based on channel Id, and updates list of messages on home
+ */
+export const getChannelMessages = ({ activeChannel, setListOfMessages }) => {
+  // console.log(activeChannel);
+  axios
+    .get(
+      `${process.env.REACT_APP_SERVER_URL}/messages/byChannel/${activeChannel}`
+    )
+    .then((response) => {
+      setListOfMessages(response.data);
+    });
+};
+
+/**
+ * Delete message by ID
+ *
+ */
+export const deleteMessage = ({ messageId, deleted, setDeleted }) => {
+  axios
+    .patch(
+      `${process.env.REACT_APP_SERVER_URL}/messages/delete/message/${messageId}`,
+      {
+        isDeleted: deleted === 0 ? 1 : 0,
+      },
+      { headers: { accessToken: localStorage.getItem("accessToken") } }
+    )
+    .then((response) => {
+      setDeleted(response.data.isDeleted);
+    })
+    .catch((error) => console.log(error));
 };

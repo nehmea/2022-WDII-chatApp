@@ -3,10 +3,10 @@ module.exports = (sequelize, DataTypes) => {
     body: {
       type: DataTypes.STRING(2000),
       allowNull: false,
-      validate : {
+      validate: {
         notEmpty: true,
-        len: [1,2000],
-      }
+        len: [1, 2000],
+      },
     },
     isDeleted: {
       type: DataTypes.TINYINT,
@@ -20,9 +20,14 @@ module.exports = (sequelize, DataTypes) => {
       onDelete: "cascade",
     });
     Messages.belongsTo(models.users, {
-        foreignKey: "authorId",
-        onDelete: "NO ACTION",
-        onUpdate: "CASCADE",
+      foreignKey: "authorId",
+      onDelete: "NO ACTION",
+      onUpdate: "CASCADE",
+    });
+    Messages.belongsTo(models.channels, {
+      foreignKey: "channelId",
+      onDelete: "NO ACTION",
+      onUpdate: "CASCADE",
     });
   };
 
