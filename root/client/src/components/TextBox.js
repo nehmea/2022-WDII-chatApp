@@ -10,9 +10,16 @@ import draftToHtml from "draftjs-to-html";
 import { Button } from "react-bootstrap";
 import { SocketContext } from "../helpers/SocketContext";
 import { getChannelMessages } from "../helpers/Utils";
+import { set } from "date-fns";
 
-function TextBox({ activeChannel, setListOfMessages }) {
-  const socket = useContext(SocketContext);
+function TextBox({
+  activeChannel,
+  setListOfMessages,
+  socket,
+  listOfMessages,
+  socketConnected,
+}) {
+  // const socket = useContext(SocketContext);
 
   // let { channelId } = useParams();
   // let { authorId } = authState.id;
@@ -25,19 +32,11 @@ function TextBox({ activeChannel, setListOfMessages }) {
 
   //console.log(authState);
 
-  const initialValues = {
-    body: "",
-  };
-
-  const validationSchema = Yup.object().shape({
-    body: Yup.string().max(2000),
-  });
-
-  useEffect(() => {
-    socket.on("receive_message", (data) => {
-      alert(data.message);
-    });
-  }, [socket]);
+  // useEffect(() => {
+  //   socket.on("receive_message", (data) => {
+  //     alert(data.message);
+  //   });
+  // }, [socket]);
 
   // const handleBeforeInput = (input) => {
   //     const textLength = draftToHtml(
@@ -55,22 +54,56 @@ function TextBox({ activeChannel, setListOfMessages }) {
   //     }
   // };
 
-  const sendMessage = (body) => {
-    socket.emit("send_message", { message: body });
-  };
+  // const sendMessage = (body) => {
+  //   socket.emit("send_message", { message: body });
+  // };
 
-  const onSubmit = (data) => {
+  // const [typing, setTyping] = useState(false);
+  // const [isTyping, setIsTyping] = useState(false);
+
+  // useEffect(() => {
+  //   socket.on("typing", () => setIsTyping(true));
+  //   socket.on("stopTyping", () => setIsTyping(false));
+  // }, []);
+
+  // const typingHandler = (event) => {
+  //   if (socketConnected) {
+  //     if (!typing) {
+  //       setTyping(true);
+  //       socket.emit("typing", activeChannel);
+  //     }
+
+  //     let lastTypingTime = new Date().getTime();
+  //     let timerlength = 3000;
+  //     setTimeout(() => {
+  //       let timeNow = new Date().getTime;
+  //       let timeDiff = timeNow - lastTypingTime;
+  //       if (timeDiff >= timerlength && typing) {
+  //         socket.emit("stopTyping", activeChannel);
+  //         setTyping(false);
+  //       }
+  //     }, timerlength);
+  //   }
+  // };
+
+  const onSubmit = async (data) => {
+    // socket.emit("stopTyping", activeChannel);
     if (data.body !== "") {
       data.channelId = activeChannel;
-      console.log(data);
+      // console.log(data);
       axios
         .post(`${process.env.REACT_APP_SERVER_URL}/messages`, data, {
           headers: { accessToken: localStorage.getItem("accessToken") },
         })
-        .then((response) => {
-          console.log(response.data.message);
-          // console.log(activeChannel);
-          getChannelMessages({ activeChannel, setListOfMessages });
+        .then(async (response) => {
+          console.log(response.data);
+          setListOfMessages(response.data);
+        })
+        .then(() => {
+          socket.emit(
+            "send_message",
+            listOfMessages[listOfMessages.length - 1]
+          );
         })
         .catch((error) => {
           if (error.response) {
@@ -78,6 +111,14 @@ function TextBox({ activeChannel, setListOfMessages }) {
         });
     }
   };
+
+  const initialValues = {
+    body: "",
+  };
+
+  const validationSchema = Yup.object().shape({
+    body: Yup.string().max(2000),
+  });
 
   return (
     <div className="textBoxContainer">
@@ -94,12 +135,17 @@ function TextBox({ activeChannel, setListOfMessages }) {
                     handleBeforeInput={handleBeforeInput}
                     editorStyle={{ border: "1px solid", borderStyle: "groove" }}
                 /> */}
+
           <ErrorMessage
             name="body"
             component="p"
             className="text-danger text-start"
           />
-          <Field name="body" />
+          {/* {isTyping ? <div>Loading...</div> : <></>} */}
+          <Field
+            name="body"
+            //  onChange={typingHandler}
+          />
           <Button type="submit" className="btn btn-primary">
             Send
           </Button>

@@ -41,8 +41,15 @@ function Register() {
   };
 
   const validationSchema = Yup.object().shape({
-    username: Yup.string().required().min(3).max(20),
-    password: Yup.string().required().min(6).max(16),
+    username: Yup.string()
+      .min(3)
+      .max(20)
+      .matches(
+        /^[a-zA-Z0-9_.]+$/,
+        "Username should only include letters, numbers, ( _ ) and (.), with no spaces"
+      )
+      .required(),
+    password: Yup.string().min(6).max(16).required(),
     avatarUrl: Yup.string().url(),
   });
 
@@ -63,7 +70,7 @@ function Register() {
 
   return (
     <AuthLayout>
-      <div className='d-flex align-items-center' style={{ height: '100%' }}>
+      <div className="d-flex align-items-center" style={{ height: "100%" }}>
         <Container className="auth-forms rounded p-4">
           <h2>Create an account</h2>
           <p className="text-danger">{errorMsg}</p>
@@ -108,7 +115,11 @@ function Register() {
                 editorState={editorState}
                 onEditorStateChange={setEditorState}
                 handleBeforeInput={handleBeforeInput}
-                editorStyle={{ border: "1px solid", borderStyle: "groove", color: "white" }}
+                editorStyle={{
+                  border: "1px solid",
+                  borderStyle: "groove",
+                  color: "white",
+                }}
               />
               <div className="my-3">
                 <ErrorMessage
