@@ -96,14 +96,10 @@ function TextBox({
           headers: { accessToken: localStorage.getItem("accessToken") },
         })
         .then(async (response) => {
-          console.log(response.data);
+          // console.log(response.data);
           setListOfMessages(response.data);
-        })
-        .then(() => {
-          socket.emit(
-            "send_message",
-            listOfMessages[listOfMessages.length - 1]
-          );
+          // console.log(listOfMessages);
+          socket.emit("send_message", response.data);
         })
         .catch((error) => {
           if (error.response) {

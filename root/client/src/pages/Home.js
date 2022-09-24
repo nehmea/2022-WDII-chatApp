@@ -12,7 +12,7 @@ import MessageList from "../components/MessageList/MessageList";
 import TextBox from "../components/TextBox";
 
 // import { SocketContext, socket } from "../helpers/SocketContext";
-import ActiveChannelUsers from "../components/ActiveChannelUsers";
+import ActiveChannelUsers from "../components/ActiveChannelUsers/ActiveChannelUsers";
 import "./Home.css";
 import axios from "axios";
 import { AuthContext } from "../helpers/AuthContext";
@@ -32,8 +32,8 @@ function Home() {
 
   useEffect(() => {
     fetchChannelsByUser({ setChannelsData, setJoinedChannels });
-  //}, []);
-  // console.log(joinedChannels);
+    //}, []);
+    // console.log(joinedChannels);
   }, [channelsData.length]);
 
   const [activeChannel, setActiveChannel] = useState(null);
@@ -56,11 +56,11 @@ function Home() {
   }, [activeChannel]);
 
   useEffect(() => {
-    socket.on("receive_message", (message) => {
-      if (!activeChannel || activeChannel !== message.channelId) {
+    socket.on("receive_message", (messages) => {
+      if (!activeChannel || activeChannel !== messages[0].channelId) {
         // notification
       } else {
-        setListOfMessages([...listOfMessages, message]);
+        setListOfMessages(messages);
       }
     });
   });
@@ -73,41 +73,43 @@ function Home() {
 
   return (
     //<SocketContext.Provider value={socket}>
-      <Container fluid className="home-container">
-        <Row className="home-content-area">
-          {/* Channels area */}
-          <Col xs={3} md={3} className="d-flex flex-column p-0">
-            <HomeLogo />
-            <NewChannelButton setChannelsData={setChannelsData} />
-            <Button variant="outline-light" className="m-2"><i className="bi bi-search-heart"></i> All channels</Button>
-            {/* <NewChannelForm setChannelsData={setChannelsData} /> */}
-            <ChannelsList
-              channelsData={channelsData}
-              joinedChannels={joinedChannels}
-              setActiveChannel={setActiveChannel}
-            />
-          </Col>
-          {/* Chat area */}
-          <Col
-            xs={12}
-            md={6}
-            className="chat-area d-flex flex-column justify-content-between p-0"
-          >
-            <MessageList listOfMessages={listOfMessages} />
-            <TextBox
+    <Container fluid className="home-container">
+      <Row className="home-content-area">
+        {/* Channels area */}
+        <Col xs={3} md={3} className="d-flex flex-column p-0">
+          <HomeLogo />
+          <NewChannelButton setChannelsData={setChannelsData} />
+          <Button variant="outline-light" className="m-2">
+            <i className="bi bi-search-heart"></i> All channels
+          </Button>
+          {/* <NewChannelForm setChannelsData={setChannelsData} /> */}
+          <ChannelsList
+            channelsData={channelsData}
+            joinedChannels={joinedChannels}
+            setActiveChannel={setActiveChannel}
+          />
+        </Col>
+        {/* Chat area */}
+        <Col
+          xs={12}
+          md={6}
+          className="chat-area d-flex flex-column justify-content-between p-0"
+        >
+          <MessageList listOfMessages={listOfMessages} />
+          <TextBox
             activeChannel={activeChannel}
             listOfMessages={listOfMessages}
             setListOfMessages={setListOfMessages}
             socket={socket}
             socketConnected={socketConnected}
           />
-          </Col>
-          {/* Users area */}
-          <Col xs={3} md={3} className="d-flex flex-column p-0">
-            <ActiveChannelUsers activeChannelUsers={activeChannelUsers} />
-          </Col>
-        </Row>
-      </Container>
+        </Col>
+        {/* Users area */}
+        <Col xs={3} md={3} className="d-flex flex-column p-0">
+          <ActiveChannelUsers activeChannelUsers={activeChannelUsers} />
+        </Col>
+      </Row>
+    </Container>
     //</SocketContext.Provider>
   );
 }

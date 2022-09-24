@@ -10,7 +10,6 @@ import "./Message.css";
 import { deleteMessage } from "../../helpers/Utils";
 
 function Message({
-  key,
   messageId,
   username,
   createdAt,

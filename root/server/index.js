@@ -35,8 +35,8 @@ io.on("connection", (socket) => {
     console.log("user joined Channel: ", channelId);
   });
 
-  socket.on("send_message", (message) => {
-    socket.broadcast.emit("receive_message", message);
+  socket.on("send_message", (messages) => {
+    socket.broadcast.emit("receive_message", messages);
   });
 
   socket.on("typing", (activeChannel) => {
