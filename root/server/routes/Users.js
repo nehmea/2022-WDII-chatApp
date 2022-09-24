@@ -50,7 +50,7 @@ router.get("/userInfo", validateToken, async (request, response) => {
 
 // ----------------------------------------
 // GET users of a channel by Channel id
-router.get("/:id([0-9]+)/users", validateToken, async (request, response) => {
+router.get("/channel/:id([0-9]+)", validateToken, async (request, response) => {
   const channelId = parseInt(request.params.id);
   try {
     const listOfChannelUsers = await channels.findOne({

@@ -24,8 +24,11 @@ export const fetchChannels = ({ setChannelsData }) => {
  *  a function that fetches all channels from database and update the list of channels on the page accordingly
  * @param {setChannelsData} a setState function passed to fetchChannels
  */
-export const fetchChannelsByUser = ({ setChannelsData, setJoinedChannels }) => {
-  axios
+export const fetchChannelsByUser = async ({
+  setChannelsData,
+  setJoinedChannels,
+}) => {
+  await axios
     .get(`${process.env.REACT_APP_SERVER_URL}/channels/user`, {
       headers: {
         accessToken: localStorage.getItem("accessToken"),
@@ -168,7 +171,7 @@ export const deleteUser = ({ userId, setListOfUsers }) => {
  */
 export const getChannelUsers = ({ activeChannel, setActiveChannelUsers }) => {
   axios
-    .get(`${process.env.REACT_APP_SERVER_URL}/users/${activeChannel}/users`, {
+    .get(`${process.env.REACT_APP_SERVER_URL}/users/channel/${activeChannel}`, {
       headers: { accessToken: localStorage.getItem("accessToken") },
     })
     .then((response) => {
@@ -205,13 +208,16 @@ export const getCurrentUserInfo = ({ setUserInfo }) => {
  * FETCHES ALL MESSAGES based on channel Id, and updates list of messages on home
  */
 export const getChannelMessages = ({ activeChannel, setListOfMessages }) => {
-  // console.log(activeChannel);
+  if (!activeChannel) return;
   axios
     .get(
       `${process.env.REACT_APP_SERVER_URL}/messages/byChannel/${activeChannel}`
     )
     .then((response) => {
       setListOfMessages(response.data);
+    })
+    .catch((error) => {
+      console.log(error);
     });
 };
 
