@@ -17,6 +17,7 @@ import UserProfile from "./pages/UserProfile";
 // HELPERS
 import { AuthContext } from "./helpers/AuthContext";
 import ProtectedRoute from "./helpers/ProtectedRoutes";
+import TextBox from "./components/TextBox";
 
 function App() {
   const [authState, setAuthSate] = useState(null);

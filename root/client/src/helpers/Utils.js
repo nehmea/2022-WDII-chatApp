@@ -200,3 +200,36 @@ export const getCurrentUserInfo = ({ setUserInfo }) => {
       console.log(error);
     });
 };
+
+/**
+ * FETCHES ALL MESSAGES based on channel Id, and updates list of messages on home
+ */
+export const getChannelMessages = ({ activeChannel, setListOfMessages }) => {
+  // console.log(activeChannel);
+  axios
+    .get(
+      `${process.env.REACT_APP_SERVER_URL}/messages/byChannel/${activeChannel}`
+    )
+    .then((response) => {
+      setListOfMessages(response.data);
+    });
+};
+
+/**
+ * Delete message by ID
+ *
+ */
+export const deleteMessage = ({ messageId, deleted, setDeleted }) => {
+  axios
+    .patch(
+      `${process.env.REACT_APP_SERVER_URL}/messages/delete/message/${messageId}`,
+      {
+        isDeleted: deleted === 0 ? 1 : 0,
+      },
+      { headers: { accessToken: localStorage.getItem("accessToken") } }
+    )
+    .then((response) => {
+      setDeleted(response.data.isDeleted);
+    })
+    .catch((error) => console.log(error));
+};
