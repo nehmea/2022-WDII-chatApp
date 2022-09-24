@@ -1,16 +1,15 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import ChannelsList from "../components/ChannelsList/ChannelsList";
-import NewChannelForm from "../components/newChannelForm";
-import { Col, Container, Row } from "react-bootstrap";
+import { Button, Col, Container, Row } from "react-bootstrap";
 import { fetchChannelsByUser, getChannelUsers } from "../helpers/Utils";
-// import { AuthContext } from "../helpers/AuthContext";
 import MessageList from "../components/MessageList/MessageList";
 import TextBox from "../components/TextBox";
 import { SocketContext, socket } from "../helpers/SocketContext";
-import ActiveChannelUsers from "../components/ActiveChannelUsers";
-import "./Home.css";
+import ActiveChannelUsers from "../components/ActiveChannelUsers/ActiveChannelUsers";
+import './Home.css'
+import HomeLogo from "../components/HomeLogo/HomeLogo";
+import NewChannelButton from "../components/NewChannelButton/NewChannelButton";
 import { getChannelMessages } from "../helpers/Utils";
-import axios from "axios";
 
 function Home() {
   const [channelsData, setChannelsData] = useState([]);
@@ -18,7 +17,7 @@ function Home() {
 
   useEffect(() => {
     fetchChannelsByUser({ setChannelsData, setJoinedChannels });
-  }, []);
+  }, [channelsData.length]);
 
   const [activeChannel, setActiveChannel] = useState(null);
   useEffect(() => {
@@ -41,8 +40,11 @@ function Home() {
       <Container fluid className="home-container">
         <Row className="home-content-area">
           {/* Channels area */}
-          <Col xs={3} md={3} className="d-flex flex-column">
-            <NewChannelForm setChannelsData={setChannelsData} />
+          <Col xs={3} md={3} className="d-flex flex-column p-0">
+            <HomeLogo />
+            <NewChannelButton setChannelsData={setChannelsData} />
+            <Button variant="outline-light" className="m-2"><i className="bi bi-search-heart"></i> All channels</Button>
+            {/* <NewChannelForm setChannelsData={setChannelsData} /> */}
             <ChannelsList
               channelsData={channelsData}
               joinedChannels={joinedChannels}
@@ -62,7 +64,7 @@ function Home() {
             />
           </Col>
           {/* Users area */}
-          <Col xs={3} md={3} className="d-flex flex-column">
+          <Col xs={3} md={3} className="d-flex flex-column p-0">
             <ActiveChannelUsers activeChannelUsers={activeChannelUsers} />
           </Col>
         </Row>

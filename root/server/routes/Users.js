@@ -58,7 +58,7 @@ router.get("/:id([0-9]+)/users", validateToken, async (request, response) => {
       include: [
         {
           model: users,
-          attributes: ["id", "username", "avatarUrl", "bio"],
+          attributes: ["id", "username", "avatarUrl", "bio", "status"],
           through: "users_channels",
         },
       ],
