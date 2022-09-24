@@ -13,110 +13,120 @@ const { validateToken } = require("../middlewares/AuthMiddleware");
 // ------------------------------------------
 // Get message by ID
 router.get("/:id", async (request, response) => {
-    const id = parseInt(request.params.id);
-    try {
-        const mes = Number.isInteger(id)
-        ? await messages.findByPk(id)
-        : null;
-        if (mes !== null) {
-            response.status(200).json(mes);
-        } else {
-            response.status(400).send({
-               message: "message not found",
-            });
-        }
-    } catch (err) {
-        response.status(400).send({
-            message: "An error occured",
-        });
-        console.error(`Error while getting a message by ID -`, err.message);
-        next(err);
+  const id = parseInt(request.params.id);
+  try {
+    const mes = Number.isInteger(id) ? await messages.findByPk(id) : null;
+    if (mes !== null) {
+      response.status(200).json(mes);
+    } else {
+      response.status(400).send({
+        message: "message not found",
+      });
     }
+  } catch (err) {
+    response.status(400).send({
+      message: "An error occured",
+    });
+    console.error(`Error while getting a message by ID -`, err.message);
+    next(err);
+  }
 });
 
 // ------------------------------------------
 // Get message by authorID
 router.get("/byUser/:authorId", async (request, response) => {
-    const authorId = parseInt(request.params.authorId);
-    try {
-        if (Number.isInteger(authorId)) {
-            const mes = await messages.findAll({ where: { authorId: authorId } });
-            response.status(200).json(mes);
-        } else {
-            response.status(400).send({
-            message: "invalid authorId",
-            });
-        }
-    } catch (err) {
-        response.status(400).send({
-            message: "An error occured",
-        });
-        console.error(`Error while getting a message by authorID -`, err.message);
-        next(err);
+  const authorId = parseInt(request.params.authorId);
+  try {
+    if (Number.isInteger(authorId)) {
+      const mes = await messages.findAll({ where: { authorId: authorId } });
+      response.status(200).json(mes);
+    } else {
+      response.status(400).send({
+        message: "invalid authorId",
+      });
     }
+  } catch (err) {
+    response.status(400).send({
+      message: "An error occured",
+    });
+    console.error(`Error while getting a message by authorID -`, err.message);
+    next(err);
+  }
 });
 
 // ------------------------------------------
-// Get message by channelID
+// Get messages by channelID
 router.get("/byChannel/:channelId", async (request, response) => {
-    const channelId = parseInt(request.params.channelId);
-    try {
-        if (Number.isInteger(channelId)) {
-            const mes = await messages.findAll({
-            where: {
-                channelId: channelId
-                },
-                include: [{
-                model: users
-                }]
-        });
-            response.status(200).json(mes);
-        } else {
-            response.status(400).send({
-            message: "invalid channelId",
-            });
-        }
-    } catch (err) {
-        response.status(400).send({
-            message: "An error occured",
-        });
-        console.error(`Error while getting a message by channelID -`, err.message);
-        next(err);
+  const channelId = parseInt(request.params.channelId);
+  try {
+    if (Number.isInteger(channelId)) {
+      const listOfMessages = await messages.findAll({
+        where: {
+          channelId: channelId,
+        },
+        include: [
+          {
+            model: users,
+          },
+        ],
+      });
+      // console.log(listOfMessages);
+      response.status(200).json(listOfMessages);
+    } else {
+      response.status(400).send({
+        message: "invalid channelId",
+      });
     }
+  } catch (err) {
+    response.status(500).send({
+      message: "An error occured",
+    });
+    console.error(`Error while getting a message by channelID -`, err.message);
+  }
 });
 
 // --------------------------------------------
 // Post a new message
-router.post("/", async (request, response) => {
-    const mes = request.body;
-  
-    if (validator.isEmpty(mes.body)) {
-      console.log("Empty message");
-      response.status(400).send({
-        message: "message cannot be empty",
-      });
-    } else {
-      await messages.create(mes).then(
+router.post("/", validateToken, async (request, response) => {
+  let mes = request.body;
+  mes.authorId = request.user.id;
+  console.log(mes);
+
+  if (validator.isEmpty(mes.body)) {
+    console.log("Empty message");
+    response.status(400).send({
+      message: "message cannot be empty",
+    });
+  } else {
+    await messages
+      .create(mes)
+      .then(
         response.status(201).send({
-          message: `A new Message has been successfully posted`,
+          message: `New Message posted`,
         })
-      );
-    }
+      )
+      .catch((error) => {
+        response.status(500).send({
+          message: "WHOOPS, something wrong occurred",
+        });
+      });
+  }
 });
 
 // -----------------------------------------
 // Patch a message by ID
 router.patch("/:id", async (request, response) => {
-    const idToUpdate = request.params.id;
-    const newBody = request.body.body;
-    const newIsDeleted = parseInt(request.body.isDeleted);
-  
-    if (validator.isEmpty(newBody)) {
-      response.status(400).send({
-        message: "message cannot be empty",
-      });
-    } else {
-      await messages.update(
+  const idToUpdate = request.params.id;
+  const newBody = request.body.body;
+  const newIsDeleted = parseInt(request.body.isDeleted);
+
+  if (validator.isEmpty(newBody)) {
+    response.status(400).send({
+      message: "message cannot be empty",
+    });
+  } else {
+    await messages
+      .update(
         {
           body: newBody,
           isDeleted: newIsDeleted,
@@ -126,30 +136,46 @@ router.patch("/:id", async (request, response) => {
             id: idToUpdate,
           },
         }
-      ).then((result) => {
+      )
+      .then((result) => {
         response.status(202).send({
           message: `Your message has been successfully edited`,
         });
       });
-    }
+  }
 });
 
 // -----------------------------------------
-// Delete a message by ID
-router.delete("/:id", async (request, response) => {
+// Delete a message by ID (isDelted)
+router.patch(
+  "/delete/message/:id([0-9]+)",
+  validateToken,
+  async (request, response) => {
     const id = parseInt(request.params.id);
+    const { isDeleted } = request.body;
+    // console.log(isDeleted);
     if (Number.isInteger(id)) {
-      const count = await messages.destroy({ where: { id: id } });
-      if (count == 0) {
-        response.status(400).send(`There is no record with id=${id}`);
-      } else if (count > 0) {
-        response.status(200).send(`${count} row(s) deleted`);
+      try {
+        const count = await messages.update(
+          { isDeleted: isDeleted },
+          { where: { id: id } }
+        );
+        if (count == 0) {
+          response
+            .status(400)
+            .send({ message: `There is no record for this message` });
+        } else if (count > 0) {
+          response.status(200).send({ isDeleted: isDeleted });
+        }
+      } catch (error) {
+        response.status(500).send({
+          message: "Whoops something went wrong",
+        });
       }
     } else {
-      response.status(400).send({
-        message: "invalid input id",
-      });
+      response.status(400).send({ message: "invalid input" });
     }
-});
+  }
+);
 
 module.exports = router;

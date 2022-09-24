@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { Formik, Form, Field, ErrorMessage } from "formik";
@@ -6,103 +6,107 @@ import * as Yup from "yup";
 import { EditorState, convertToRaw } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
 import draftToHtml from "draftjs-to-html";
-import { AuthContext } from "../helpers/AuthContext";
+// import { AuthContext } from "../helpers/AuthContext";
 import { Button } from "react-bootstrap";
 import { SocketContext } from "../helpers/SocketContext";
+import { getChannelMessages } from "../helpers/Utils";
 
+function TextBox({ activeChannel, setListOfMessages }) {
+  const socket = useContext(SocketContext);
 
-function TextBox() {
+  // let { channelId } = useParams();
+  // let { authorId } = authState.id;
+  // const { authState } = useContext(AuthContext);
 
-    const socket = useContext(SocketContext);
+  // const [EditorMsg, setEditorMsg] = useState("");
+  // const [editorState, setEditorState] = useState(() =>
+  //   EditorState.createEmpty()
+  // );
 
-    let { channelId } = useParams();
-    const { authState } = useContext(AuthContext);
-    let { authorId } = authState.id;
+  //console.log(authState);
 
+  const initialValues = {
+    body: "",
+  };
 
-    const [errorMsg, setErrorMsg] = useState("");
-    const [EditorMsg, setEditorMsg] = useState("");
-    const [editorState, setEditorState] = useState(() =>
-        EditorState.createEmpty()
-    );
+  const validationSchema = Yup.object().shape({
+    body: Yup.string().max(2000),
+  });
 
-    //console.log(authState);
+  useEffect(() => {
+    socket.on("receive_message", (data) => {
+      alert(data.message);
+    });
+  }, [socket]);
 
-    const initialValues = {
-        body: "",
-        isDeleted: 0,
-        channelId: 1, //channelId
-        authorId: 5, //authorId
-      };
-    
-      const validationSchema = Yup.object().shape({
-        body: Yup.string().required().min(1).max(2000),
-        isDeleted: Yup.number().required().min(0).max(1),
-        channelId: Yup.number(),
-        authorId: Yup.number(),
-      });
+  // const handleBeforeInput = (input) => {
+  //     const textLength = draftToHtml(
+  //       convertToRaw(editorState.getCurrentContent())
+  //     ).length;
+  //     if (textLength < 1) {
+  //         setEditorMsg("Compose a message");
+  //         return "handled";
+  //     }
+  //     else if (textLength >= 2000) {
+  //       setEditorMsg("You can enter a maximum of 2000 characters");
+  //       return "handled";
+  //     } else {
+  //       setEditorMsg("");
+  //     }
+  // };
 
-    useEffect(() => {
-        socket.on("receive_message", (data) => {
-            alert(data.message);
+  const sendMessage = (body) => {
+    socket.emit("send_message", { message: body });
+  };
+
+  const onSubmit = (data) => {
+    if (data.body !== "") {
+      data.channelId = activeChannel;
+      console.log(data);
+      axios
+        .post(`${process.env.REACT_APP_SERVER_URL}/messages`, data, {
+          headers: { accessToken: localStorage.getItem("accessToken") },
+        })
+        .then((response) => {
+          console.log(response.data.message);
+          // console.log(activeChannel);
+          getChannelMessages({ activeChannel, setListOfMessages });
+        })
+        .catch((error) => {
+          if (error.response) {
+          }
         });
-    }, [socket]);
-
-    const handleBeforeInput = (input) => {
-        const textLength = draftToHtml(
-          convertToRaw(editorState.getCurrentContent())
-        ).length;
-        if (textLength < 1) {
-            setEditorMsg("Compose a message");
-            return "handled";
-        }
-        else if (textLength >= 2000) {
-          setEditorMsg("You can enter a maximum of 2000 characters");
-          return "handled";
-        } else {
-          setEditorMsg("");
-        }
-    };
-
-    const sendMessage = (body) => {
-        socket.emit("send_message", {message: body});
     }
-
-    const onSubmit = (data) => {
-        setErrorMsg("");
-        sendMessage(data.body);
-        axios
-            .post(`${process.env.REACT_APP_SERVER_URL}/messages`, data)
-            .then((response) => {
-            //navigate(`/login`);
-            })
-            .catch((error) => {
-            if (error.response) {
-                setErrorMsg(error.response.data.error);
-            }
-            });
-    };
-
-    
+  };
 
   return (
-    <div className='textBoxContainer'>
-        <p className="text-danger">{errorMsg}</p>
-        <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
-            <Form>
-                <p className="text-danger">{EditorMsg}</p>
-                {/* <Editor
+    <div className="textBoxContainer">
+      <Formik
+        initialValues={initialValues}
+        onSubmit={onSubmit}
+        validationSchema={validationSchema}
+      >
+        <Form>
+          {/* <p className="text-danger">{EditorMsg}</p> */}
+          {/* <Editor
                     editorState={editorState}
                     onEditorStateChange={setEditorState}
                     handleBeforeInput={handleBeforeInput}
                     editorStyle={{ border: "1px solid", borderStyle: "groove" }}
                 /> */}
-                <Field name="body"/>
-                <Button type="submit" className="btn btn-primary">Send</Button>
-            </Form>
-        </Formik>
+          <ErrorMessage
+            name="body"
+            component="p"
+            className="text-danger text-start"
+          />
+          <Field name="body" />
+          <Button type="submit" className="btn btn-primary">
+            Send
+          </Button>
+        </Form>
+      </Formik>
     </div>
-  )
+  );
 }
 
-export default TextBox
+export default TextBox;
