@@ -3,7 +3,7 @@ import './ActiveChannelUsers.css'
 
 function ActiveChannelUsers({ activeChannelUsers }) {
   return (
-    <div className="d-flex flex-column">
+    <div className="d-flex flex-column m-2">
       <h2>Member List</h2>
       {activeChannelUsers.map((user, index) => {
         console.log("user", user);
@@ -16,7 +16,7 @@ function ActiveChannelUsers({ activeChannelUsers }) {
                   src={user.avatarUrl}
                   width="45"
                   height="45"
-                  className="rounded-circle avatar mx-3"
+                  className="rounded-circle avatar me-3"
                 />
 
                 {user.status === "online" ?

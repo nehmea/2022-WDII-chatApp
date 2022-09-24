@@ -14,6 +14,7 @@
 
 }
 
-h2 {
+h2,
+.header-font {
   font-family: 'Paytone One', sans-serif;
 }
