@@ -6,6 +6,10 @@
   right: 12px;
 }
 
+.active-channel-user:hover .status-icon {
+  border: 3px solid #464646;
+}
+
 .status-icon.online-green {
   background-color: rgb(18, 174, 18);
 }
@@ -16,4 +20,8 @@
 
 .status-icon.offline-empty {
   background-color: #747272;
+}
+
+.active-channel-user:hover {
+  background-color: #464646;
 }

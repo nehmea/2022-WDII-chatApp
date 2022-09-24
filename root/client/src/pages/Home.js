@@ -10,6 +10,7 @@ import { SocketContext, socket } from "../helpers/SocketContext";
 import ActiveChannelUsers from "../components/ActiveChannelUsers/ActiveChannelUsers";
 import './Home.css'
 import HomeLogo from "../components/HomeLogo/HomeLogo";
+import { Link } from "react-router-dom";
 
 function Home() {
   const [channelsData, setChannelsData] = useState([]);
@@ -40,6 +41,7 @@ function Home() {
           {/* Channels area */}
           <Col xs={3} md={3} className="d-flex flex-column p-0">
             <HomeLogo />
+
             <NewChannelForm setChannelsData={setChannelsData} />
             <ChannelsList
               channelsData={channelsData}

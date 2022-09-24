@@ -4,12 +4,12 @@ import './ActiveChannelUsers.css'
 function ActiveChannelUsers({ activeChannelUsers }) {
   return (
     <div className="d-flex flex-column">
-      <h2>Channel Users</h2>
+      <h2>Member List</h2>
       {activeChannelUsers.map((user, index) => {
         console.log("user", user);
         return (
           <div key={user.id}>
-            <div className="d-flex align-items-center py-1 m-1 rounded">
+            <div className="active-channel-user d-flex align-items-center py-1 m-1 rounded">
               <div className="position-relative">
                 <img
                   alt="user avatar"
