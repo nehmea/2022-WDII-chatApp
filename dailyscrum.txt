@@ -270,15 +270,30 @@ Not Done
 
 2022/09/24 Alina
 1. Done / Not done?
+- Moved Create a Channel Form into a modal triggered by a button 
+- Added an All Channels button – Functionality not there yet 
+- Styled Member List  
+- Add more styling in general 
 2. TODO Until next scrum
+- Have all Channels Button trigger the list of All Channels for users to join 
+- Create a nav with a dropdown with user & owner only functionalities (i.e. Leave chat, invite people...) 
 3. Need assistance / Figure out
 
 2022/09/24 Ali
 1. Done / Not done?
+- Done 
+> Fixed messages bugs 
+> Implemented socket io 
 2. TODO Until next scrum
+- Check on how to do hosting of React Apps 
+- Do some debugging and fixes 
 3. Need assistance / Figure out
 
 2022/09/24 Greg
 1. Done / Not done?
+- Backend logic for Likes mostly implemented 
+- Frontend still needs work 
 2. TODO Until next scrum
+- Finish Likes system 
+- Start debugging features 
 3. Need assistance / Figure out
