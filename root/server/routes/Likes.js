@@ -8,7 +8,7 @@ const { validateToken } = require("../middlewares/AuthMiddleware");
 
 router.post("/", async (request, response) => {
   const { messageId } = request.body;
-  const { userId } = request.user.id;
+  const { userId } = request.body;
 
 
   const found = await likes.findOne({
@@ -17,11 +17,25 @@ router.post("/", async (request, response) => {
 
   if (!found) {
     await likes.create({ messageId: messageId, userId: userId });
-    response.json(1);
   } else {
     await likes.destroy({ where: { messageId: messageId, userId: userId } });
-    response.json(-1);
   }
+
+  const listOfMessages = await messages.findAll({
+    where: {
+      channelId: channelId,
+    },
+    include: [
+      {
+        model: users, 
+      },
+      {
+        model: likes, 
+      },
+    ],
+  });
+
+  response.json(listOfMessages);
   });
 
 module.exports = router;
