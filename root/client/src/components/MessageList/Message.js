@@ -11,7 +11,6 @@ import { deleteMessage } from "../../helpers/Utils";
 import { Button } from "react-bootstrap";
 
 function Message({
-  key,
   messageId,
   username,
   createdAt,

@@ -9,7 +9,7 @@ function MessageList({ listOfMessages, channelTitle }) {
         <h2>#{channelTitle} </h2>
       </div>
 
-      {listOfMessages.map((message, key) => {
+      {listOfMessages.map((message) => {
         return (
           <Message
             key={message.id}

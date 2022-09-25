@@ -19,12 +19,7 @@ function AllChannels(props) {
             console.log(channel);
             return (
               <ChannelItem key={index}>
-                <span
-                  className="mx-2"
-                // onClick={() => {
-                //   setActiveChannel(channel.id);
-                // }}
-                >
+                <span className="mx-2">
                   {channel.title}
                 </span>
                 <Button
@@ -48,12 +43,9 @@ function AllChannels(props) {
               </ChannelItem>
             )
           }
-          // joinedChannels.includes(channel.id) && (
-
         )
         }
       </div>
-
     </Col >
   )
 }
