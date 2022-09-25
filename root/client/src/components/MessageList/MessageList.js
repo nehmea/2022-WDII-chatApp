@@ -4,14 +4,14 @@ import Message from "./Message";
 import "./Message.css";
 import { AuthContext } from "../../helpers/AuthContext";
 
-function MessageList({ listOfMessages, channelTitle, setListOfMessages }) {
+function MessageList({ listOfMessages, channelTitle, setListOfMessages, activeChannel }) {
 
   const { authState } = useContext(AuthContext);
 
   const likeMessage = (messageId) => {
     axios.post(
           `${process.env.REACT_APP_SERVER_URL}/likes/`,
-          { messageId: messageId, userId: authState.id },
+          { messageId: messageId, userId: authState.id, channelId: activeChannel },
           //{ headers: { accessToken: localStorage.getItem("accessToken") } }
         )
         .then((response) => {

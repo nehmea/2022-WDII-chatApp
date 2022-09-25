@@ -62,6 +62,7 @@ function Home({ activeChannel, currentChannelTitle, socketConnected }) {
             channelTitle={currentChannelTitle}
             listOfMessages={listOfMessages}
             setListOfMessages={setListOfMessages}
+            activeChannel={activeChannel}
           />
           <TextBox
             activeChannel={activeChannel}
