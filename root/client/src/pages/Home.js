@@ -17,9 +17,11 @@ function Home({ activeChannel, currentChannelTitle, socketConnected }) {
   const [activeChannelUsers, setActiveChannelUsers] = useState([]);
 
   useEffect(() => {
-    getChannelMessages({ activeChannel, setListOfMessages });
-    socket.emit("join_channel", activeChannel);
-    activeChannelCompare = activeChannel;
+    if (activeChannel !== null) {
+      getChannelMessages({ activeChannel, setListOfMessages });
+      socket.emit("join_channel", activeChannel);
+      activeChannelCompare = activeChannel;
+    }
   }, [activeChannel]);
 
   useEffect(() => {
@@ -42,7 +44,9 @@ function Home({ activeChannel, currentChannelTitle, socketConnected }) {
 
   // activeChannelUSers includes id, username, bio, and avatarUrl for each user
   useEffect(() => {
-    getChannelUsers({ activeChannel, setActiveChannelUsers });
+    if (activeChannel !== null) {
+      getChannelUsers({ activeChannel, setActiveChannelUsers });
+    }
   }, [activeChannel]);
 
   return (
