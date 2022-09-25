@@ -74,7 +74,7 @@ function TextBox({
   };
 
   return (
-    <div className="textBoxContainer">
+    <div className="textBoxContainer mx-3 mb-4">
       {/* <p className="text-danger">{EditorMsg}</p> */}
       {/* <Editor
                     editorState={editorState}
@@ -82,28 +82,26 @@ function TextBox({
                     handleBeforeInput={handleBeforeInput}
                     editorStyle={{ border: "1px solid", borderStyle: "groove" }}
                 /> */}
-      <Row>
-        {isTyping ? <TiMessageTyping /> : <></>}
-        <Col xs={8}>
-          <Form.Control
-            onKeyDown={handleEnter}
-            type="text"
-            name="body"
-            onChange={typingHandler}
-          />
-        </Col>
-        <Col>
-          <Button
-            type="submit"
-            className="btn btn-primary col"
-            onClick={sendMessage}
-            placeholder="Enter a message.."
-            value={newMessage}
-          >
-            Send
-          </Button>
-        </Col>
-      </Row>
+      {isTyping ? <TiMessageTyping /> : <></>}
+      <div className="d-flex position-relative">
+        <Form.Control
+          className="shadow-none border-0 pe-5"
+          onKeyDown={handleEnter}
+          as="textarea"
+          name="body"
+          onChange={typingHandler}
+        />
+        <Button
+          type="submit"
+          variant="light"
+          className="position-absolute end-0 h-100"
+          onClick={sendMessage}
+          placeholder="Enter a message.."
+          value={newMessage}
+        >
+          <i className="bi bi-send" style={{ color: "#4470cc" }}></i>
+        </Button>
+      </div>
     </div>
   );
 }
