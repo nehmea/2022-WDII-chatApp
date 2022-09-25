@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { messages } = require("../models");
+const { messages, likes } = require("../models");
 const { users } = require("../models");
 var validator = require("validator");
 const { validateToken } = require("../middlewares/AuthMiddleware");
@@ -66,11 +66,14 @@ router.get("/byChannel/:channelId", async (request, response) => {
         },
         include: [
           {
-            model: users,
+            model: users, 
+          },
+          {
+            model: likes, 
           },
         ],
       });
-      // console.log(listOfMessages);
+      console.log(listOfMessages);
       response.status(200).json(listOfMessages);
     } else {
       response.status(400).send({

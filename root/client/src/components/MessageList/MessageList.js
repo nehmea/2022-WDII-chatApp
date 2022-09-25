@@ -1,7 +1,23 @@
+import React, { useState, useEffect, useContext } from "react";
+import axios from "axios";
 import Message from "./Message";
 import "./Message.css";
+import { AuthContext } from "../../helpers/AuthContext";
 
-function MessageList({ listOfMessages, channelTitle }) {
+function MessageList({ listOfMessages, channelTitle, setListOfMessages, activeChannel }) {
+
+  const { authState } = useContext(AuthContext);
+
+  const likeMessage = (messageId) => {
+    axios.post(
+          `${process.env.REACT_APP_SERVER_URL}/likes/`,
+          { messageId: messageId, userId: authState.id, channelId: activeChannel },
+          //{ headers: { accessToken: localStorage.getItem("accessToken") } }
+        )
+        .then((response) => {
+          setListOfMessages(response.data);
+        })
+  }
 
   return (
     <div className="d-flex flex-column messages-area">
@@ -20,6 +36,8 @@ function MessageList({ listOfMessages, channelTitle }) {
             avatar={message.user.avatarUrl}
             isDeleted={message.isDeleted}
             userId={message.user.id}
+            likes={message.likes}
+            likeMessage={likeMessage}
           />
         );
       })}
