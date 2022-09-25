@@ -70,7 +70,7 @@ function NewChannelButton({ setChannelsData }) {
           </Button>
         </Modal.Footer>
       </Modal>
-      <ToastContainer className="p-3" position={"bottom-end"}>
+      <ToastContainer className="p-3" style={{ zIndex: "2000" }} position={"bottom-end"}>
         <Toast bg={msgType} delay={5000} autohide show={toastIsVisible} onClose={() => setToastIsVisible(false)}>
           <Toast.Header>
             <strong className="me-auto"><i className="bi bi-chat-heart-fill"></i> Chatap</strong>
