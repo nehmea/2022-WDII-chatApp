@@ -6,7 +6,7 @@ function MessageList({ listOfMessages, channelTitle }) {
   return (
     <div className="d-flex flex-column messages-area">
       <div className='message-list-header p-2'>
-        <h2>#{channelTitle} </h2>
+        <h2 className="channel-title-heading">#{channelTitle} </h2>
       </div>
 
       {listOfMessages.map((message) => {

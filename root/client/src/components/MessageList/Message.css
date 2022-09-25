@@ -49,3 +49,10 @@
   z-index: 10;
   border-bottom: 2px solid #313131;
 }
+
+.message-list-header .channel-title-heading {
+  width: 350px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
