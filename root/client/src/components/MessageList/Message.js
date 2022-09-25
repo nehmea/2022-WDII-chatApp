@@ -61,8 +61,8 @@ function Message({
           </div>
           <div>
             {deleted === 0 && (
-              <div className="message-likes rounded p-1">
-                <span onClick={() => {likeMessage(messageId)}}>👍</span>
+              <div className="message-likes rounded p-1" onClick={() => {likeMessage(messageId)}}>
+                <span>👍</span>
                 <span className="ms-1">{likesCount}</span>
               </div>
             )}
