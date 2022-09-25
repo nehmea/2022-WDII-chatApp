@@ -1,26 +1,39 @@
-import React, { useState, useEffect } from "react";
-import { Col, Container, Row } from "react-bootstrap";
-import { fetchChannelsByUser, getChannelUsers } from "../helpers/Utils";
+import React, {
+  useState,
+  useEffect,
+} from "react";
+import { Col } from "react-bootstrap";
+import { getChannelUsers } from "../helpers/Utils";
 import MessageList from "../components/MessageList/MessageList";
 import TextBox from "../components/TextBox";
+// import { SocketContext, socket } from "../helpers/SocketContext";
 import ActiveChannelUsers from "../components/ActiveChannelUsers/ActiveChannelUsers";
 import { getChannelMessages } from "../helpers/Utils";
-import HomeLayout from "../components/HomeLayout/HomeLayout";
-import HomeNav from "../components/HomeNav/HomeNav";
+import { socket } from "../components/HomeLayout/HomeLayout";
 
-function Home({ activeChannel, currentChannelTitle }) {
+var activeChannelCompare;
+
+function Home({ activeChannel, currentChannelTitle, socketConnected }) {
   const [listOfMessages, setListOfMessages] = useState([]);
   const [activeChannelUsers, setActiveChannelUsers] = useState([]);
 
-
-
   useEffect(() => {
-    if (activeChannel) {
-      getChannelMessages({ activeChannel, setListOfMessages });
-    }
+    getChannelMessages({ activeChannel, setListOfMessages });
+    socket.emit("join_channel", activeChannel);
+    activeChannelCompare = activeChannel;
   }, [activeChannel]);
 
-  // activeChannelUSers includes id, username, bio, status and avatarUrl for each user
+  useEffect(() => {
+    socket.on("receive_message", (messages) => {
+      if (!activeChannel || activeChannel !== messages[0].channelId) {
+        // notification
+      } else {
+        setListOfMessages(messages);
+      }
+    });
+  });
+
+  // activeChannelUSers includes id, username, bio, and avatarUrl for each user
   useEffect(() => {
     getChannelUsers({ activeChannel, setActiveChannelUsers });
   }, [activeChannel]);
@@ -36,11 +49,13 @@ function Home({ activeChannel, currentChannelTitle }) {
         <MessageList channelTitle={currentChannelTitle} listOfMessages={listOfMessages} />
         <TextBox
           activeChannel={activeChannel}
+          listOfMessages={listOfMessages}
           setListOfMessages={setListOfMessages}
+          socketConnected={socketConnected}
         />
       </Col>
       {/* Users area */}
-      <Col xs={12} md={3} className="d-flex flex-column p-0">
+      <Col xs={3} md={3} className="d-flex flex-column p-0">
         <ActiveChannelUsers activeChannelUsers={activeChannelUsers} />
       </Col>
     </>

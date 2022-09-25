@@ -90,7 +90,7 @@ router.get("/byChannel/:channelId", async (request, response) => {
 router.post("/", validateToken, async (request, response) => {
   let mes = request.body;
   mes.authorId = request.user.id;
-  console.log(mes);
+  // console.log(mes);
 
   if (validator.isEmpty(mes.body)) {
     console.log("Empty message");
@@ -98,13 +98,21 @@ router.post("/", validateToken, async (request, response) => {
       message: "message cannot be empty",
     });
   } else {
+    await messages.create(mes);
     await messages
-      .create(mes)
-      .then(
-        response.status(201).send({
-          message: `New Message posted`,
-        })
-      )
+      .findAll({
+        where: {
+          channelId: mes.channelId,
+        },
+        include: [
+          {
+            model: users,
+          },
+        ],
+      })
+      .then((result) => {
+        response.status(201).send(result);
+      })
       .catch((error) => {
         response.status(500).send({
           message: "WHOOPS, something wrong occurred",

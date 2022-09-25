@@ -15,34 +15,31 @@ function AllChannels(props) {
       All Channels
       <div>
         {channelsData.map(
-          (channel, index) => {
-            console.log(channel);
-            return (
-              <ChannelItem key={index}>
-                <span className="mx-2">
-                  {channel.title}
-                </span>
-                <Button
-                  variant={
-                    joinedChannels.includes(channel.id)
-                      ? "outline-secondary"
-                      : "outline-primary"
-                  }
-                  onClick={() =>
-                    joinChannel({
-                      channel,
-                      authState,
-                      setMsg,
-                      setMsgType,
-                      joinedChannels,
-                    })
-                  }
-                >
-                  {joinedChannels.includes(channel.id) ? " Leave " : " Join "}
-                </Button>
-              </ChannelItem>
-            )
-          }
+          (channel, index) => (
+            <ChannelItem key={index}>
+              <span className="mx-2">
+                {channel.title}
+              </span>
+              <Button
+                variant={
+                  joinedChannels.includes(channel.id)
+                    ? "outline-secondary"
+                    : "outline-primary"
+                }
+                onClick={() =>
+                  joinChannel({
+                    channel,
+                    authState,
+                    setMsg,
+                    setMsgType,
+                    joinedChannels,
+                  })
+                }
+              >
+                {joinedChannels.includes(channel.id) ? " Leave " : " Join "}
+              </Button>
+            </ChannelItem>
+          )
         )
         }
       </div>
