@@ -30,3 +30,22 @@
 .message .message-likes:hover {
   border: 2px solid grey;
 }
+
+.message .message-delete {
+  cursor: pointer;
+  font-size: larger;
+  color: #a8a6a6;
+}
+
+.message .message-delete:hover {
+  color: white;
+}
+
+.message-list-header {
+  height: 54px;
+  position: sticky;
+  top: 0;
+  background: #4470cc;
+  z-index: 10;
+  border-bottom: 2px solid #313131;
+}

@@ -11,11 +11,11 @@ import { Button } from "react-bootstrap";
 import { SocketContext } from "../helpers/SocketContext";
 import { getChannelMessages } from "../helpers/Utils";
 import { set } from "date-fns";
+import { socket } from "./HomeLayout/HomeLayout";
 
 function TextBox({
   activeChannel,
   setListOfMessages,
-  socket,
   listOfMessages,
   socketConnected,
 }) {
@@ -123,7 +123,7 @@ function TextBox({
         onSubmit={onSubmit}
         validationSchema={validationSchema}
       >
-        <Form>
+        <Form className="d-flex">
           {/* <p className="text-danger">{EditorMsg}</p> */}
           {/* <Editor
                     editorState={editorState}
@@ -137,12 +137,9 @@ function TextBox({
             component="p"
             className="text-danger text-start"
           />
-          {/* {isTyping ? <div>Loading...</div> : <></>} */}
-          <Field
-            name="body"
-            //  onChange={typingHandler}
-          />
-          <Button type="submit" className="btn btn-primary">
+
+          <Field name="body" style={{ width: "100%" }} />
+          <Button type="submit" variant="outline-light">
             Send
           </Button>
         </Form>

@@ -11,7 +11,6 @@ function Navigation() {
 
   const logout = () => {
     const accessToken = localStorage.getItem("accessToken");
-    console.log(accessToken);
     if (accessToken) {
       localStorage.removeItem("accessToken");
       setAuthSate(null);
@@ -36,7 +35,7 @@ function Navigation() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav" >
           <Nav className="ms-auto">
-            {/* Admin buttons - Still need to style this */}
+
             {!!authState && authState.roles === "admin" ?
               <>
                 <Nav.Link as={Link} to="/admin/users" >Users</Nav.Link>

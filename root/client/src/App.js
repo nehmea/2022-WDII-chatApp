@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import axios from "axios";
 // PAGES
 import Home from "./pages/Home";
+import AllChannels from "./pages/AllChannels";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import AdminUsers from "./pages/AdminUsers";
@@ -18,6 +19,7 @@ import UserProfile from "./pages/UserProfile";
 import { AuthContext } from "./helpers/AuthContext";
 import ProtectedRoute from "./helpers/ProtectedRoutes";
 import TextBox from "./components/TextBox";
+import HomeLayout from "./components/HomeLayout/HomeLayout";
 
 function App() {
   const [authState, setAuthSate] = useState(null);
@@ -41,6 +43,7 @@ function App() {
               id: response.data.id,
               roles: response.data.role,
             });
+
           }
         });
     }
@@ -56,19 +59,34 @@ function App() {
             <Route path="/register" element={<Register />}></Route>
             <Route path="/login" element={<Login />}></Route>
 
-            {/* user routes */}
+            {/* protected - user routes */}
             <Route
               path="/home"
               element={
                 <ProtectedRoute
                   isAllowed={!!authState && authState.roles === "user"}
                 >
-                  <Home />
                   {/* this is the children of the protected route */}
+                  <HomeLayout>
+                    <Home />
+                  </HomeLayout>
                 </ProtectedRoute>
               }
             />
-            {/* admin routes */}
+            <Route
+              path="/channels"
+              element={
+                <ProtectedRoute
+                  isAllowed={!!authState && authState.roles === "user"}
+                >
+                  {/* this is the children of the protected route */}
+                  <HomeLayout>
+                    <AllChannels />
+                  </HomeLayout>
+                </ProtectedRoute>
+              }
+            />
+            {/* protected - admin routes */}
             <Route
               element={
                 <ProtectedRoute

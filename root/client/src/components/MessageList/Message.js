@@ -8,6 +8,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { format, parseISO } from "date-fns";
 import "./Message.css";
 import { deleteMessage } from "../../helpers/Utils";
+import { Button } from "react-bootstrap";
 
 function Message({
   messageId,
@@ -41,7 +42,7 @@ function Message({
           height="50"
           className="rounded-circle avatar mx-3"
         />
-        <div className="d-flex flex-column me-3">
+        <div className="d-flex flex-column flex-grow-1 me-3">
           <div className="d-flex align-items-center">
             <p className="me-2 mb-1 username-bold">
               {deleted === 0 ? username : ""}
@@ -52,29 +53,29 @@ function Message({
           </div>
           <div>
             <p className="mb-2 message-body">
-              {deleted === 0 ? body : "Deleted Message"}
+              {deleted === 0 ? body : "Deleted message"}
             </p>
           </div>
-          <div className="row">
+          <div>
             {deleted === 0 && (
-              <div className="message-likes rounded p-1 col">
+              <div className="message-likes rounded p-1">
                 <span>👍</span>
                 <span className="ms-1">2</span>
               </div>
             )}
-            {userId === authState.id && (
-              <div className="col">
-                <button
-                  onClick={() =>
-                    deleteMessage({ messageId, deleted, setDeleted })
-                  }
-                >
-                  {deleted === 0 ? "Delete" : "Undo"}
-                </button>
-              </div>
-            )}
           </div>
         </div>
+        {userId === authState.id && (
+          <div className="message-delete align-self-center mx-3">
+            <span
+              onClick={() =>
+                deleteMessage({ messageId, deleted, setDeleted })
+              }
+            >
+              {deleted === 0 ? <i className="bi bi-trash"></i> : <i className="bi bi-arrow-counterclockwise"></i>}
+            </span>
+          </div>
+        )}
       </div>
     </div>
   );

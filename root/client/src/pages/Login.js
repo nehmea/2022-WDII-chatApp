@@ -32,7 +32,6 @@ function Login() {
             id: response.data.id,
             roles: response.data.role,
           });
-          console.log('response.data', response.data.role)
           if (response.data.role === "admin") navigate(`/admin/users`)
           if (response.data.role === "user") navigate(`/home`);
         })

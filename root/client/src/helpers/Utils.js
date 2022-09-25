@@ -36,7 +36,9 @@ export const fetchChannelsByUser = async ({
     })
     .then((response) => {
       if (response.status === 200) {
+        // Detailed info about joined channels
         setChannelsData(response.data.listOfChannels);
+        // Only IDs of joined channels
         setJoinedChannels(response.data.joinedChannels);
       }
     })
