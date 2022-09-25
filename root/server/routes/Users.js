@@ -231,7 +231,7 @@ router.post("/login", async (request, response) => {
 
 // ----------------------------------
 //  get user authentication status
-router.get("/", validateToken, (req, res) => {
+router.get("/getAuth", validateToken, (req, res) => {
   res.status(200).json(req.user);
 });
 
