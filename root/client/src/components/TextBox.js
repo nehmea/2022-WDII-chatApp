@@ -1,17 +1,17 @@
 import React, { useState, useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+// import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { EditorState, convertToRaw } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
 import draftToHtml from "draftjs-to-html";
 // import { AuthContext } from "../helpers/AuthContext";
-import { Button } from "react-bootstrap";
+import { Button, Form, Col, Row } from "react-bootstrap";
+import { TiMessageTyping } from "react-icons/ti";
 import { SocketContext } from "../helpers/SocketContext";
 import { getChannelMessages } from "../helpers/Utils";
 import { set } from "date-fns";
-import { socket } from "./HomeLayout/HomeLayout";
 
 function TextBox({
   activeChannel,
@@ -19,86 +19,51 @@ function TextBox({
   listOfMessages,
   socketConnected,
 }) {
-  // const socket = useContext(SocketContext);
+  const socket = useContext(SocketContext);
 
-  // let { channelId } = useParams();
-  // let { authorId } = authState.id;
-  // const { authState } = useContext(AuthContext);
+  const [newMessage, setNewMessage] = useState("");
+  const [typing, setTyping] = useState(false);
+  const [isTyping, setIsTyping] = useState(false);
 
-  // const [EditorMsg, setEditorMsg] = useState("");
-  // const [editorState, setEditorState] = useState(() =>
-  //   EditorState.createEmpty()
-  // );
+  useEffect(() => {
+    socket.on("typing", () => setIsTyping(true));
+    socket.on("stopTyping", () => setIsTyping(false));
+  }, []);
 
-  //console.log(authState);
+  const typingHandler = (e) => {
+    setNewMessage(e.target.value);
 
-  // useEffect(() => {
-  //   socket.on("receive_message", (data) => {
-  //     alert(data.message);
-  //   });
-  // }, [socket]);
+    if (!socketConnected) return;
 
-  // const handleBeforeInput = (input) => {
-  //     const textLength = draftToHtml(
-  //       convertToRaw(editorState.getCurrentContent())
-  //     ).length;
-  //     if (textLength < 1) {
-  //         setEditorMsg("Compose a message");
-  //         return "handled";
-  //     }
-  //     else if (textLength >= 2000) {
-  //       setEditorMsg("You can enter a maximum of 2000 characters");
-  //       return "handled";
-  //     } else {
-  //       setEditorMsg("");
-  //     }
-  // };
+    if (!typing) {
+      setTyping(true);
+      socket.emit("typing", activeChannel);
+    }
+    var timerLength = 3000;
+    setTimeout(() => {
+      socket.emit("stopTyping", activeChannel);
+      setTyping(false);
+    }, timerLength);
+  };
 
-  // const sendMessage = (body) => {
-  //   socket.emit("send_message", { message: body });
-  // };
+  const handleEnter = (event) => {
+    setNewMessage("");
+    if (event.key === "Enter" && newMessage) {
+      sendMessage();
+    }
+  };
 
-  // const [typing, setTyping] = useState(false);
-  // const [isTyping, setIsTyping] = useState(false);
-
-  // useEffect(() => {
-  //   socket.on("typing", () => setIsTyping(true));
-  //   socket.on("stopTyping", () => setIsTyping(false));
-  // }, []);
-
-  // const typingHandler = (event) => {
-  //   if (socketConnected) {
-  //     if (!typing) {
-  //       setTyping(true);
-  //       socket.emit("typing", activeChannel);
-  //     }
-
-  //     let lastTypingTime = new Date().getTime();
-  //     let timerlength = 3000;
-  //     setTimeout(() => {
-  //       let timeNow = new Date().getTime;
-  //       let timeDiff = timeNow - lastTypingTime;
-  //       if (timeDiff >= timerlength && typing) {
-  //         socket.emit("stopTyping", activeChannel);
-  //         setTyping(false);
-  //       }
-  //     }, timerlength);
-  //   }
-  // };
-
-  const onSubmit = async (data) => {
-    // socket.emit("stopTyping", activeChannel);
-    if (data.body !== "") {
-      data.channelId = activeChannel;
-      // console.log(data);
+  const sendMessage = () => {
+    setNewMessage("");
+    socket.emit("stopTyping", activeChannel);
+    const data = { body: newMessage, channelId: activeChannel };
+    if (data.body !== "" && data.body.length <= 2000) {
       axios
         .post(`${process.env.REACT_APP_SERVER_URL}/messages`, data, {
           headers: { accessToken: localStorage.getItem("accessToken") },
         })
-        .then(async (response) => {
-          // console.log(response.data);
+        .then((response) => {
           setListOfMessages(response.data);
-          // console.log(listOfMessages);
           socket.emit("send_message", response.data);
         })
         .catch((error) => {
@@ -108,42 +73,37 @@ function TextBox({
     }
   };
 
-  const initialValues = {
-    body: "",
-  };
-
-  const validationSchema = Yup.object().shape({
-    body: Yup.string().max(2000),
-  });
-
   return (
     <div className="textBoxContainer">
-      <Formik
-        initialValues={initialValues}
-        onSubmit={onSubmit}
-        validationSchema={validationSchema}
-      >
-        <Form className="d-flex">
-          {/* <p className="text-danger">{EditorMsg}</p> */}
-          {/* <Editor
+      {/* <p className="text-danger">{EditorMsg}</p> */}
+      {/* <Editor
                     editorState={editorState}
                     onEditorStateChange={setEditorState}
                     handleBeforeInput={handleBeforeInput}
                     editorStyle={{ border: "1px solid", borderStyle: "groove" }}
                 /> */}
-
-          <ErrorMessage
+      <Row>
+        {isTyping ? <TiMessageTyping /> : <></>}
+        <Col xs={8}>
+          <Form.Control
+            onKeyDown={handleEnter}
+            type="text"
             name="body"
-            component="p"
-            className="text-danger text-start"
+            onChange={typingHandler}
           />
-
-          <Field name="body" style={{ width: "100%" }} />
-          <Button type="submit" variant="outline-light">
+        </Col>
+        <Col>
+          <Button
+            type="submit"
+            className="btn btn-primary col"
+            onClick={sendMessage}
+            placeholder="Enter a message.."
+            value={newMessage}
+          >
             Send
           </Button>
-        </Form>
-      </Formik>
+        </Col>
+      </Row>
     </div>
   );
 }

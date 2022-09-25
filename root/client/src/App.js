@@ -28,7 +28,7 @@ function App() {
     const accessToken = localStorage.getItem("accessToken");
     if (accessToken) {
       axios
-        .get(`${process.env.REACT_APP_SERVER_URL}/users/`, {
+        .get(`${process.env.REACT_APP_SERVER_URL}/users/getAuth`, {
           headers: {
             accessToken: accessToken,
           },
@@ -43,7 +43,6 @@ function App() {
               id: response.data.id,
               roles: response.data.role,
             });
-
           }
         });
     }
@@ -52,6 +51,7 @@ function App() {
   return (
     <div className="App">
       <AuthContext.Provider value={{ authState, setAuthSate }}>
+        {console.log(authState)}
         <Router>
           <Routes>
             {/* unprotected routes */}

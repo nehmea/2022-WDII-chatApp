@@ -88,37 +88,43 @@ router.get("/byChannel/:channelId", async (request, response) => {
 // --------------------------------------------
 // Post a new message
 router.post("/", validateToken, async (request, response) => {
-  let mes = request.body;
-  mes.authorId = request.user.id;
+  let message = request.body;
+  message.authorId = request.user.id;
   // console.log(mes);
+  console.log(message);
 
-  if (validator.isEmpty(mes.body)) {
+  if (
+    validator.isEmpty(message.body) ||
+    !message.channelId ||
+    !message.authorId
+  ) {
     console.log("Empty message");
     response.status(400).send({
-      message: "message cannot be empty",
+      message: "invalid data passed on send message",
     });
-  } else {
-    await messages.create(mes);
-    await messages
-      .findAll({
-        where: {
-          channelId: mes.channelId,
-        },
-        include: [
-          {
-            model: users,
-          },
-        ],
-      })
-      .then((result) => {
-        response.status(201).send(result);
-      })
-      .catch((error) => {
-        response.status(500).send({
-          message: "WHOOPS, something wrong occurred",
-        });
-      });
   }
+
+  await messages.create(message);
+
+  await messages
+    .findAll({
+      where: {
+        channelId: message.channelId,
+      },
+      include: [
+        {
+          model: users,
+        },
+      ],
+    })
+    .then((result) => {
+      response.status(201).send(result);
+    })
+    .catch((error) => {
+      response.status(500).send({
+        message: "WHOOPS, something wrong occurred",
+      });
+    });
 });
 
 // -----------------------------------------
