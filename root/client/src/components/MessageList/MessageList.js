@@ -1,10 +1,14 @@
 import Message from "./Message";
 import "./Message.css";
 
-function MessageList({ listOfMessages }) {
+function MessageList({ listOfMessages, channelTitle }) {
 
   return (
     <div className="d-flex flex-column messages-area">
+      <div className='message-list-header p-2'>
+        <h2>#{channelTitle} </h2>
+      </div>
+
       {listOfMessages.map((message, key) => {
         return (
           <Message

@@ -33,16 +33,14 @@ function Home({ activeChannel, currentChannelTitle }) {
         md={6}
         className="chat-area d-flex flex-column justify-content-between p-0"
       >
-        <HomeNav title={currentChannelTitle} />
-        <MessageList listOfMessages={listOfMessages} />
+        <MessageList channelTitle={currentChannelTitle} listOfMessages={listOfMessages} />
         <TextBox
           activeChannel={activeChannel}
           setListOfMessages={setListOfMessages}
         />
       </Col>
       {/* Users area */}
-      <Col xs={3} md={3} className="d-flex flex-column p-0">
-        <HomeNav />
+      <Col xs={12} md={3} className="d-flex flex-column p-0">
         <ActiveChannelUsers activeChannelUsers={activeChannelUsers} />
       </Col>
     </>

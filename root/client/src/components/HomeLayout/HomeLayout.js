@@ -33,24 +33,24 @@ function HomeLayout({ children }) {
 
   return (
     <SocketContext.Provider value={socket}>
-      <Container fluid className="home-container p-0">
+      <Container fluid className="home-container">
         <Row className="home-content-area">
           {/* Channels area */}
-          <Col xs={3} md={3} className="d-flex flex-column p-0">
-            <HomeNav />
+          <Col xs={12} md={3} className="d-flex flex-column p-0">
             <NewChannelButton setChannelsData={setChannelsData} />
             {/* <AllChannelsButton /> */}
             <Button onClick={() => navigate('/channels')} variant="outline-light" className="m-2"><i className="bi bi-search-heart"></i> All channels</Button>
+
             <ChannelsList
               channelsData={channelsData}
               joinedChannels={joinedChannels}
               setActiveChannel={setActiveChannel}
             />
           </Col>
-          {React.cloneElement(children, { activeChannel, currentChannelTitle })}
+          {React.cloneElement(children, { activeChannel, currentChannelTitle, channelsData, joinedChannels })}
         </Row>
       </Container>
-    </SocketContext.Provider>
+    </SocketContext.Provider >
   );
 }
 

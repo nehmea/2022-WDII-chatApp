@@ -40,3 +40,12 @@
 .message .message-delete:hover {
   color: white;
 }
+
+.message-list-header {
+  height: 54px;
+  position: sticky;
+  top: 0;
+  background: #4470cc;
+  z-index: 10;
+  border-bottom: 2px solid #313131;
+}
