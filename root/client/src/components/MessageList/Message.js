@@ -18,10 +18,13 @@ function Message({
   avatar,
   isDeleted,
   userId,
+  likes,
+  likeMessage,
 }) {
   const formattedDate = format(parseISO(createdAt), "MMM dd yyyy hh:mmaa");
+  const likesCount = likes.length;
 
-  const [likes, setLikes] = useState([]);
+  //const [likes, setLikes] = useState([]);
   const { authState } = useContext(AuthContext);
 
   const [deleted, setDeleted] = useState(isDeleted);
@@ -59,8 +62,8 @@ function Message({
           <div>
             {deleted === 0 && (
               <div className="message-likes rounded p-1">
-                <span>👍</span>
-                <span className="ms-1">2</span>
+                <span><button onClick={() => {likeMessage(messageId)}}>👍</button></span>
+                <span className="ms-1">{likesCount}</span>
               </div>
             )}
           </div>

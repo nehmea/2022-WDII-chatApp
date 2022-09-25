@@ -60,6 +60,9 @@ app.use("/messages", messagesRouter);
 // > Channels
 const channelsRouter = require("./routes/Channels");
 app.use("/channels", channelsRouter);
+// > Likes
+const likesRouter = require("./routes/Likes");
+app.use("/likes", likesRouter);
 
 /* Error handler middleware */
 app.use((err, req, res, next) => {
