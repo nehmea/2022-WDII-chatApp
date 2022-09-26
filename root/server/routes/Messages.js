@@ -118,6 +118,9 @@ router.post("/", validateToken, async (request, response) => {
         {
           model: users,
         },
+        {
+          model: likes, 
+        },
       ],
     })
     .then((result) => {
