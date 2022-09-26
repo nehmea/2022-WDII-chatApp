@@ -56,7 +56,7 @@ router.get("/byUser/:authorId", async (request, response) => {
 
 // ------------------------------------------
 // Get messages by channelID
-router.get("/byChannel/:channelId", async (request, response) => {
+router.get("/byChannel/:channelId", validateToken, async (request, response) => {
   const channelId = parseInt(request.params.channelId);
   try {
     if (Number.isInteger(channelId)) {

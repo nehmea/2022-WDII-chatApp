@@ -12,7 +12,7 @@ function MessageList({ listOfMessages, channelTitle, setListOfMessages, activeCh
     axios.post(
           `${process.env.REACT_APP_SERVER_URL}/likes/`,
           { messageId: messageId, userId: authState.id, channelId: activeChannel },
-          //{ headers: { accessToken: localStorage.getItem("accessToken") } }
+          { headers: { accessToken: localStorage.getItem("accessToken") } }
         )
         .then((response) => {
           setListOfMessages(response.data);

@@ -213,7 +213,8 @@ export const getChannelMessages = ({ activeChannel, setListOfMessages }) => {
   if (!activeChannel) return;
   axios
     .get(
-      `${process.env.REACT_APP_SERVER_URL}/messages/byChannel/${activeChannel}`
+      `${process.env.REACT_APP_SERVER_URL}/messages/byChannel/${activeChannel}`,
+      { headers: { accessToken: localStorage.getItem("accessToken") } }
     )
     .then((response) => {
       setListOfMessages(response.data);
