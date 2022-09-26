@@ -1,36 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { getCurrentUserInfo } from "../../helpers/Utils";
 import "./ActiveChannelUsers.css";
+import UserAvatar from "./UserAvatar";
 
 function ActiveChannelUsers({ activeChannelUsers }) {
-  const [userInfo, setUserInfo] = useState(null);
-  useEffect(() => {
-    getCurrentUserInfo({ setUserInfo });
-  }, []);
+
 
   return (
     <>
       {/* Header */}
       <div className='home-nav-header channel-users-nav p-2'>
-        {userInfo &&
-          <div className="position-relative">
-            <img
-              alt="user avatar"
-              src={userInfo.avatarUrl}
-              width="45"
-              height="45"
-              className="rounded-circle avatar me-3"
-            />
-
-            {userInfo.status === "online" ? (
-              <div className="rounded-circle position-absolute status-icon online-green"></div>
-            ) : userInfo.status === "busy" ? (
-              <div className="rounded-circle position-absolute status-icon busy-red"></div>
-            ) : (
-              <div className="rounded-circle position-absolute status-icon offline-empty"></div>
-            )}
-          </div>
-        }
+        <UserAvatar />
       </div>
       <div className="d-flex flex-column m-2">
         <h2>Member List</h2>

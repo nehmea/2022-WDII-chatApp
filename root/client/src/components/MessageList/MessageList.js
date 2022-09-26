@@ -44,7 +44,7 @@ function MessageList({ listOfMessages, channelTitle, setChannelsData, setListOfM
 
 
         <Dropdown>
-          <Dropdown.Toggle variant="" id="dropdown-basic" className="channel-title-heading-wrapper d-flex ">
+          <Dropdown.Toggle variant="" className="channel-title-heading-wrapper d-flex ">
             <h2 className="channel-title-heading me-2">#{channelTitle}</h2>
           </Dropdown.Toggle>
           {/* Invite */}
