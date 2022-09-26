@@ -8,7 +8,8 @@ import ActiveChannelUsers from "../components/ActiveChannelUsers/ActiveChannelUs
 import { getChannelMessages } from "../helpers/Utils";
 // import { socket } from "../components/HomeLayout/HomeLayout";
 
-function Home({ activeChannel, currentChannelTitle, socketConnected, setChannelsData }) {
+function Home(props) {
+  const { activeChannel, currentChannelTitle, socketConnected, setChannelsData, joinedChannels } = props
   var activeChannelCompare;
 
   const [notifications, setNotifications] = useState([]);
@@ -65,6 +66,7 @@ function Home({ activeChannel, currentChannelTitle, socketConnected, setChannels
             setChannelsData={setChannelsData}
             setListOfMessages={setListOfMessages}
             activeChannel={activeChannel}
+            joinedChannels={joinedChannels}
           />
           <TextBox
             activeChannel={activeChannel}
