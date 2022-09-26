@@ -55,13 +55,19 @@ function Message({
             </p>
           </div>
           <div>
-            <p className="mb-2 message-body">
-              {deleted === 0 ? body : "Deleted message"}
-            </p>
+            {deleted === 0 ?
+              <p className="mb-2 message-body">
+                {body}
+              </p>
+              :
+              <p className="mb-2 deleted-message-body fst-italic">
+                Deleted message
+              </p>
+            }
           </div>
           <div>
             {deleted === 0 && (
-              <div className="message-likes rounded p-1" onClick={() => {likeMessage(messageId)}}>
+              <div className="message-likes rounded p-1" onClick={() => { likeMessage(messageId) }}>
                 <span>👍</span>
                 <span className="ms-1">{likesCount}</span>
               </div>

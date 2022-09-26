@@ -12,7 +12,9 @@ function AllChannels(props) {
 
   return (
     <Col xs={12} md={9} className="d-flex flex-column p-0">
-      All Channels
+      <div className='home-nav-header p-2'>
+        <h2>All channels</h2>
+      </div>
       <div>
         {channelsData.map(
           (channel, index) => (

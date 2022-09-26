@@ -16,13 +16,13 @@ function MessageList({ listOfMessages, channelTitle, setChannelsData, setListOfM
 
   const likeMessage = (messageId) => {
     axios.post(
-          `${process.env.REACT_APP_SERVER_URL}/likes/`,
-          { messageId: messageId, userId: authState.id, channelId: activeChannel },
-          { headers: { accessToken: localStorage.getItem("accessToken") } }
-        )
-        .then((response) => {
-          setListOfMessages(response.data);
-        })
+      `${process.env.REACT_APP_SERVER_URL}/likes/`,
+      { messageId: messageId, userId: authState.id, channelId: activeChannel },
+      { headers: { accessToken: localStorage.getItem("accessToken") } }
+    )
+      .then((response) => {
+        setListOfMessages(response.data);
+      })
   }
 
   const handleClose = () => setShowEditChannelModal(false);
@@ -40,7 +40,7 @@ function MessageList({ listOfMessages, channelTitle, setChannelsData, setListOfM
   return (
     <div className="d-flex flex-column messages-area">
       {/* Header */}
-      <div className='message-list-header p-2'>
+      <div className='home-nav-header p-2'>
 
 
         <Dropdown>
@@ -48,7 +48,7 @@ function MessageList({ listOfMessages, channelTitle, setChannelsData, setListOfM
             <h2 className="channel-title-heading me-2">#{channelTitle}</h2>
           </Dropdown.Toggle>
           {/* Invite */}
-          <Dropdown.Menu align="end" variant="dark">
+          <Dropdown.Menu align="end" variant="light">
             <Dropdown.Item onClick={() => { console.log("Invite people") }}>Invite people</Dropdown.Item>
             {/* Edit */}
             <Dropdown.Item onClick={() => {

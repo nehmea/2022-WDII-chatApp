@@ -18,3 +18,24 @@ h2,
 .header-font {
   font-family: 'Paytone One', sans-serif;
 }
+
+.home-nav-header {
+  min-height: 70px;
+  position: sticky;
+  top: 0;
+  background: #4470cc;
+  z-index: 10;
+  border-bottom: 2px solid #313131;
+}
+
+.home-nav-header.home-layout-nav {
+  display: flex;
+  place-items: center;
+  background: #37589e;
+}
+
+.home-content-area .home-button-no-border {
+  border: none;
+  text-align: left;
+  display: block;
+}

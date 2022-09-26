@@ -25,3 +25,9 @@
 .active-channel-user:hover {
   background-color: #464646;
 }
+
+.home-nav-header.channel-users-nav {
+  display: flex;
+  place-items: center;
+  background: #37589e;
+}

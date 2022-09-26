@@ -8,6 +8,7 @@ import { AuthContext } from "../../helpers/AuthContext";
 import { SocketContext, socket } from "../../helpers/SocketContext";
 import { io } from "socket.io-client";
 import "./Home.css";
+import logo from "../../assets/logo.svg"
 
 // export const socket = io(`${process.env.REACT_APP_SERVER_URL}`);
 // Wrapper element
@@ -47,15 +48,30 @@ function HomeLayout({ children }) {
       <Row className="home-content-area">
         {/* Channels area */}
         <Col xs={12} md={3} className="d-flex flex-column p-0">
-          <NewChannelButton setChannelsData={setChannelsData} />
-          {/* <AllChannelsButton /> */}
-          <Button
-            onClick={() => navigate("/channels")}
-            variant="outline-light"
-            className="m-2"
-          >
-            <i className="bi bi-search-heart"></i> All channels
-          </Button>
+          {/* Header */}
+          <div className='home-nav-header home-layout-nav p-2'>
+            <div className="pointer m-2" onClick={() => { navigate('/home') }}>
+              <img
+                alt=""
+                src={logo}
+                width="35"
+                height="35"
+                className="me-2 d-inline-block align-top"
+              />
+              <span className='logo'>Chatap</span>
+            </div>
+          </div>
+          <div className="mb-2" style={{ borderBottom: "1px solid #4c4c4c" }}>
+            <NewChannelButton setChannelsData={setChannelsData} />
+            {/* <AllChannelsButton /> */}
+            <Button
+              onClick={() => navigate("/channels")}
+              variant="outline-secondary"
+              className="m-2 home-button-no-border"
+            >
+              <i className="bi bi-search-heart"></i> All channels
+            </Button>
+          </div>
 
           <ChannelsList
             channelsData={channelsData}
