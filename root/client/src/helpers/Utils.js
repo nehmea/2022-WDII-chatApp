@@ -95,7 +95,7 @@ export const editChannel = ({
   setMsg,
   setMsgType,
   setChannelsData,
-  channelId
+  channelId,
 }) => {
   setMsg("");
   const accessToken = localStorage.getItem("accessToken");
@@ -123,8 +123,6 @@ export const editChannel = ({
   }
 };
 
-
-
 /**
  * A function that adds a user to a channel (if not exist) by creating a new record in the users_channels table
  * @param {channel, authSate, setMsg, setMsgType} param0
@@ -135,7 +133,7 @@ export const joinChannel = ({
   setMsg,
   setMsgType,
   joinedChannels,
-  setChannelsData
+  setChannelsData,
 }) => {
   if (!!authState && authState.roles === "user") {
     const accessToken = localStorage.getItem("accessToken");
@@ -180,7 +178,9 @@ export const joinChannel = ({
  */
 export const fetchAllUsers = ({ setListOfUsers }) => {
   axios
-    .get(`${process.env.REACT_APP_SERVER_URL}/users/`)
+    .get(`${process.env.REACT_APP_SERVER_URL}/users/`, {
+      headers: { accessToken: localStorage.getItem("accessToken") },
+    })
     .then((response) => {
       if (response.status === 200) {
         setListOfUsers(response.data);
