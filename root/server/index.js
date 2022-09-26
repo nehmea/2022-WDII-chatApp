@@ -4,6 +4,8 @@ const http = require("http");
 const { Server } = require("socket.io");
 const db = require("./models");
 const cors = require("cors");
+const path = require("path");
+require("dotenv").config();
 
 const PORT = "3001";
 
@@ -63,6 +65,21 @@ app.use("/channels", channelsRouter);
 // > Likes
 const likesRouter = require("./routes/Likes");
 app.use("/likes", likesRouter);
+
+// --------------------- Deployment -------------------------------
+const __dirname1 = path.resolve();
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname1, "/client/build")));
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname1, "frontend", "build", "index.html"));
+  });
+} else {
+  app.get("/", (request, response) => {
+    response.send("API is Running Successfully");
+  });
+}
+
+//  ---------------------------------------------------------------
 
 /* Error handler middleware */
 app.use((err, req, res, next) => {
