@@ -42,8 +42,7 @@
 }
 
 .message-list-header {
-  height: 54px;
-  position: sticky;
+  /* position: sticky; */
   top: 0;
   background: #4470cc;
   z-index: 10;
@@ -51,8 +50,18 @@
 }
 
 .message-list-header .channel-title-heading {
-  width: 350px;
+  max-width: 350px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  color: white;
+  padding: 0;
+  text-align: start;
+}
+
+.message-list-header .channel-title-heading-wrapper {
+  border: none;
+  color: white;
+  display: flex;
+  align-items: center;
 }

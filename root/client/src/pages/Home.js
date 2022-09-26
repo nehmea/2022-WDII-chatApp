@@ -8,7 +8,7 @@ import ActiveChannelUsers from "../components/ActiveChannelUsers/ActiveChannelUs
 import { getChannelMessages } from "../helpers/Utils";
 // import { socket } from "../components/HomeLayout/HomeLayout";
 
-function Home({ activeChannel, currentChannelTitle, socketConnected }) {
+function Home({ activeChannel, currentChannelTitle, socketConnected, setChannelsData }) {
   var activeChannelCompare;
 
   const [notifications, setNotifications] = useState([]);
@@ -42,6 +42,7 @@ function Home({ activeChannel, currentChannelTitle, socketConnected }) {
     });
   });
 
+
   // activeChannelUSers includes id, username, bio, and avatarUrl for each user
   useEffect(() => {
     if (activeChannel !== null) {
@@ -61,6 +62,8 @@ function Home({ activeChannel, currentChannelTitle, socketConnected }) {
           <MessageList
             channelTitle={currentChannelTitle}
             listOfMessages={listOfMessages}
+            channelId={activeChannel}
+            setChannelsData={setChannelsData}
           />
           <TextBox
             activeChannel={activeChannel}
