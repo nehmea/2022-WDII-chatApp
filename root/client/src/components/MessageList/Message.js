@@ -21,8 +21,8 @@ function Message({
   likes,
   likeMessage,
 }) {
-  const formattedDate = format(parseISO(createdAt), "MMM dd yyyy hh:mmaa");
-  const likesCount = likes.length;
+  const formattedDate = format(parseISO(createdAt), "MMM dd yyyy h:mmaa");
+  const likesCount = likes.length == 0 ? '' : likes.length;
 
   //const [likes, setLikes] = useState([]);
   const { authState } = useContext(AuthContext);

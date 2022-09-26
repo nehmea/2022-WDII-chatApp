@@ -11,7 +11,7 @@ const { validateToken } = require("../middlewares/AuthMiddleware");
 
 // ----------------------------------------
 // GET All Channels
-router.get("/", async (request, response) => {
+router.get("/", validateToken, async (request, response) => {
   try {
     const listOfChannels = await channels.findAll();
     response.json(listOfChannels);
@@ -102,7 +102,7 @@ router.post("/new", validateToken, async (request, response, next) => {
 
 // --------------------------------------------
 // EDIT a channel
-router.patch("/:id", async (request, response, next) => {
+router.patch("/:id", validateToken, async (request, response, next) => {
   const channelId = request.params.id;
   const newTitle = request.body.title;
 

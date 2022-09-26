@@ -16,13 +16,13 @@ function MessageList({ listOfMessages, channelTitle, setChannelsData, setListOfM
 
   const likeMessage = (messageId) => {
     axios.post(
-      `${process.env.REACT_APP_SERVER_URL}/likes/`,
-      { messageId: messageId, userId: authState.id, channelId: activeChannel },
-      //{ headers: { accessToken: localStorage.getItem("accessToken") } }
-    )
-      .then((response) => {
-        setListOfMessages(response.data);
-      })
+          `${process.env.REACT_APP_SERVER_URL}/likes/`,
+          { messageId: messageId, userId: authState.id, channelId: activeChannel },
+          { headers: { accessToken: localStorage.getItem("accessToken") } }
+        )
+        .then((response) => {
+          setListOfMessages(response.data);
+        })
   }
 
   const handleClose = () => setShowEditChannelModal(false);

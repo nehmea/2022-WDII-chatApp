@@ -6,7 +6,7 @@ const Sequelize = require("sequelize");
 const { validateToken } = require("../middlewares/AuthMiddleware");
 
 
-router.post("/", async (request, response) => {
+router.post("/", validateToken, async (request, response) => {
   const { messageId } = request.body;
   const { userId } = request.body;
   const { channelId } = request.body;
