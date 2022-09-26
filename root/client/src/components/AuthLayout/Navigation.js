@@ -22,7 +22,7 @@ function Navigation() {
 
     <Navbar variant="dark" expand="lg">
       <Container className=" d-flex">
-        <Navbar.Brand className="pointer" onClick={() => { navigate('/') }}>
+        <Navbar.Brand className="pointer" onClick={() => { navigate('/home') }}>
           <img
             alt=""
             src={logo}
