@@ -29,7 +29,7 @@ function NewChannelButton({ setChannelsData }) {
 
   return (
     <>
-      <Button variant="outline-light" className="m-2" onClick={handleShow}><i className="bi bi-pencil-square"></i> Create channel</Button>
+      <Button variant="outline-secondary" className="m-2 home-button-no-border" onClick={handleShow}><i className="bi bi-pencil-square"></i> Create channel</Button>
 
 
       <Modal show={show} onHide={handleClose}>
