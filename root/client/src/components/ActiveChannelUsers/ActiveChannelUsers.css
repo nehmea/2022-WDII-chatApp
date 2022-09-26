@@ -37,6 +37,6 @@
   border: 3px solid #37579e;
 }
 
-.dropdown-toggle::after {
+.avatar-toggle.dropdown-toggle::after {
   display: none !important;
 }
