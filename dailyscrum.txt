@@ -297,3 +297,40 @@ Not Done
 - Finish Likes system 
 - Start debugging features 
 3. Need assistance / Figure out
+
+
+------ SCRUM #9 -------
+2022/09/26 Alina 
+1. Done / Not done? 
+- The All Channels Button triggers the list of All Channels for users to join 
+- Channel header has a dropdown with functionalities (i.e. Leave chat, invite people...) 
+- Add people to Channel & Delete Channel don't work
+2. TODO Until next scrum 
+- Add links to user profile, logout, and home to the main home layout
+- Only channel owner should see Edit, Delete, Invite links
+- Some additional styling if time allows
+- Bug fixes if time allows
+- Practice Demo
+- Help prep presentation
+3. Need assistance / Figure out 
+
+2022/09/26 Ali 
+1. Done / Not done? 
+- Done 
+> Tried to host on aws; bumped into low memory issues 
+> Debugged authentication not working on refresh 
+2. TODO Until next scrum 
+- Try to host on AWS with a larger memory 
+- Do some debugging and fixes 
+- Help in the presentation 
+3. Need assistance / Figure out 
+
+2022/09/26 Greg
+1. Done / Not done? 
+- Likes implemented 
+- Token validation not complete for every route 
+2. TODO Until next scrum 
+- Add backend token validation for protected routes 
+- Work on bug fixes 
+- Work on, and prepare for presentation 
+3. Need assistance / Figure out 
