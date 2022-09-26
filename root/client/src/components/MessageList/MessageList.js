@@ -1,11 +1,26 @@
-import { useState } from "react";
+import React, { useState, useContext } from "react";
+import axios from "axios";
+import { AuthContext } from "../../helpers/AuthContext";
 import { Dropdown } from "react-bootstrap";
 import EditChannelModal from "../EditChannelModal/EditChannelModal";
 import Message from "./Message";
 import "./Message.css";
 
-function MessageList({ listOfMessages, channelTitle, setChannelsData, channelId }) {
+function MessageList({ listOfMessages, channelTitle, setChannelsData, setListOfMessages, activeChannel }) {
   const [showEditChannelModal, setShowEditChannelModal] = useState(false);
+
+  const { authState } = useContext(AuthContext);
+
+  const likeMessage = (messageId) => {
+    axios.post(
+      `${process.env.REACT_APP_SERVER_URL}/likes/`,
+      { messageId: messageId, userId: authState.id, channelId: activeChannel },
+      //{ headers: { accessToken: localStorage.getItem("accessToken") } }
+    )
+      .then((response) => {
+        setListOfMessages(response.data);
+      })
+  }
 
   const handleClose = () => setShowEditChannelModal(false);
   return (
@@ -30,7 +45,7 @@ function MessageList({ listOfMessages, channelTitle, setChannelsData, channelId 
             <Dropdown.Item >Leave channel</Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
-        <EditChannelModal show={showEditChannelModal} handleClose={handleClose} setChannelsData={setChannelsData} channelTitle={channelTitle} channelId={channelId} />
+        <EditChannelModal show={showEditChannelModal} handleClose={handleClose} setChannelsData={setChannelsData} channelTitle={channelTitle} channelId={activeChannel} />
 
 
       </div>
@@ -46,6 +61,8 @@ function MessageList({ listOfMessages, channelTitle, setChannelsData, channelId 
             avatar={message.user.avatarUrl}
             isDeleted={message.isDeleted}
             userId={message.user.id}
+            likes={message.likes}
+            likeMessage={likeMessage}
           />
         );
       })}
