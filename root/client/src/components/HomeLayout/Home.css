@@ -20,7 +20,7 @@ h2,
 }
 
 .home-nav-header {
-  min-height: 70px;
+  height: 70px;
   position: sticky;
   top: 0;
   background: #4470cc;
