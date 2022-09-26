@@ -5,10 +5,13 @@ import { Dropdown } from "react-bootstrap";
 import EditChannelModal from "../EditChannelModal/EditChannelModal";
 import Message from "./Message";
 import "./Message.css";
+import { joinChannel } from "../../helpers/Utils";
 
-function MessageList({ listOfMessages, channelTitle, setChannelsData, setListOfMessages, activeChannel }) {
+function MessageList({ listOfMessages, channelTitle, setChannelsData, setListOfMessages, activeChannel, joinedChannels }) {
   const [showEditChannelModal, setShowEditChannelModal] = useState(false);
-
+  const [msg, setMsg] = useState("");
+  const [msgType, setMsgType] = useState("");
+  const channel = { id: activeChannel, title: channelTitle }
   const { authState } = useContext(AuthContext);
 
   const likeMessage = (messageId) => {
@@ -23,6 +26,17 @@ function MessageList({ listOfMessages, channelTitle, setChannelsData, setListOfM
   }
 
   const handleClose = () => setShowEditChannelModal(false);
+
+  const handleLeaveChannel = () => {
+    joinChannel({
+      channel,
+      authState,
+      setMsg,
+      setMsgType,
+      joinedChannels,
+      setChannelsData
+    })
+  }
   return (
     <div className="d-flex flex-column messages-area">
       {/* Header */}
@@ -33,16 +47,21 @@ function MessageList({ listOfMessages, channelTitle, setChannelsData, setListOfM
           <Dropdown.Toggle variant="" id="dropdown-basic" className="channel-title-heading-wrapper d-flex ">
             <h2 className="channel-title-heading me-2">#{channelTitle}</h2>
           </Dropdown.Toggle>
-
+          {/* Invite */}
           <Dropdown.Menu align="end" variant="dark">
             <Dropdown.Item onClick={() => { console.log("Invite people") }}>Invite people</Dropdown.Item>
+            {/* Edit */}
             <Dropdown.Item onClick={() => {
               setShowEditChannelModal(true)
             }}>
               Edit channel
             </Dropdown.Item>
-            <Dropdown.Item >Delete channel</Dropdown.Item>
-            <Dropdown.Item >Leave channel</Dropdown.Item>
+            {/* Delete */}
+            <Dropdown.Item onClick={() => { console.log("Delete") }}>Delete channel</Dropdown.Item>
+            {/* Leave */}
+            <Dropdown.Item onClick={handleLeaveChannel}>
+              Leave channel
+            </Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
         <EditChannelModal show={showEditChannelModal} handleClose={handleClose} setChannelsData={setChannelsData} channelTitle={channelTitle} channelId={activeChannel} />
