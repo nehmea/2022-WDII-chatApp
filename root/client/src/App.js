@@ -96,12 +96,13 @@ function App() {
               <Route path="/admin/users" element={<AdminUsers />}></Route>
               <Route path="/admin/channels" element={<AdminChannels />}></Route>
             </Route>
+
+            <Route path="/profile" element={<UserProfile />}></Route>
             <Route path="/profile/edit" element={<EditProfile />}></Route>
             <Route
               path="/profile/password/edit"
               element={<UpdatePassword />}
             ></Route>
-            <Route path="/profile" element={<UserProfile />}></Route>
           </Routes>
         </Router>
       </AuthContext.Provider>
