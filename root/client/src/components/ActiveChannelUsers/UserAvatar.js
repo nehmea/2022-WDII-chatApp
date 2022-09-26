@@ -30,7 +30,7 @@ function UserAvatar() {
 
         {userInfo &&
           <>
-            <Dropdown.Toggle variant="" className="channel-title-heading-wrapper d-flex ">
+            <Dropdown.Toggle variant="" className="avatar-toggle channel-title-heading-wrapper d-flex ">
               <div className="position-relative">
                 <img
                   alt="user avatar"
