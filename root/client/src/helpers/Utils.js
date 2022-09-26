@@ -240,7 +240,6 @@ export const getCurrentUserInfo = ({ setUserInfo }) => {
     })
     .then((response) => {
       if (response.status === 200) {
-        // console.log(response.data);
         setUserInfo(response.data);
       }
     })
