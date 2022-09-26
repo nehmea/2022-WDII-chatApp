@@ -69,6 +69,7 @@ function HomeLayout({ children }) {
           channelsData,
           joinedChannels,
           socketConnected,
+          setChannelsData
         })}
       </Row>
     </Container>
