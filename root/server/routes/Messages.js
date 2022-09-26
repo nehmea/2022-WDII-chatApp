@@ -66,14 +66,13 @@ router.get("/byChannel/:channelId", async (request, response) => {
         },
         include: [
           {
-            model: users, 
+            model: users,
           },
           {
-            model: likes, 
+            model: likes,
           },
         ],
       });
-      console.log(listOfMessages);
       response.status(200).json(listOfMessages);
     } else {
       response.status(400).send({
@@ -93,9 +92,6 @@ router.get("/byChannel/:channelId", async (request, response) => {
 router.post("/", validateToken, async (request, response) => {
   let message = request.body;
   message.authorId = request.user.id;
-  // console.log(mes);
-  console.log(message);
-
   if (
     validator.isEmpty(message.body) ||
     !message.channelId ||
@@ -119,7 +115,7 @@ router.post("/", validateToken, async (request, response) => {
           model: users,
         },
         {
-          model: likes, 
+          model: likes,
         },
       ],
     })
@@ -173,7 +169,6 @@ router.patch(
   async (request, response) => {
     const id = parseInt(request.params.id);
     const { isDeleted } = request.body;
-    // console.log(isDeleted);
     if (Number.isInteger(id)) {
       try {
         const count = await messages.update(
