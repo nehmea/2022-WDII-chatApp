@@ -1,15 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Button, FloatingLabel, Form, Modal, Toast, ToastContainer } from 'react-bootstrap'
+import { Button, FloatingLabel, Form, Modal, Toast, ToastContainer } from 'react-bootstrap';
 import { AuthContext } from '../../helpers/AuthContext';
-import { createChannel } from '../../helpers/Utils';
+import { editChannel } from '../../helpers/Utils';
 
-
-function NewChannelButton({ setChannelsData }) {
+function EditChannelModal({ show, handleClose, setChannelsData, channelTitle, channelId }) {
   const [channelName, setChannelName] = useState("");
+
   const [msg, setMsg] = useState("");
   const [msgType, setMsgType] = useState("");
   const [toastIsVisible, setToastIsVisible] = useState(false);
-  const [show, setShow] = useState(false);
+
   const { authState } = useContext(AuthContext);
 
   useEffect(() => {
@@ -19,33 +19,22 @@ function NewChannelButton({ setChannelsData }) {
   }, [msgType])
 
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => {
-    setMsg('')
-    setMsgType('')
-    setShow(true)
-  }
-
-
   return (
     <>
-      <Button variant="outline-light" className="m-2" onClick={handleShow}><i className="bi bi-pencil-square"></i> Create channel</Button>
-
-
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title className="header-font">Create a new channel</Modal.Title>
+          <Modal.Title className="header-font">Change your channel's name</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <p>
-            Channels are where your team communicates. They’re best when organized around a topic — #programming, for example.</p>
+            Change happens. Choose another name that better suits your channel's topic.</p>
           <Form.Text className="text-muted">
             Channel title should not exceed 120 characters
           </Form.Text>
-          <FloatingLabel label="Channel name" className="mb-3">
+          <FloatingLabel label={channelTitle} className="mb-3">
             <Form.Control
               type="text"
-              placeholder="Channel name"
+              placeholder={channelTitle} // get current channel name
               onChange={(e) => {
                 setChannelName(e.target.value);
               }}
@@ -56,17 +45,18 @@ function NewChannelButton({ setChannelsData }) {
           <Button
             variant="dark"
             onClick={() => {
-              createChannel({
+              editChannel({
                 authState,
                 channelName,
                 setMsg,
                 setMsgType,
                 setChannelsData,
+                channelId
               });
               handleClose()
             }}
           >
-            Create Channel
+            Update
           </Button>
         </Modal.Footer>
       </Modal>
@@ -82,4 +72,4 @@ function NewChannelButton({ setChannelsData }) {
   )
 }
 
-export default NewChannelButton
+export default EditChannelModal

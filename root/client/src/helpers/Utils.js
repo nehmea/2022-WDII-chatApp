@@ -85,6 +85,47 @@ export const createChannel = ({
 };
 
 /**
+ * A function that allows a channel owner to edit the name of their channel, then update the list of channels on the database automatically
+ * @param {*} param0
+ * @author Alina Gotcherian
+ */
+export const editChannel = ({
+  authState,
+  channelName,
+  setMsg,
+  setMsgType,
+  setChannelsData,
+  channelId
+}) => {
+  setMsg("");
+  const accessToken = localStorage.getItem("accessToken");
+  if (!!authState && authState.roles === "user") {
+    axios
+      .patch(
+        `${process.env.REACT_APP_SERVER_URL}/channels/${channelId}`,
+        {
+          title: channelName,
+        },
+        { headers: { accessToken: accessToken } }
+      )
+      .then((response) => {
+        setMsg(response.data.message);
+        setMsgType("light");
+        fetchChannels({ setChannelsData });
+      })
+      .catch((error) => {
+        console.log(error);
+        if (error.response) {
+          setMsgType("warning");
+          setMsg(error.response.data.message);
+        }
+      });
+  }
+};
+
+
+
+/**
  * A function that adds a user to a channel (if not exist) by creating a new record in the users_channels table
  * @param {channel, authSate, setMsg, setMsgType} param0
  */
