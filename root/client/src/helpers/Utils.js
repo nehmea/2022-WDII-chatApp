@@ -9,7 +9,11 @@ import axios from "axios";
  */
 export const fetchChannels = ({ setChannelsData }) => {
   axios
-    .get(`${process.env.REACT_APP_SERVER_URL}/channels/`)
+    .get(`${process.env.REACT_APP_SERVER_URL}/channels/`, {
+      headers: {
+        accessToken: localStorage.getItem("accessToken"),
+      },
+    })
     .then((response) => {
       if (response.status === 200) {
         setChannelsData(response.data);

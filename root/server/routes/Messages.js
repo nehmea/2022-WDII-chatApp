@@ -12,7 +12,7 @@ const { validateToken } = require("../middlewares/AuthMiddleware");
 
 // ------------------------------------------
 // Get message by ID
-router.get("/:id", async (request, response) => {
+router.get("/:id", validateToken, async (request, response) => {
   const id = parseInt(request.params.id);
   try {
     const mes = Number.isInteger(id) ? await messages.findByPk(id) : null;
@@ -34,7 +34,7 @@ router.get("/:id", async (request, response) => {
 
 // ------------------------------------------
 // Get message by authorID
-router.get("/byUser/:authorId", async (request, response) => {
+router.get("/byUser/:authorId", validateToken, async (request, response) => {
   const authorId = parseInt(request.params.authorId);
   try {
     if (Number.isInteger(authorId)) {
@@ -131,7 +131,7 @@ router.post("/", validateToken, async (request, response) => {
 
 // -----------------------------------------
 // Patch a message by ID
-router.patch("/:id", async (request, response) => {
+router.patch("/:id", validateToken, async (request, response) => {
   const idToUpdate = request.params.id;
   const newBody = request.body.body;
   const newIsDeleted = parseInt(request.body.isDeleted);
@@ -162,7 +162,7 @@ router.patch("/:id", async (request, response) => {
 });
 
 // -----------------------------------------
-// Delete a message by ID (isDelted)
+// Delete a message by ID (isDeleted)
 router.patch(
   "/delete/message/:id([0-9]+)",
   validateToken,

@@ -21,7 +21,7 @@ function Message({
   likes,
   likeMessage,
 }) {
-  const formattedDate = format(parseISO(createdAt), "MMM dd yyyy hh:mmaa");
+  const formattedDate = format(parseISO(createdAt), "MMM dd yyyy h:mmaa");
   const likesCount = likes.length;
 
   //const [likes, setLikes] = useState([]);
