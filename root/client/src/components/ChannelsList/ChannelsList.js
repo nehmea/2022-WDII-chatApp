@@ -27,6 +27,7 @@ function ChannelsList({ channelsData, joinedChannels, setActiveChannel }) {
                 >
                   {channel.title}
                 </span>
+                {/*  TODO remove will be handled in all channels componenent*/}
                 <Button
                   variant={
                     joinedChannels.includes(channel.id)

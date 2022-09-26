@@ -31,6 +31,7 @@ function TextBox({
   }, []);
 
   const typingHandler = (e) => {
+    if (e.target.value === '\n') return
     setNewMessage(e.target.value);
 
     if (!socketConnected) return;
@@ -47,14 +48,12 @@ function TextBox({
   };
 
   const handleEnter = (event) => {
-    setNewMessage("");
     if (event.key === "Enter" && newMessage) {
       sendMessage();
     }
   };
 
   const sendMessage = () => {
-    setNewMessage("");
     socket.emit("stopTyping", activeChannel);
     const data = { body: newMessage, channelId: activeChannel };
     if (data.body !== "" && data.body.length <= 2000) {
@@ -71,6 +70,7 @@ function TextBox({
           }
         });
     }
+    setNewMessage("");
   };
 
   return (
@@ -88,16 +88,14 @@ function TextBox({
           className="shadow-none border-0 pe-5"
           onKeyDown={handleEnter}
           as="textarea"
-          name="body"
+          value={newMessage}
           onChange={typingHandler}
         />
         <Button
-          type="submit"
           variant="light"
           className="position-absolute end-0 h-100"
           onClick={sendMessage}
           placeholder="Enter a message.."
-          value={newMessage}
         >
           <i className="bi bi-send" style={{ color: "#4470cc" }}></i>
         </Button>

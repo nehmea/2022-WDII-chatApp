@@ -51,7 +51,6 @@ function App() {
   return (
     <div className="App">
       <AuthContext.Provider value={{ authState, setAuthSate }}>
-        {console.log(authState)}
         <Router>
           <Routes>
             {/* unprotected routes */}

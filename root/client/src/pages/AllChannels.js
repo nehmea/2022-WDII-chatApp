@@ -6,7 +6,7 @@ import { joinChannel } from '../helpers/Utils';
 
 function AllChannels(props) {
   const { authState } = useContext(AuthContext);
-  const { channelsData, joinedChannels } = props;
+  const { channelsData, joinedChannels, setChannelsData } = props;
   const [msg, setMsg] = useState("");
   const [msgType, setMsgType] = useState("");
 
@@ -33,6 +33,7 @@ function AllChannels(props) {
                     setMsg,
                     setMsgType,
                     joinedChannels,
+                    setChannelsData
                   })
                 }
               >

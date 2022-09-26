@@ -135,6 +135,7 @@ export const joinChannel = ({
   setMsg,
   setMsgType,
   joinedChannels,
+  setChannelsData
 }) => {
   if (!!authState && authState.roles === "user") {
     const accessToken = localStorage.getItem("accessToken");
@@ -159,6 +160,7 @@ export const joinChannel = ({
             setMsg(`You have left channel "${channel.title}"`);
           }
         }
+        fetchChannels({ setChannelsData });
         // setMsg(response.data.message);
         // setMsgType("text-success");
       })
