@@ -1,5 +1,20 @@
 {
+  "name": "chatapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "devStart": "nodemon backend/index.js"
+  },
+  "keywords": [
+    "JAC",
+    "chatapp"
+  ],
+  "author": "Ali, Alina, greg",
+  "license": "ISC",
   "dependencies": {
-    "colors": "^1.4.0"
+    "colors": "^1.4.0",
+    "dotenv": "^16.0.2"
   }
 }
