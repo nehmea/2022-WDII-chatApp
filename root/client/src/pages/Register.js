@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import AuthLayout from "../components/AuthLayout/AuthLayout";
 
-const HOST = "http://localhost:3001/users";
+// const HOST = "http://localhost:3001/users";
 
 function Register() {
   const [errorMsg, setErrorMsg] = useState("");
@@ -57,7 +57,7 @@ function Register() {
     setErrorMsg("");
     data.bio = draftToHtml(convertToRaw(editorState.getCurrentContent()));
     axios
-      .post(`${HOST}/register`, data)
+      .post(`${process.env.REACT_APP_SERVER_URL}/register`, data)
       .then((response) => {
         navigate(`/login`);
       })
