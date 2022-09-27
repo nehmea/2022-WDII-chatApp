@@ -57,7 +57,7 @@ function Register() {
     setErrorMsg("");
     data.bio = draftToHtml(convertToRaw(editorState.getCurrentContent()));
     axios
-      .post(`${process.env.REACT_APP_SERVER_URL}/register`, data)
+      .post(`${process.env.REACT_APP_SERVER_URL}/users/register`, data)
       .then((response) => {
         navigate(`/login`);
       })
