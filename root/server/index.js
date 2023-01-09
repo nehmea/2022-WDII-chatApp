@@ -67,6 +67,7 @@ const likesRouter = require("./routes/Likes");
 app.use("/likes", likesRouter);
 
 // --------------------- Deployment -------------------------------
+// https://towardsdev.com/deploying-a-react-node-mysql-app-to-aws-ec2-2022-1dfc98496acf
 const __dirname1 = path.resolve();
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname1, "/client/build")));
